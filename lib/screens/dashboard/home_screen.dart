@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:asc_time_tracker/widgets/timer.dart';
-import 'package:asc_time_tracker/widgets/cards/action_list.dart';
+import 'package:asc_time_tracker/widgets/action_list.dart';
 import 'package:asc_time_tracker/utils/constants.dart';
 
 class HomeScreen extends StatelessWidget {

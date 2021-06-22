@@ -12,7 +12,7 @@ const card_titles = [
 
 const routes = [
   '/start',
-  '/start',
+  '/list',
 ];
 
 const colors = [

@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (context) => HomeScreen(),
-            '/start': (context) => StartJob(),
+            '/start': (context) => JobStartScreen(),
+            '/list': (context) => JobListScreen(),
           });
     });
   }
