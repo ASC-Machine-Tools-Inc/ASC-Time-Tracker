@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:provider/provider.dart';
 
+import 'package:asc_time_tracker/models/time_log_model.dart';
 import 'package:asc_time_tracker/utils/constants.dart';
 
 class CurrentLog extends StatefulWidget {
@@ -11,6 +15,21 @@ class CurrentLog extends StatefulWidget {
 }
 
 class _CurrentLogState extends State<CurrentLog> {
+  // Initialized in initState, but need late keyword to make it wait
+  late Timer _everySecond;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Refreshes timer
+    _everySecond = new Timer.periodic(Duration(seconds: 1), (Timer t) {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -19,7 +38,7 @@ class _CurrentLogState extends State<CurrentLog> {
       height: cardHeight.h,
       child: GestureDetector(
         // Registers tap action on card
-        onTap: () => Navigator.pushNamed(context, '/start'),
+        onTap: () => Navigator.pushNamed(context, '/'),
         child: Card(
             child: Container(
               decoration: BoxDecoration(
@@ -38,11 +57,12 @@ class _CurrentLogState extends State<CurrentLog> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Icon(Icons.schedule),
-                    Text(
-                      'No log currently active',
-                      style: Theme.of(context).textTheme.headline6,
-                      textAlign: TextAlign.right,
-                    ),
+                    Consumer<TimeLogModel>(
+                        builder: (context, timeLog, child) => Text(
+                          timeLog.isZero() ? 'No log \ncurrently active' : timeLog.getTime(),
+                          style: Theme.of(context).textTheme.headline5,
+                          textAlign: TextAlign.right,
+                        )),
                   ]),
             )),
       ),

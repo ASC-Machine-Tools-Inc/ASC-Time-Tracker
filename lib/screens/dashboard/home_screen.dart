@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'package:asc_time_tracker/models/time_log_model.dart';
 import 'package:asc_time_tracker/utils/constants.dart';
 import 'package:asc_time_tracker/widgets/current_log.dart';
 import 'package:asc_time_tracker/widgets/action_list.dart';
