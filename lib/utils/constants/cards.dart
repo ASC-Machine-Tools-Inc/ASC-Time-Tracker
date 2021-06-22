@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 const icons = [
   Icons.more_time,
-  Icons.view_list,
+  Icons.list,
 ];
 
 const card_titles = [
-  'Start New \nRecord',
-  'View \nRecords',
+  'Start New Time Log',
+  'View Time Logs',
 ];
 
 const routes = [

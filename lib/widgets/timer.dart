@@ -33,6 +33,6 @@ class _TimerTextState extends State<TimerText> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(_now, style: Theme.of(context).textTheme.subtitle1);
+    return Text(_now, style: Theme.of(context).textTheme.headline5);
   }
 }
