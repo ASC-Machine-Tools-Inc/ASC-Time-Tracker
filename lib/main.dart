@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:asc_time_tracker/utils/constants.dart';
+import 'package:asc_time_tracker/utils/constants/theming.dart';
 import 'package:asc_time_tracker/screens/screens.dart';
 
 void main() {
