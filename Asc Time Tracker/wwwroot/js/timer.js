@@ -14,7 +14,11 @@ function JobTimer(interval, logError) {
         expected = Date.now() + this.interval;
         timeout = setTimeout(step, this.interval);
 
-        document.getElementById('jobStatus').innerHTML = '';
+        // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
+        // every now and then to make things work.
+        $('#jobStatusCollapse').collapse('hide');
+        $('#jobTimeCollapse').collapse('show');
+
         document.getElementById('startBtn').style.display = 'none';
         document.getElementById('stopBtn').style.display = 'block';
         document.getElementById('resetBtn').style.display = 'block';
@@ -33,7 +37,9 @@ function JobTimer(interval, logError) {
         // Update time display to 0.
         updateTime();
 
-        document.getElementById('jobStatus').innerHTML = 'No log currently active';
+        $('#jobStatusCollapse').collapse('show');
+        $('#jobTimeCollapse').collapse('hide');
+
         document.getElementById('startBtn').style.display = 'block';
         document.getElementById('stopBtn').style.display = 'none';
         document.getElementById('resetBtn').style.display = 'none';

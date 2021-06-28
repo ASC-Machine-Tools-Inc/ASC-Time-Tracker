@@ -63,6 +63,7 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
+    background-image: url('../background.png');
 }
 
 .footer {
@@ -95,4 +96,13 @@ html, body {
 
 .active {
     color: white;
+}
+
+/* Card styling */
+.time-card {
+    min-height: 140px;
+}
+
+.time-col {
+    min-height: 50px;
 }
