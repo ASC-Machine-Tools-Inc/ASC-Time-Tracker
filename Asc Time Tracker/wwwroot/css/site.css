@@ -106,3 +106,14 @@ html, body {
 .time-col {
     min-height: 50px;
 }
+
+.action-card {
+    text-align: right;
+}
+
+    .action-card:hover {
+        transition: all 0.3s ease-out;
+        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
+        top: -4px;
+        background-color: white;
+    }
