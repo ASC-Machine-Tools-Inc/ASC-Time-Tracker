@@ -41,8 +41,8 @@ namespace Asc_Time_Tracker.Migrations
                     b.Property<int>("RD")
                         .HasColumnType("int");
 
-                    b.Property<int>("TIME")
-                        .HasColumnType("int");
+                    b.Property<double>("TIME")
+                        .HasColumnType("float");
 
                     b.HasKey("ID");
 

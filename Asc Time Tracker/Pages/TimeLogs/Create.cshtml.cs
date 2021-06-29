@@ -35,6 +35,9 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
                 return Page();
             }
 
+            // Convert hours to seconds before submitting
+            TimeLog.TIME *= 3600;
+
             _context.TimeLog.Add(TimeLog);
             await _context.SaveChangesAsync();
 

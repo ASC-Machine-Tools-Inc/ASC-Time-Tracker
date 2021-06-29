@@ -11,6 +11,7 @@ namespace Asc_Time_Tracker.Models
         // TODO: Add more fields based on ENGTIME.
         public int ID { get; set; }
 
+        [Display(Name = "Employee ID")]
         public int EMPID { get; set; }
 
         public string JOBNUM { get; set; }
@@ -20,7 +21,7 @@ namespace Asc_Time_Tracker.Models
         public DateTime DATE { get; set; }
 
         // Time stored in seconds.
-        public int TIME { get; set; }
+        public double TIME { get; set; }
 
         public string NOTES { get; set; }
 

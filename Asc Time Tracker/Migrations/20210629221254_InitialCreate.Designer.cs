@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Asc_Time_Tracker.Migrations
 {
     [DbContext(typeof(Asc_Time_TrackerContext))]
-    [Migration("20210629190505_InitialCreate")]
+    [Migration("20210629221254_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,8 +43,8 @@ namespace Asc_Time_Tracker.Migrations
                     b.Property<int>("RD")
                         .HasColumnType("int");
 
-                    b.Property<int>("TIME")
-                        .HasColumnType("int");
+                    b.Property<double>("TIME")
+                        .HasColumnType("float");
 
                     b.HasKey("ID");
 

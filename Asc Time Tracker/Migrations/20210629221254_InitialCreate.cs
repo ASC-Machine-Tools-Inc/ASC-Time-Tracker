@@ -16,7 +16,7 @@ namespace Asc_Time_Tracker.Migrations
                     EMPID = table.Column<int>(type: "int", nullable: false),
                     JOBNUM = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DATE = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TIME = table.Column<int>(type: "int", nullable: false),
+                    TIME = table.Column<double>(type: "float", nullable: false),
                     NOTES = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RD = table.Column<int>(type: "int", nullable: false)
                 },

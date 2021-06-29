@@ -14,9 +14,11 @@
 <table class="table">
     <thead>
         <tr>
+            <!-- Left out for personal index (since it's your ID)
             <th>
                 @Html.DisplayNameFor(model => model.TimeLog[0].EMPID)
             </th>
+                -->
             <th>
                 @Html.DisplayNameFor(model => model.TimeLog[0].JOBNUM)
             </th>
@@ -39,9 +41,11 @@
         @foreach (var item in Model.TimeLog)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EMPID)
-                </td>
+                <!--
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMPID)
+                    </td>
+                -->
                 <td>
                     @Html.DisplayFor(modelItem => item.JOBNUM)
                 </td>
@@ -49,7 +53,15 @@
                     @Html.DisplayFor(modelItem => item.DATE)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TIME)
+                    @{
+                        // Make the time look nice, by converting from seconds into hours and minutes.
+                        string formattedTime = ((item.TIME % 3600) / 60) + "m";
+                        if (item.TIME > 3600)
+                        {
+                            formattedTime = (Math.Floor(item.TIME / 3600)) + "h" + formattedTime;
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => formattedTime)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NOTES)
