@@ -102,9 +102,9 @@ html, body {
     min-height: 50px;
 }
 
-.action-card {
-    text-align: right;
-    border: 1px solid #343A40;
+a.action-card-parent {
+    color: #212529;
+    text-decoration: none;
 }
 
 .action-card-parent:hover .action-card {
@@ -112,6 +112,11 @@ html, body {
     box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
     top: -4px;
     background-color: white;
+}
+
+.action-card {
+    text-align: right;
+    border: 1px solid #343A40;
 }
 
 .action-card-add {

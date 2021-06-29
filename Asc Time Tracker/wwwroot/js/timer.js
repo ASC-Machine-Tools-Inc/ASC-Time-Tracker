@@ -6,13 +6,14 @@
  */
 function JobTimer(interval, logError) {
     var self = this;
-    var expected, timeout;
-    this.time = 0;
+    var expected, timeout, startTime;
+    this.timeExpended = 0; // Needed to save time when timer is paused
     this.interval = interval;
 
     this.start = function () {
         expected = Date.now() + this.interval;
         timeout = setTimeout(step, this.interval);
+        startTime = Date.now();
 
         // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
         // every now and then to make things work.
@@ -25,6 +26,9 @@ function JobTimer(interval, logError) {
     }
 
     this.stop = function () {
+        self.timeExpended = this.getTime();
+        console.log("pausing with time: " + self.timeExpended);
+
         clearTimeout(timeout);
         document.getElementById('startBtn').style.display = 'block';
         document.getElementById('stopBtn').style.display = 'none';
@@ -32,7 +36,7 @@ function JobTimer(interval, logError) {
 
     this.reset = function () {
         clearTimeout(timeout);
-        self.time = 0;
+        self.timeExpended = 0;
 
         // Update time display to 0.
         updateTime();
@@ -46,9 +50,10 @@ function JobTimer(interval, logError) {
     }
 
     this.getTime = function () {
-        return self.time;
+        return Date.now() - startTime + self.timeExpended;
     }
 
+    // Self-adjusting for drift time step. Only updates UI.
     function step() {
         var drift = Date.now() - expected;
         if (drift > self.interval) {
@@ -56,9 +61,6 @@ function JobTimer(interval, logError) {
                 console.warn('The drift exceeded the interval.');
             }
         }
-
-        // Update time.
-        self.time += self.interval;
 
         updateTime();
         expected += self.interval;
@@ -68,6 +70,7 @@ function JobTimer(interval, logError) {
     // Update relevant html.
     function updateTime() {
         let elapsedTime = jobTimer.getTime();
+        console.log("updating: " + elapsedTime);
 
         let secs = Math.floor(elapsedTime / 1000);
         let hours = String(Math.floor(secs / 3600)).padStart(2, '0');
