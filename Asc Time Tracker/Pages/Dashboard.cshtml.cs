@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 
 namespace Asc_Time_Tracker.Pages
 {
-    public class IndexModel : PageModel
+    public class DashboardModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<DashboardModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public DashboardModel(ILogger<DashboardModel> logger)
         {
             _logger = logger;
         }
 
         public void OnGet()
         {
-
         }
     }
 }
