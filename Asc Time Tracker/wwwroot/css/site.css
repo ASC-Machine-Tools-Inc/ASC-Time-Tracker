@@ -53,25 +53,10 @@ button.accept-policy {
     line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
-}
-
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-image: url('../background.png');
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 3rem; /* Vertically center the text there */
 }
 
 /* Expand body to fill page */
@@ -84,19 +69,29 @@ html, body {
     height: 100%;
 }
 
-/* Bottom navbar */
-.icon-link {
-    color: grey;
-    font-size: 1.8rem;
+.nav-link {
+    color: #EFF0F0;
+    display: inline-block;
+    position: relative;
 }
 
-    .icon-link i:hover {
-        color: white;
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
     }
 
-.active {
-    color: white;
-}
+    .nav-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
 
 /* Card styling */
 .time-card {
@@ -109,11 +104,20 @@ html, body {
 
 .action-card {
     text-align: right;
+    border: 1px solid #343A40;
 }
 
-    .action-card:hover {
-        transition: all 0.3s ease-out;
-        box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
-        top: -4px;
-        background-color: white;
-    }
+.action-card-parent:hover .action-card {
+    transition: all 0.3s ease-out;
+    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
+    top: -4px;
+    background-color: white;
+}
+
+.action-card-add {
+    border-left: 6px solid #C16E70;
+}
+
+.action-card-view {
+    border-left: 6px solid #DC9E82;
+}
