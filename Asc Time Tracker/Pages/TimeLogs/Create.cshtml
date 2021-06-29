@@ -1,0 +1,59 @@
+﻿@page
+@model Asc_Time_Tracker.Pages.TimeLogs.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TimeLog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TimeLog.EMPID" class="control-label"></label>
+                <input asp-for="TimeLog.EMPID" class="form-control" />
+                <span asp-validation-for="TimeLog.EMPID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.JOBNUM" class="control-label"></label>
+                <input asp-for="TimeLog.JOBNUM" class="form-control" />
+                <span asp-validation-for="TimeLog.JOBNUM" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.DATE" class="control-label"></label>
+                <input asp-for="TimeLog.DATE" class="form-control" />
+                <span asp-validation-for="TimeLog.DATE" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.TIME" class="control-label"></label>
+                <input asp-for="TimeLog.TIME" class="form-control" />
+                <span asp-validation-for="TimeLog.TIME" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.NOTES" class="control-label"></label>
+                <input asp-for="TimeLog.NOTES" class="form-control" />
+                <span asp-validation-for="TimeLog.NOTES" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TimeLog.RD" class="control-label"></label>
+                <input asp-for="TimeLog.RD" class="form-control" />
+                <span asp-validation-for="TimeLog.RD" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

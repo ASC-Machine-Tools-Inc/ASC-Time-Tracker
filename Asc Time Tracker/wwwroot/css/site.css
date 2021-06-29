@@ -105,6 +105,7 @@ html, body {
 a.action-card-parent {
     color: #212529;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .action-card-parent:hover .action-card {
@@ -125,4 +126,12 @@ a.action-card-parent {
 
 .action-card-view {
     border-left: 6px solid #DC9E82;
+}
+
+/* Modal styling */
+.modal-header {
+}
+
+.modal-footer {
+    background: hsl(0, 0%, 92%); /* hue, saturation, lightness */
 }
