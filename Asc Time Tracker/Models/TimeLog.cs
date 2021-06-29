@@ -14,18 +14,23 @@ namespace Asc_Time_Tracker.Models
         [Display(Name = "Employee ID")]
         public int EMPID { get; set; }
 
+        [Display(Name = "Job #")]
         public string JOBNUM { get; set; }
 
         // Date the timelog was started on.
         [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
         public DateTime DATE { get; set; }
 
         // Time stored in seconds.
+        [Display(Name = "Time Spent", Prompt = "In hours (decimals accepted)")]
         public double TIME { get; set; }
 
+        [Display(Name = "Notes")]
         public string NOTES { get; set; }
 
         // Flag for research & development.
+        [Display(Name = "R & D")]
         public int RD { get; set; }
     }
 }
