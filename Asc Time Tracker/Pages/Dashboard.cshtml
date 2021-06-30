@@ -60,18 +60,8 @@
             </a>
         </div>
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-            Launch demo modal
-        </button>
-
         <!-- Modals -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <partial name="TimeLogs/_Create.cshtml" for="_CreateModel" />
-                </div>
-            </div>
-        </div>
+        <partial name="TimeLogs/_Create.cshtml" for="_CreateModel" />
     </div>
 </div>
 
@@ -79,5 +69,4 @@
 {
     <script src="~/js/currTime.js"></script>
     <script src="~/js/timer.js"></script>
-    <script src="~/js/createForm.js"></script>
 }

@@ -135,3 +135,7 @@ a.action-card-parent {
 .modal-footer {
     background: hsl(0, 0%, 92%); /* hue, saturation, lightness */
 }
+
+input[type=checkbox] {
+    margin-top: .4rem;
+}
