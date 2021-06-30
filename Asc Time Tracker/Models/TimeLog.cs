@@ -12,6 +12,7 @@ namespace Asc_Time_Tracker.Models
         public int ID { get; set; }
 
         [Display(Name = "Employee ID")]
+        [Required]
         public int EMPID { get; set; }
 
         [Display(Name = "Job #")]
@@ -20,17 +21,20 @@ namespace Asc_Time_Tracker.Models
         // Date the timelog was started on.
         [DataType(DataType.Date)]
         [Display(Name = "Start Date")]
+        [Required]
         public DateTime DATE { get; set; }
 
         // Time stored in seconds.
         [Display(Name = "Time Spent", Prompt = "In hours (decimals accepted)")]
+        [Required]
         public double TIME { get; set; }
 
         [Display(Name = "Notes")]
         public string NOTES { get; set; }
 
-        // Flag for research & development.
+        // Flag for research & development, default false.
         [Display(Name = "R & D")]
-        public int RD { get; set; }
+        [Required]
+        public bool RD { get; set; } = false;
     }
 }

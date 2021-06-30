@@ -10,11 +10,11 @@ using Asc_Time_Tracker.Models;
 
 namespace Asc_Time_Tracker.Pages.TimeLogs
 {
-    public class CreateModel : PageModel
+    public class _CreateModel : PageModel
     {
         private readonly Asc_Time_Tracker.Data.Asc_Time_TrackerContext _context;
 
-        public CreateModel(Asc_Time_Tracker.Data.Asc_Time_TrackerContext context)
+        public _CreateModel(Asc_Time_Tracker.Data.Asc_Time_TrackerContext context)
         {
             _context = context;
         }

@@ -4,14 +4,16 @@ using Asc_Time_Tracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asc_Time_Tracker.Migrations
 {
     [DbContext(typeof(Asc_Time_TrackerContext))]
-    partial class Asc_Time_TrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20210630161339_RD_Bool")]
+    partial class RD_Bool
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
