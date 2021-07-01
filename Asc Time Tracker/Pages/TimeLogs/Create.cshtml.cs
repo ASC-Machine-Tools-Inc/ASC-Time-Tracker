@@ -41,7 +41,7 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             _context.TimeLog.Add(TimeLog);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("TimeLogs/Index");
+            return RedirectToPage("Index");
         }
     }
 }

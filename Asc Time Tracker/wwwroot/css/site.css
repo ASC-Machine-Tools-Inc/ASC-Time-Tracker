@@ -93,6 +93,19 @@ html, body {
         transform-origin: bottom left;
     }
 
+.dropdown-item:active {
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: #e8e8e8;
+}
+
+.dropdown-toggle::after {
+    margin-left: -.1em;
+    border: 0;
+}
+
 /* Card styling */
 .time-card {
     min-height: 140px;

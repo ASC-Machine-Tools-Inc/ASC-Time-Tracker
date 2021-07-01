@@ -27,8 +27,16 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-page="/TimeLogs/Index">Your Logs</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Help
+                                <i class="bi bi-caret-down-fill small"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-area="" asp-page="/Home/Guide">User Guide</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Home/About">About</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
