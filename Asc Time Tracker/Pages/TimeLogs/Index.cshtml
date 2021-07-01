@@ -56,11 +56,8 @@
                     <td>
                         @{
                             // Make the time look nice, by converting from seconds into hours and minutes.
-                            string formattedTime = Math.Floor((item.TIME % 3600) / 60) + "m";
-                            if (item.TIME > 3600)
-                            {
-                                formattedTime = Math.Floor(item.TIME / 3600) + "h" + formattedTime;
-                            }
+                            string formattedTime = (Math.Floor((item.TIME % 3600) / 60) + "").PadLeft(2, '0');
+                            formattedTime = Math.Floor(item.TIME / 3600) + ":" + formattedTime;
                         }
                         @Html.DisplayFor(modelItem => formattedTime)
                     </td>

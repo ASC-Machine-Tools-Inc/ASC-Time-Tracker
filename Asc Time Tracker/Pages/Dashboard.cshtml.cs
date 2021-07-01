@@ -36,8 +36,9 @@ namespace Asc_Time_Tracker.Pages
                 return Page();
             }
 
-            // Convert hours to seconds before submitting
-            TimeLog.TIME *= 3600;
+            // Convert input to seconds.
+            TimeLog.TIME = Convert.ToInt32(Request.Form["timeHours"]) * 3600 +
+                Convert.ToInt32(Request.Form["timeMinutes"]) * 60;
 
             _context.TimeLog.Add(TimeLog);
             await _context.SaveChangesAsync();

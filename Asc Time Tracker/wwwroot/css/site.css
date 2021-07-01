@@ -169,6 +169,10 @@ thead {
     background-color: #e8e8e8;
 }
 
+    thead tr:hover {
+        background-color: #d8d8d8;
+    }
+
 #notes-col {
     width: 40%;
 }

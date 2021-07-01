@@ -24,15 +24,6 @@ function JobTimer(interval, logError) {
         document.getElementById('stopBtn').style.display = 'block';
         document.getElementById('saveBtn').style.display = 'block';
         document.getElementById('resetBtn').style.display = 'block';
-
-        // Show alert if first time clicking start
-        let timerAlert = document.getElementById('timerStartAlert');
-        if (timerAlert) {
-            timerAlert.style.display = 'block';
-            setTimeout(function () {
-                $('#timerStartAlert').alert('close');
-            }, 5000);
-        }
     }
 
     this.stop = function () {
@@ -50,6 +41,8 @@ function JobTimer(interval, logError) {
 
         // Update time display to 0.
         updateTime();
+
+        localStorage.removeItem('savedTime');
 
         $('#jobStatusCollapse').collapse('show');
         $('#jobTimeCollapse').collapse('hide');
@@ -84,6 +77,9 @@ function JobTimer(interval, logError) {
             }
         }
 
+        // Store time in local storage
+        localStorage.setItem('savedTime', self.getTime());
+
         updateTime();
         expected += self.interval;
         timeout = setTimeout(step, Math.max(0, self.interval - drift));
@@ -91,7 +87,7 @@ function JobTimer(interval, logError) {
 
     // Update relevant html.
     function updateTime() {
-        let elapsedTime = jobTimer.getTime();
+        let elapsedTime = self.getTime();
 
         let secs = Math.floor(elapsedTime / 1000);
         let hours = String(Math.floor(secs / 3600)).padStart(2, '0');
@@ -104,4 +100,16 @@ function JobTimer(interval, logError) {
     }
 }
 
+// Initialization
 var jobTimer = new JobTimer(10, false);
+
+$(document).ready(function () {
+    if (window.location.href.endsWith('Dashboard')) {
+        var time = parseInt(localStorage.getItem('savedTime'));
+        console.log(time);
+        if (time) {
+            jobTimer.timeExpended = time;
+            jobTimer.start();;
+        }
+    }
+});
