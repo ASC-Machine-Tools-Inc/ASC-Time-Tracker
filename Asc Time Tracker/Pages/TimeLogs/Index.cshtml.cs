@@ -19,11 +19,15 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             _context = context;
         }
 
-        public IList<TimeLog> TimeLog { get;set; }
+        public IList<TimeLog> TimeLog { get; set; }
 
         public async Task OnGetAsync()
         {
-            TimeLog = await _context.TimeLog.ToListAsync();
+            IQueryable<TimeLog> timeLog = from log in _context.TimeLog select log;
+
+            timeLog = timeLog.OrderByDescending(log => log.DATE);
+
+            TimeLog = await timeLog.ToListAsync();
         }
     }
 }

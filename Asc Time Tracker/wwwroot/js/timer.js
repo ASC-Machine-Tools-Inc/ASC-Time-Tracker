@@ -22,6 +22,7 @@ function JobTimer(interval, logError) {
 
         document.getElementById('startBtn').style.display = 'none';
         document.getElementById('stopBtn').style.display = 'block';
+        document.getElementById('saveBtn').style.display = 'block';
         document.getElementById('resetBtn').style.display = 'block';
     }
 
@@ -46,7 +47,19 @@ function JobTimer(interval, logError) {
 
         document.getElementById('startBtn').style.display = 'block';
         document.getElementById('stopBtn').style.display = 'none';
+        document.getElementById('saveBtn').style.display = 'none';
         document.getElementById('resetBtn').style.display = 'none';
+    }
+
+    this.save = function () {
+        $('#timeLogSubmitModal').modal('show');
+
+        let secs = Math.floor(jobTimer.getTime() / 1000);
+        let hours = Math.floor(secs / 3600);
+        let minutes = Math.floor((secs % 3600) / 60);
+
+        $('#timeHours').val(hours);
+        $('#timeMinutes').val(minutes);
     }
 
     this.getTime = function () {
@@ -70,7 +83,6 @@ function JobTimer(interval, logError) {
     // Update relevant html.
     function updateTime() {
         let elapsedTime = jobTimer.getTime();
-        console.log("updating: " + elapsedTime);
 
         let secs = Math.floor(elapsedTime / 1000);
         let hours = String(Math.floor(secs / 3600)).padStart(2, '0');

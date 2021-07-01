@@ -36,6 +36,10 @@
                                 aria-expanded="false" aria-controls="jobStatusCollapse jobTimeCollapse">
                             Reset
                         </button>
+                        <button id="saveBtn" type="button" class="btn btn-primary btn-lg mx-1"
+                                onclick="jobTimer.save()" style="display:none;">
+                            Save
+                        </button>
                     </div>
 
                     <form>
@@ -44,7 +48,7 @@
             </div>
         </div>
         <div class="col-md-8">
-            <a class="action-card-parent" data-toggle="modal" data-target="#exampleModal">
+            <a class="action-card-parent" data-toggle="modal" data-target="#timeLogSubmitModal">
                 <div class="card action-card action-card-add my-2">
                     <div class="card-body">
                         <h4 class="action-card-title">Add Log</h4>
@@ -61,11 +65,11 @@
         </div>
 
         <!-- Modals -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="timeLogSubmitModal" tabindex="-1" role="dialog" aria-labelledby="timeLogSubmitModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add a new time log</h5>
+                        <h5 class="modal-title" id="timeLogSubmitModalLabel">Add a new time log</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -128,7 +132,6 @@
 @section Scripts
 {
     <script src="~/js/currTime.js"></script>
-    <script src="~/js/timer.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

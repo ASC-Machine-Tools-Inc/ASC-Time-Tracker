@@ -2,79 +2,89 @@
 @model Asc_Time_Tracker.Pages.TimeLogs.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Logs";
 }
 
-<h1>Index</h1>
+<h1>
+    Logs
+</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <!-- Left out for personal index (since it's your ID)
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].EMPID)
-            </th>
-                -->
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].JOBNUM)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].DATE)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].TIME)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].NOTES)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TimeLog[0].RD)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.TimeLog)
-        {
+<!-- Display cards only on mobile -->
+<!-- Display table only on desktop -->
+<div class="container container-table p-0">
+    <table class="table m-0">
+        <thead>
             <tr>
-                <!--
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EMPID)
-                    </td>
-                -->
-                <td>
-                    @Html.DisplayFor(modelItem => item.JOBNUM)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DATE)
-                </td>
-                <td>
-                    @{
-                        // Make the time look nice, by converting from seconds into hours and minutes.
-                        string formattedTime = Math.Floor((item.TIME % 3600) / 60) + "m";
-                        if (item.TIME > 3600)
-                        {
-                            formattedTime = Math.Floor(item.TIME / 3600) + "h" + formattedTime;
-                        }
-                    }
-                    @Html.DisplayFor(modelItem => formattedTime)
-                </td>
-                <td id="notes-col">
-                    @Html.DisplayFor(modelItem => item.NOTES)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RD)
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-                </td>
+                <!-- Left out for personal index (since it's your ID)
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].EMPID)
+                </th>
+                    -->
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].JOBNUM)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].DATE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].TIME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].NOTES)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TimeLog[0].RD)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.TimeLog)
+            {
+                <tr>
+                    <!--
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EMPID)
+                        </td>
+                    -->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.JOBNUM)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DATE)
+                    </td>
+                    <td>
+                        @{
+                            // Make the time look nice, by converting from seconds into hours and minutes.
+                            string formattedTime = Math.Floor((item.TIME % 3600) / 60) + "m";
+                            if (item.TIME > 3600)
+                            {
+                                formattedTime = Math.Floor(item.TIME / 3600) + "h" + formattedTime;
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => formattedTime)
+                    </td>
+                    <td id="notes-col">
+                        @Html.DisplayFor(modelItem => item.NOTES)
+                    </td>
+                    <td>
+                        @{
+                            string formattedRD = item.RD ? "Y" : "";
+                        }
+                        <strong>
+                            @Html.DisplayFor(modelItem => formattedRD)
+                        </strong>
+                    </td>
+                    <td class="px-0">
+                        <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-secondary">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
