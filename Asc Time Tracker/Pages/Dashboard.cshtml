@@ -5,6 +5,14 @@
 }
 
 <div>
+    <!-- Timer alerts -->
+    <div id="timerStartAlert" class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+        Navigating off this page will restart the timer! (Clicking Home, Your Logs, etc...) It's fine to run in the background, however.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <h1 class="display-4">Hi, Test!</h1>
     <h4 id="time">@DateTime.Now</h4>
     <hr style="border: none; height: 2px; background-color: #000;" />

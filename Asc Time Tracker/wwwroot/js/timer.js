@@ -24,6 +24,15 @@ function JobTimer(interval, logError) {
         document.getElementById('stopBtn').style.display = 'block';
         document.getElementById('saveBtn').style.display = 'block';
         document.getElementById('resetBtn').style.display = 'block';
+
+        // Show alert if first time clicking start
+        let timerAlert = document.getElementById('timerStartAlert');
+        if (timerAlert) {
+            timerAlert.style.display = 'block';
+            setTimeout(function () {
+                $('#timerStartAlert').alert('close');
+            }, 5000);
+        }
     }
 
     this.stop = function () {
