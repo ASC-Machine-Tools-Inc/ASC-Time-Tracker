@@ -25,7 +25,7 @@ namespace Asc_Time_Tracker.Models
         public DateTime DATE { get; set; }
 
         // Time stored in seconds.
-        [Display(Name = "Time Spent", Prompt = "In hours (decimals accepted)")]
+        [Display(Name = "Time Spent")]
         [Required]
         public double TIME { get; set; }
 
