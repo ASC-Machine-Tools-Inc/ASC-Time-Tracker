@@ -19,15 +19,33 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             _context = context;
         }
 
-        public IList<TimeLog> TimeLog { get; set; }
+        public IList<TimeLog> TimeLogs { get; set; }
+
+        [BindProperty]
+        public TimeLog TimeLog { get; set; }
 
         public async Task OnGetAsync()
         {
-            IQueryable<TimeLog> timeLog = from log in _context.TimeLog select log;
+            IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
 
-            timeLog = timeLog.OrderByDescending(log => log.DATE);
+            timeLogs = timeLogs.OrderByDescending(log => log.DATE);
 
-            TimeLog = await timeLog.ToListAsync();
+            TimeLogs = await timeLogs.ToListAsync();
+        }
+
+        public async Task OnPostDeleteAsync()
+        {
+            // Grab the ID to delete from our hidden input field in the modal.
+            TimeLog = await _context.TimeLog.FindAsync(Int32.Parse(Request.Form["TimeLog.ID"]));
+
+            if (TimeLog != null)
+            {
+                // Important: need to get model again after removing and saving changes
+                // to display correctly.
+                _context.TimeLog.Remove(TimeLog);
+                await _context.SaveChangesAsync();
+                await OnGetAsync();
+            }
         }
     }
 }

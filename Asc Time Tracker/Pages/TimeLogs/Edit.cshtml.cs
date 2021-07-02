@@ -36,6 +36,7 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             {
                 return NotFound();
             }
+
             return Page();
         }
 
@@ -49,6 +50,10 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             }
 
             _context.Attach(TimeLog).State = EntityState.Modified;
+
+            // Convert input to seconds.
+            TimeLog.TIME = Convert.ToInt32(Request.Form["timeHours"]) * 3600 +
+                Convert.ToInt32(Request.Form["timeMinutes"]) * 60;
 
             try
             {

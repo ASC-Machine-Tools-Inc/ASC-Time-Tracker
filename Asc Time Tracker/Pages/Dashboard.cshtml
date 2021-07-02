@@ -96,6 +96,7 @@
                             <div class="form-group">
                                 <label asp-for="TimeLog.TIME" class="control-label"></label>
                                 <div class="form-row" style="width: 50%;">
+                                    <input asp-for="TimeLog.TIME" class="form-control hidden" />
                                     <div class="col">
                                         <input id="timeHours" class="form-control" type="number" min="0"
                                                placeholder="Hours" name="timeHours" runat="server" />
@@ -133,7 +134,7 @@
 
 @section Scripts
 {
-    <script src="~/js/currTime.js"></script>
+    <script src="~/js/time/currTime.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

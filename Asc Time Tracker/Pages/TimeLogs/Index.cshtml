@@ -17,29 +17,29 @@
             <tr>
                 <!-- Left out for personal index (since it's your ID)
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].EMPID)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].EMPID)
                 </th>
                     -->
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].JOBNUM)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].JOBNUM)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].DATE)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].DATE)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].TIME)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].TIME)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].NOTES)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].NOTES)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLog[0].RD)
+                    @Html.DisplayNameFor(model => model.TimeLogs[0].RD)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.TimeLog)
+            @foreach (var item in Model.TimeLogs)
             {
                 <tr>
                     <!--
@@ -72,16 +72,46 @@
                             @Html.DisplayFor(modelItem => formattedRD)
                         </strong>
                     </td>
-                    <td class="px-0">
-                        <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-secondary">
+                    <td class="actions px-0">
+                        <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-secondary btn-edit">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-outline-danger">
+                        <button class="btn btn-outline-danger btn-delete" data-toggle="modal" data-target="#timeLogDeleteModal">
                             <i class="bi bi-trash"></i>
-                        </a>
+                        </button>
+                        <input class="input-delete" type="hidden" value="@item.ID" />
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <!-- Modals -->
+    <div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <form method="post" asp-page-handler="Delete">
+                        <input id="TimeLog_ID" name="TimeLog.ID" data-val="true" data-val-required="The ID field is required." type="hidden" />
+                        <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts
+{
+    <script src="~/js/submit/editConvertTime.js"></script>
+    <script src="~/js/submit/indexModal.js"></script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

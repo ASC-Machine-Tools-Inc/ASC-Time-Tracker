@@ -2,9 +2,9 @@
  * Timer for logging time spent on stuff.
  *
  * @param {int}      interval  Interval speed (in milliseconds)
- * @param {bool}     logError (Optional) Flag to log error if drift exceeds interval
+ * @param {bool}     updateUI (Optional) Flag to change display (set if on right page)
  */
-function JobTimer(interval, logError) {
+function JobTimer(interval, updateUI) {
     var self = this;
     var expected, timeout, startTime;
     this.timeExpended = 0; // Needed to save time when timer is paused
@@ -15,74 +15,85 @@ function JobTimer(interval, logError) {
         timeout = setTimeout(step, this.interval);
         startTime = Date.now();
 
-        // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
-        // every now and then to make things work.
-        $('#jobStatusCollapse').collapse('hide');
-        $('#jobTimeCollapse').collapse('show');
+        if (updateUI) {
+            // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
+            // every now and then to make things work.
+            $('#jobStatusCollapse').collapse('hide');
+            $('#jobTimeCollapse').collapse('show');
 
-        document.getElementById('startBtn').style.display = 'none';
-        document.getElementById('stopBtn').style.display = 'block';
-        document.getElementById('saveBtn').style.display = 'block';
-        document.getElementById('resetBtn').style.display = 'block';
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'block';
+            document.getElementById('saveBtn').style.display = 'block';
+            document.getElementById('resetBtn').style.display = 'block';
+        }
     }
 
     this.stop = function () {
         self.timeExpended = this.getTime();
-        console.log("pausing with time: " + self.timeExpended);
 
         clearTimeout(timeout);
-        document.getElementById('startBtn').style.display = 'block';
-        document.getElementById('stopBtn').style.display = 'none';
+
+        if (updateUI) {
+            document.getElementById('startBtn').style.display = 'block';
+            document.getElementById('stopBtn').style.display = 'none';
+        }
     }
 
     this.reset = function () {
         clearTimeout(timeout);
         self.timeExpended = 0;
-
-        // Update time display to 0.
-        updateTime();
-
         localStorage.removeItem('savedTime');
 
-        $('#jobStatusCollapse').collapse('show');
-        $('#jobTimeCollapse').collapse('hide');
+        if (updateUI) {
+            // Update time display to 0.
+            updateTime();
 
-        document.getElementById('startBtn').style.display = 'block';
-        document.getElementById('stopBtn').style.display = 'none';
-        document.getElementById('saveBtn').style.display = 'none';
-        document.getElementById('resetBtn').style.display = 'none';
+            $('#jobStatusCollapse').collapse('show');
+            $('#jobTimeCollapse').collapse('hide');
+
+            document.getElementById('startBtn').style.display = 'block';
+            document.getElementById('stopBtn').style.display = 'none';
+            document.getElementById('saveBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'none';
+        }
     }
 
     this.save = function () {
-        $('#timeLogSubmitModal').modal('show');
-
         let secs = Math.floor(jobTimer.getTime() / 1000);
         let hours = Math.floor(secs / 3600);
         let minutes = Math.floor((secs % 3600) / 60);
 
-        $('#timeHours').val(hours);
-        $('#timeMinutes').val(minutes);
+        if (updateUI) {
+            $('#timeLogSubmitModal').modal('show');
+            $('#timeHours').val(hours);
+            $('#timeMinutes').val(minutes);
+        }
     }
 
     this.getTime = function () {
         return Date.now() - startTime + self.timeExpended;
     }
 
-    // Self-adjusting for drift time step. Only updates UI.
+    // Self-adjusting for drift time step.
     function step() {
         var drift = Date.now() - expected;
         if (drift > self.interval) {
-            if (logError) {
-                console.warn('The drift exceeded the interval.');
-            }
+            console.warn('The drift exceeded the interval.');
         }
 
-        // Store time in local storage
-        localStorage.setItem('savedTime', self.getTime());
+        saveTime();
 
-        updateTime();
+        if (updateUI) {
+            updateTime();
+        }
+
         expected += self.interval;
         timeout = setTimeout(step, Math.max(0, self.interval - drift));
+    }
+
+    function saveTime() {
+        // Store time in local storage
+        localStorage.setItem('savedTime', self.getTime());
     }
 
     // Update relevant html.
@@ -100,16 +111,15 @@ function JobTimer(interval, logError) {
     }
 }
 
-// Initialization
-var jobTimer = new JobTimer(10, false);
-
 $(document).ready(function () {
-    if (window.location.href.endsWith('Dashboard')) {
-        var time = parseInt(localStorage.getItem('savedTime'));
-        console.log(time);
-        if (time) {
-            jobTimer.timeExpended = time;
-            jobTimer.start();;
-        }
+    uiFlag = window.location.href.endsWith('Dashboard');
+
+    // Initialization
+    var jobTimer = new JobTimer(10, uiFlag);
+
+    var time = parseInt(localStorage.getItem('savedTime'));
+    if (time) {
+        jobTimer.timeExpended = time;
+        jobTimer.start();
     }
 });
