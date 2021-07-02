@@ -78,7 +78,7 @@ function JobTimer(interval, updateUI) {
     function step() {
         var drift = Date.now() - expected;
         if (drift > self.interval) {
-            console.warn('The drift exceeded the interval.');
+            // console.warn('The drift exceeded the interval.');
         }
 
         saveTime();
@@ -111,11 +111,13 @@ function JobTimer(interval, updateUI) {
     }
 }
 
+var jobTimer;
+
 $(document).ready(function () {
     uiFlag = window.location.href.endsWith('Dashboard');
 
     // Initialization
-    var jobTimer = new JobTimer(10, uiFlag);
+    jobTimer = new JobTimer(10, uiFlag);
 
     var time = parseInt(localStorage.getItem('savedTime'));
     if (time) {

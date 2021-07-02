@@ -8,7 +8,7 @@
 <h1>Edit Time Log</h1>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form id="timeLogForm" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TimeLog.ID" />
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label asp-for="TimeLog.TIME" class="control-label"></label>
                 <div class="form-row" style="width: 50%;">
-                    <input asp-for="TimeLog.TIME" class="form-control hidden" />
+                    <input asp-for="TimeLog.TIME" class="form-control hidden" style="display:none;" />
                     <div class="col">
                         <input id="timeHours" class="form-control" type="number" min="0"
                                placeholder="Hours" name="timeHours" runat="server" />
@@ -57,10 +57,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-page="./Index">Back to List</a>
-</div>
-
 @section Scripts {
+    <script src="~/js/submit/editConvertTime.js"></script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
