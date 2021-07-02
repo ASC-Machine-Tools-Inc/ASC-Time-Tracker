@@ -25,6 +25,11 @@ function JobTimer(interval, updateUI) {
             document.getElementById('stopBtn').style.display = 'block';
             document.getElementById('saveBtn').style.display = 'block';
             document.getElementById('resetBtn').style.display = 'block';
+
+            // Animation if no saved time
+            if (!localStorage.getItem('savedTime')) {
+                $('#timeCard').addClass('shake');
+            }
         }
     }
 
@@ -55,6 +60,8 @@ function JobTimer(interval, updateUI) {
             document.getElementById('stopBtn').style.display = 'none';
             document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('resetBtn').style.display = 'none';
+
+            $('#timeCard').removeClass('shake');
         }
     }
 
@@ -68,6 +75,8 @@ function JobTimer(interval, updateUI) {
             $('#timeHours').val(hours);
             $('#timeMinutes').val(minutes);
         }
+
+        this.reset();
     }
 
     this.getTime = function () {
