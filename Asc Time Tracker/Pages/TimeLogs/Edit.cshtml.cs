@@ -51,9 +51,11 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
 
             _context.Attach(TimeLog).State = EntityState.Modified;
 
+            int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 : Convert.ToInt32(Request.Form["timeHours"]);
+            int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 : Convert.ToInt32(Request.Form["timeMinutes"]);
+
             // Convert input to seconds.
-            TimeLog.TIME = Convert.ToInt32(Request.Form["timeHours"]) * 3600 +
-                Convert.ToInt32(Request.Form["timeMinutes"]) * 60;
+            TimeLog.TIME = hours * 3600 + minutes * 60;
 
             try
             {

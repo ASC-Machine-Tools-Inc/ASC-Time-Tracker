@@ -75,8 +75,6 @@ function JobTimer(interval, updateUI) {
             $('#timeHours').val(hours);
             $('#timeMinutes').val(minutes);
         }
-
-        this.reset();
     }
 
     this.getTime = function () {
@@ -121,6 +119,8 @@ function JobTimer(interval, updateUI) {
 }
 
 var jobTimer;
+// Flag to keep timer running if form submitted another way (like Add Log Manually)
+var dontEndTimer = false;
 
 $(document).ready(function () {
     uiFlag = window.location.href.endsWith('Dashboard');
@@ -133,4 +133,20 @@ $(document).ready(function () {
         jobTimer.timeExpended = time;
         jobTimer.start();
     }
+});
+
+// If saving current timer, end it on submission.
+// Shouldn't have to worry about validation - those fields are already populated.
+$('#timeLogFormSubmit').on('click', function (event) {
+    console.log(dontEndTimer);
+    if (dontEndTimer) {
+        dontEndTimer = false;
+    } else {
+        jobTimer.reset();
+    }
+});
+
+// Set flag.
+$('#actionCardAdd').on('click', function () {
+    dontEndTimer = true;
 });
