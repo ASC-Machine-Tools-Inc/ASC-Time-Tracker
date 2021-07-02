@@ -146,12 +146,12 @@ a.action-card-parent {
 }
 
 @keyframes shake {
-    20%, 60% {
-        transform: translate3d(2px, 0, 0px);
+    33% {
+        transform: translate3d(-2px, 0, 0px);
     }
 
-    40%, 80% {
-        transform: translate3d(-5px, 0, 0px);
+    66% {
+        transform: translate3d(4px, 0, 0px);
     }
 }
 
