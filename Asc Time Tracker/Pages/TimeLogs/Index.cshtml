@@ -58,12 +58,12 @@
                 <a class="dropdown-item" asp-page="./Edit" asp-route-id="@item.ID">
                     Edit
                 </a>
-                <a class="dropdown-item" data-toggle="modal" data-target="#timeLogDeleteModal">
+                <a class="dropdown-item btn-delete" data-toggle="modal" data-target="#timeLogDeleteModal">
                     Delete
                 </a>
+                <!-- Hidden field for passing item ID to delete modal -->
+                <input class="input-delete" type="hidden" value="@item.ID" />
             </div>
-            <!-- Hidden field for passing item ID to delete modal -->
-            <input class="input-delete" type="hidden" value="@item.ID" />
         </div>
     }
 </div>
@@ -148,24 +148,24 @@
             }
         </tbody>
     </table>
+</div>
 
-    <!-- Modals -->
-    <div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <form method="post" asp-page-handler="Delete">
-                        <input id="TimeLog_ID" name="TimeLog.ID" data-val="true" data-val-required="The ID field is required." type="hidden" />
-                        <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
-                    </form>
-                </div>
+<!-- Modals -->
+<div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="post" asp-page-handler="Delete">
+                    <input id="TimeLog_ID" name="TimeLog.ID" data-val="true" data-val-required="The ID field is required." type="hidden" />
+                    <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
+                </form>
             </div>
         </div>
     </div>
