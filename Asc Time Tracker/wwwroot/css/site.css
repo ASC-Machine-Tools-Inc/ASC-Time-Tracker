@@ -207,13 +207,19 @@ tr:hover {
 }
 
 .log-card {
-    border-radius: 2px;
+    border-radius: 4px;
+}
+
+.log-main {
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .log-color {
     width: 1rem;
     height: 1rem;
     border-radius: 25px;
+    margin: 3px 4px 0px 4px;
 }
 
 /* Hide buttons on bigger screens */
