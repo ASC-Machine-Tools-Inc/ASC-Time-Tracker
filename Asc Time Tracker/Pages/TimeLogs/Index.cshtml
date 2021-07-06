@@ -10,8 +10,23 @@
 </h1>
 
 <!-- Display cards only on mobile -->
+<div class="col p-0 d-md-none">
+    @foreach (var item in Model.TimeLogs)
+    {
+        <div class="card log-card">
+            <div class="card-body">
+                <span class="log-color">&nbsp;&nbsp;&nbsp;</span>
+                <span class="log-job">
+                    @Html.DisplayFor(modelItem => item.JOBNUM)
+                </span>
+                @Html.DisplayFor(modelItem => item.DATE)
+            </div>
+        </div>
+    }
+</div>
+
 <!-- Display table only on desktop -->
-<div class="container container-table p-0">
+<div class="container container-table p-0 d-none d-md-block">
     <table class="table m-0">
         <thead>
             <tr>
@@ -111,6 +126,7 @@
 @section Scripts
 {
     <script src="~/js/submit/indexModal.js"></script>
+    <script src="~/js/ui/jobColor.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
