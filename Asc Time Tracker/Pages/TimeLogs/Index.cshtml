@@ -5,10 +5,6 @@
     ViewData["Title"] = "Logs";
 }
 
-<head>
-    <!-- Font Awesome for sort icons -->
-</head>
-
 <h1>
     Logs
 </h1>
@@ -17,7 +13,7 @@
 <div class="col p-0 d-md-none">
     @foreach (var item in Model.TimeLogs)
     {
-        <div class="dropdown">
+        <div class="dropdown dropdown-mobile">
             <div class="card log-card" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="card-body px-4 py-2">
                     <div class="row log-main justify-content-between my-1">
