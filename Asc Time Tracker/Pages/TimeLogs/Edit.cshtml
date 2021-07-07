@@ -6,54 +6,57 @@
 }
 
 <h1>Edit Time Log</h1>
-<hr />
 <div class="row">
     <div class="col-md-6">
-        <form id="timeLogForm" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TimeLog.ID" />
-            <div class="form-group" style="width: 50%;">
-                <label asp-for="TimeLog.JOBNUM" class="control-label">Job Number (optional)</label>
-                <input asp-for="TimeLog.JOBNUM" class="form-control" />
-                <span asp-validation-for="TimeLog.JOBNUM" class="text-danger"></span>
-            </div>
-            <div class="form-group" style="width: 50%;">
-                <label asp-for="TimeLog.DATE" class="control-label"></label>
-                <input asp-for="TimeLog.DATE" class="form-control" />
-                <span asp-validation-for="TimeLog.DATE" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.TIME" class="control-label"></label>
-                <div class="form-row" style="width: 50%;">
-                    <input asp-for="TimeLog.TIME" class="form-control hidden" style="display:none;" />
-                    <div class="col">
-                        <input id="timeHours" class="form-control" type="number" min="0"
-                               placeholder="Hours" name="timeHours" runat="server" />
+        <div class="card">
+            <div class="card-body">
+                <form id="timeLogForm" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="TimeLog.ID" />
+                    <div class="form-group" style="width: 50%;">
+                        <label asp-for="TimeLog.JOBNUM" class="control-label">Job Number (optional)</label>
+                        <input asp-for="TimeLog.JOBNUM" class="form-control" />
+                        <span asp-validation-for="TimeLog.JOBNUM" class="text-danger"></span>
                     </div>
-                    <h3 id="timeFormSeparator">:</h3>
-                    <div class="col">
-                        <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
-                               placeholder="Minutes" name="timeMinutes" runat="server" />
+                    <div class="form-group" style="width: 50%;">
+                        <label asp-for="TimeLog.DATE" class="control-label"></label>
+                        <input asp-for="TimeLog.DATE" class="form-control" />
+                        <span asp-validation-for="TimeLog.DATE" class="text-danger"></span>
                     </div>
-                </div>
-                <span asp-validation-for="TimeLog.TIME" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="TimeLog.TIME" class="control-label"></label>
+                        <div class="form-row" style="width: 50%;">
+                            <input asp-for="TimeLog.TIME" class="form-control hidden" style="display:none;" />
+                            <div class="col">
+                                <input id="timeHours" class="form-control" type="number" min="0"
+                                       placeholder="Hours" name="timeHours" runat="server" />
+                            </div>
+                            <h3 id="timeFormSeparator">:</h3>
+                            <div class="col">
+                                <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
+                                       placeholder="Minutes" name="timeMinutes" runat="server" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="TimeLog.TIME" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TimeLog.NOTES" class="control-label">Notes (optional)</label>
+                        <input asp-for="TimeLog.NOTES" class="form-control" />
+                        <span asp-validation-for="TimeLog.NOTES" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input asp-for="TimeLog.RD" class="form-check-input" type="checkbox" />
+                            <label asp-for="TimeLog.RD" class="form-check-label">Research and Development tax credit eligible</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="TimeLog.NOTES" class="control-label">Notes (optional)</label>
-                <input asp-for="TimeLog.NOTES" class="form-control" />
-                <span asp-validation-for="TimeLog.NOTES" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input asp-for="TimeLog.RD" class="form-check-input" type="checkbox" />
-                    <label asp-for="TimeLog.RD" class="form-check-label">Research and Development tax credit eligible</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
