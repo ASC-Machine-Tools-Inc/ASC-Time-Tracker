@@ -19,18 +19,50 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
             _context = context;
         }
 
+        public string DateSort { get; set; }
+        public string JobSort { get; set; }
+        public string RDSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
+
         public IList<TimeLog> TimeLogs { get; set; }
 
         [BindProperty]
         public TimeLog TimeLog { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder)
         {
+            CurrentSort = sortOrder;
+            DateSort = String.IsNullOrEmpty(sortOrder) ? "date_asc" : "";
+            JobSort = sortOrder == "job_desc" ? "job_asc" : "job_desc";
+            RDSort = sortOrder == "rd_desc" ? "" : "rd_desc";
+
             IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
 
-            timeLogs = timeLogs.OrderByDescending(log => log.DATE);
+            switch (sortOrder)
+            {
+                case "job_asc":
+                    timeLogs = timeLogs.OrderBy(log => log.JOBNUM);
+                    break;
 
-            TimeLogs = await timeLogs.ToListAsync();
+                case "job_desc":
+                    timeLogs = timeLogs.OrderByDescending(log => log.JOBNUM);
+                    break;
+
+                case "rd_desc":
+                    timeLogs = timeLogs.OrderByDescending(log => log.RD);
+                    break;
+
+                case "date_asc":
+                    timeLogs = timeLogs.OrderBy(log => log.DATE);
+                    break;
+
+                default:
+                    timeLogs = timeLogs.OrderByDescending(log => log.DATE);
+                    break;
+            }
+
+            TimeLogs = await timeLogs.AsNoTracking().ToListAsync();
         }
 
         public async Task OnPostDeleteAsync()
@@ -44,7 +76,7 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
                 // to display correctly.
                 _context.TimeLog.Remove(TimeLog);
                 await _context.SaveChangesAsync();
-                await OnGetAsync();
+                await OnGetAsync(CurrentSort);
             }
         }
     }

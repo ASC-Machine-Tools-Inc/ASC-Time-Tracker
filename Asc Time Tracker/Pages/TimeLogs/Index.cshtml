@@ -5,6 +5,10 @@
     ViewData["Title"] = "Logs";
 }
 
+<head>
+    <!-- Font Awesome for sort icons -->
+</head>
+
 <h1>
     Logs
 </h1>
@@ -73,18 +77,23 @@
     <table class="table m-0">
         <thead>
             <tr>
-
                 <!-- Left out for personal index (since it's your ID)
                 <th>
                     @Html.DisplayNameFor(model => model.TimeLogs[0].EMPID)
                 </th>
                     -->
-                <th>
 
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].JOBNUM)
+                <th>
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.JobSort" class="a-sort">
+                        @Html.DisplayNameFor(model => model.TimeLogs[0].JOBNUM)
+                        <i class="fas fa-sort"></i>
+                    </a>
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].DATE)
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" class="a-sort">
+                        @Html.DisplayNameFor(model => model.TimeLogs[0].DATE)
+                        <i class="fas fa-sort"></i>
+                    </a>
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.TimeLogs[0].TIME)
@@ -93,7 +102,10 @@
                     @Html.DisplayNameFor(model => model.TimeLogs[0].NOTES)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].RD)
+                    <a asp-page="./Index" asp-route-sortOrder="@Model.RDSort" class="a-sort">
+                        @Html.DisplayNameFor(model => model.TimeLogs[0].RD)
+                        <i class="fas fa-sort"></i>
+                    </a>
                 </th>
                 <th></th>
             </tr>

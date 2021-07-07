@@ -222,6 +222,35 @@ tr:hover {
     margin: 3px 4px 0px 4px;
 }
 
+.a-sort {
+    color: black;
+    display: inline-block;
+    position: relative;
+}
+
+    .a-sort:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+    .a-sort::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: black;
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .a-sort:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
 /* Dropdown menu opening animation. */
 .dropdown .dropdown-menu {
     -webkit-animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.320, 1.275) alternate both;
