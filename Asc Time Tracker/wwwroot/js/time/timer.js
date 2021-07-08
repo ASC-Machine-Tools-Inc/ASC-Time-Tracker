@@ -5,7 +5,7 @@
  * @param {bool}     updateUI (Optional) Flag to change display (set if on right page)
  */
 function JobTimer(interval, updateUI) {
-    var self = this;
+    var self = this; // Looks odd, but used as reference back to JobTimer and not anything else.
     var expected, timeout, startTime;
     this.timeExpended = 0; // Needed to save time when timer is paused
     this.interval = interval;
@@ -36,7 +36,7 @@ function JobTimer(interval, updateUI) {
 
                 // Update with saved fields
                 if (updateUI) {
-                    $('#' + pairKey + '_Display').html(pairValue);
+                    $('#' + pairKey + '_Display').html('Job # ' + pairValue);
                 }
             }
         }
@@ -74,11 +74,15 @@ function JobTimer(interval, updateUI) {
     this.reset = function () {
         clearTimeout(timeout);
         self.timeExpended = 0;
+        self.savedValues = {};
         localStorage.removeItem('savedTime');
 
         if (updateUI) {
             // Update time display to 0.
             updateTime();
+
+            // TODO: Convert into own function after adding more fields?
+            $('#TimeLog_JOBNUM_Display').html('');
 
             $('#jobStatusCollapse').collapse('show');
             $('#jobTimeCollapse').collapse('hide');
@@ -103,9 +107,9 @@ function JobTimer(interval, updateUI) {
             $('#timeHours').val(hours);
             $('#timeMinutes').val(minutes);
 
-            if (this.savedValues) {
-                for (let field in this.savedValues) {
-                    $('#' + field).val(this.savedValues[field]);
+            if (self.savedValues) {
+                for (let field in self.savedValues) {
+                    $('#' + field).val(self.savedValues[field]);
                 }
             }
         }
