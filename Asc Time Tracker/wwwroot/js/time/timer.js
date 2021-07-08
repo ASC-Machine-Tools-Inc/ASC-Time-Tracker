@@ -10,10 +10,36 @@ function JobTimer(interval, updateUI) {
     this.timeExpended = 0; // Needed to save time when timer is paused
     this.interval = interval;
 
-    this.start = function () {
+    // Saved values if started with QR code
+    this.savedValues = {};
+
+    /**
+     * Start the timer, along with any values you want saved when submitting.
+     *
+     * @param {string} values (Optional) List of fields in the format key:value,
+     *                        with key-value pairs split with |.
+     */
+    this.start = function (values = '') {
         expected = Date.now() + this.interval;
         timeout = setTimeout(step, this.interval);
         startTime = Date.now();
+
+        if (values) {
+            let splitValues = values.split('|');
+
+            for (let i = 0; i < splitValues.length; i++) {
+                let splitPairs = splitValues[i].split(':');
+                let pairKey = splitPairs[0];
+                let pairValue = splitPairs[1];
+
+                this.savedValues[pairKey] = pairValue;
+
+                // Update with saved fields
+                if (updateUI) {
+                    $('#' + pairKey + '_Display').html(pairValue);
+                }
+            }
+        }
 
         if (updateUI) {
             // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
@@ -22,6 +48,7 @@ function JobTimer(interval, updateUI) {
             $('#jobTimeCollapse').collapse('show');
 
             document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('scannerBtn').style.display = 'none';
             document.getElementById('stopBtn').style.display = 'block';
             document.getElementById('saveBtn').style.display = 'block';
             document.getElementById('resetBtn').style.display = 'block';
@@ -57,6 +84,7 @@ function JobTimer(interval, updateUI) {
             $('#jobTimeCollapse').collapse('hide');
 
             document.getElementById('startBtn').style.display = 'block';
+            document.getElementById('scannerBtn').style.display = 'block';
             document.getElementById('stopBtn').style.display = 'none';
             document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('resetBtn').style.display = 'none';
@@ -74,6 +102,12 @@ function JobTimer(interval, updateUI) {
             $('#timeLogSubmitModal').modal('show');
             $('#timeHours').val(hours);
             $('#timeMinutes').val(minutes);
+
+            if (this.savedValues) {
+                for (let field in this.savedValues) {
+                    $('#' + field).val(this.savedValues[field]);
+                }
+            }
         }
     }
 
