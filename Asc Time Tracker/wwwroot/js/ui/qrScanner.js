@@ -1,4 +1,6 @@
 ﻿const qrCodeScanner = new Html5Qrcode("qr-reader");
+var scannerOn = false;
+
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
     console.log(`Code scanned = ${decodedText}`, decodedResult);
 
@@ -12,8 +14,19 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         // Show invalid scan modal.
     }
 };
+
 const config = { // 4:3 aspect ratio
     fps: 10, aspectRatio: 1.333334
 };
 
-// If you want to prefer back camera
+function toggleScanner() {
+    if (scannerOn) {
+        $('#scannerBtn').html('Start with QR code');
+        qrCodeScanner.stop();
+    } else {
+        $('#scannerBtn').html('Close');
+        qrCodeScanner.start({ facingMode: 'environment' }, config, qrCodeSuccessCallback);
+    }
+
+    scannerOn = !scannerOn;
+}
