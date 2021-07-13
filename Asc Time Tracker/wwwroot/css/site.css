@@ -304,3 +304,16 @@ tr:hover {
 tr:hover .btn {
     visibility: visible;
 }
+
+/* QR code scanner */
+.modal-tall .modal-dialog {
+    height: 100%;
+}
+
+.modal-tall .modal-content {
+    height: 100%;
+}
+
+#qr-reader {
+    height: 100%;
+}

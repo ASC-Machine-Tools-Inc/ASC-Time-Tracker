@@ -1,6 +1,13 @@
 ﻿const qrCodeScanner = new Html5Qrcode("qr-reader");
 var scannerOn = false;
 
+/* QR code scanner format:
+ * ASC|TimeLog_{field}:{value}|TimeLog_{field}:{value}|...
+ *
+ * Example:
+ * ASC|TimeLog_JOBNUM:12345E
+ */
+
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
     console.log(`Code scanned = ${decodedText}`, decodedResult);
 
@@ -9,22 +16,22 @@ const qrCodeSuccessCallback = (decodedText, decodedResult) => {
         jobTimer.start(decodedText.substring(4));
 
         // Stop scanning on a successful scan.
-        qrCodeScanner.stop();
+        toggleScanner();
     } else {
         // Show invalid scan modal.
     }
 };
 
-const config = { // 4:3 aspect ratio
-    fps: 10, aspectRatio: 1.333334
+const config = {
+    fps: 10
 };
 
 function toggleScanner() {
     if (scannerOn) {
-        $('#scannerBtn').html('Start with QR code');
+        $('#qrScanModal').modal('toggle');
         qrCodeScanner.stop();
     } else {
-        $('#scannerBtn').html('Close');
+        $('#qrScanModal').modal('show');
         qrCodeScanner.start({ facingMode: 'environment' }, config, qrCodeSuccessCallback);
     }
 

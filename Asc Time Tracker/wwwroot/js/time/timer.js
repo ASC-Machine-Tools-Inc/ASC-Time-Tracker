@@ -88,7 +88,7 @@ function JobTimer(interval, updateUI) {
             $('#jobTimeCollapse').collapse('hide');
 
             document.getElementById('startBtn').style.display = 'block';
-            document.getElementById('scannerBtn').style.display = 'block';
+            document.getElementById('scannerBtn').style.display = 'inline-block';
             document.getElementById('stopBtn').style.display = 'none';
             document.getElementById('saveBtn').style.display = 'none';
             document.getElementById('resetBtn').style.display = 'none';
