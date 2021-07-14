@@ -8,20 +8,38 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet"
+          href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css" />
+    <script src="https://kit.fontawesome.com/d1b8b99eb8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
-        <!-- Navbar only visible on desktop -->
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3 d-none d-md-block">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">ASC Time Tracker</a>
-                <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav">
+                <a class="navbar-brand" asp-area="" asp-page="/Dashboard">ASC Time Tracker</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/Dashboard">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-page="/TimeLogs/Index">Your Logs</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Help
+                                <i class="bi bi-caret-down-fill small"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-area="" asp-page="/Home/Guide">User Guide</a>
+                                <a class="dropdown-item" asp-area="" asp-page="/Home/About">About</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -35,42 +53,15 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <!-- Bottom navbar only visible on mobile -->
-        <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom justify-content-between d-md-none">
-            <div class="col-2 p-0">
-                <a class="nav-link icon-link" alt="Home" asp-area="" asp-page="/Index">
-                    <i class="bi bi-house-fill"></i>
-                </a>
-            </div>
-            <!-- Manager only -->
-            <div class="col-2 p-0">
-                <a class="nav-link icon-link" alt="Home" asp-area="" asp-page="/Privacy">
-                    <i class="bi bi-tag"></i>
-                </a>
-            </div>
-            <div class="col-2 p-0">
-                <a class="nav-link icon-link" alt="Home" asp-area="" asp-page="/Index">
-                    <i class="bi bi-stopwatch"></i>
-                </a>
-            </div>
-            <!-- Manager only -->
-            <div class="col-2 p-0">
-                <a class="nav-link icon-link" alt="Home" asp-area="" asp-page="/Privacy">
-                    <i class="bi bi-person-lines-fill"></i>
-                </a>
-            </div>
-            <div class="col-2 p-0">
-                <a class="nav-link icon-link" alt="Home" asp-area="" asp-page="/Privacy">
-                    <i class="bi bi-list"></i>
-                </a>
-            </div>
-        </nav>
-    </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- QR code scanner -->
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
+    <script src="~/js/time/timer.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
