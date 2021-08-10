@@ -5,157 +5,40 @@
     ViewData["Title"] = "Logs";
 }
 
-<h1>
-    Logs
-</h1>
-
-<!-- Display cards only on mobile -->
-<div class="col p-0 d-md-none">
-    @foreach (var item in Model.TimeLogs)
-    {
-        <div class="dropdown dropdown-mobile">
-            <div class="card log-card" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="card-body px-4 py-2">
-                    <div class="row log-main justify-content-between my-1">
-                        <div class="col-9 text-nowrap text-truncate">
-                            @{
-
-                            }
-                            @Html.DisplayFor(modelItem => item.NOTES)
-                        </div>
-                        <div class="col-3 text-right pl-0">
-                            @{
-                                // Make the time look nice, by converting from seconds into hours and minutes.
-                                string formattedTime = (Math.Floor((item.TIME % 3600) / 60) + "").PadLeft(2, '0');
-                                formattedTime = Math.Floor(item.TIME / 3600) + ":" + formattedTime;
-                            }
-                            @Html.DisplayFor(modelItem => formattedTime)
-                        </div>
-                    </div>
-                    <div class="row my-1">
-                        <div class="col-8 pt-1 text-nowrap text-truncate">
-                            <span class="log-color">&nbsp;&nbsp;&nbsp;</span>
-                            <strong class="log-job">
-                                @Html.DisplayFor(modelItem => item.JOBNUM)
-                            </strong>
-                            <i class="bi bi-dot"></i>
-                            @Html.DisplayFor(modelItem => item.DATE)
-
-                            @{
-                                string formattedRD = item.RD ? "RD" : "";
-                            }
-                            <strong>
-                                @Html.DisplayFor(modelItem => formattedRD)
-                            </strong>
-                        </div>
-                        <div class="col-4 text-right">
-                        </div>
-                    </div>
+<div class="card main-log-card">
+    <div class="row card-header">
+        <div class="col-lg-6 p-0">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="dateOption">Filter by</label>
                 </div>
-            </div>
+                <select id="dateOption" class="custom-select mr-2">
+                    <option>Day</option>
+                    <option>Week</option>
+                    <option>Month</option>
+                </select>
 
-            <div class="dropdown-menu w-100" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" asp-page="./Edit" asp-route-id="@item.ID">
-                    Edit
-                </a>
-                <a class="dropdown-item btn-delete" data-toggle="modal" data-target="#timeLogDeleteModal">
-                    Delete
-                </a>
-                <!-- Hidden field for passing item ID to delete modal -->
-                <input class="input-delete" type="hidden" value="@item.ID" />
+                <button type="button" class="btn btn-secondary shadow-none">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+
+                <input id="datePicker" type="text" class="form-control week-picker" placeholder="Select a Week">
+                <button type="button" class="btn btn-secondary shadow-none">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
-    }
-</div>
-
-<!-- Display table only on desktop -->
-<div class="container container-table p-0 d-none d-md-block">
-    <table class="table m-0">
-        <thead>
-            <tr>
-                <!-- Left out for personal index (since it's your ID)
-                <th>
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].EMPID)
-                </th>
-                    -->
-
-                <th>
-                    <a asp-page="./Index" asp-route-sortOrder="@Model.JobSort" class="a-sort">
-                        @Html.DisplayNameFor(model => model.TimeLogs[0].JOBNUM)
-                        <i class="fas fa-sort"></i>
-                    </a>
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" class="a-sort">
-                        @Html.DisplayNameFor(model => model.TimeLogs[0].DATE)
-                        <i class="fas fa-sort"></i>
-                    </a>
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].TIME)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TimeLogs[0].NOTES)
-                </th>
-                <th>
-                    <a asp-page="./Index" asp-route-sortOrder="@Model.RDSort" class="a-sort">
-                        @Html.DisplayNameFor(model => model.TimeLogs[0].RD)
-                        <i class="fas fa-sort"></i>
-                    </a>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-
-            @foreach (var item in Model.TimeLogs)
-            {
-                <tr>
-
-                    <!--
-                        <td>
-                            @Html.DisplayFor(modelItem => item.EMPID)
-                        </td>
-                    -->
-                    <td>
-
-                        @Html.DisplayFor(modelItem => item.JOBNUM)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DATE)
-                    </td>
-                    <td>
-                        @{
-                            // Make the time look nice, by converting from seconds into hours and minutes.
-                            string formattedTime = (Math.Floor((item.TIME % 3600) / 60) + "").PadLeft(2, '0');
-                            formattedTime = Math.Floor(item.TIME / 3600) + ":" + formattedTime;
-                        }
-                        @Html.DisplayFor(modelItem => formattedTime)
-                    </td>
-                    <td id="notes-col">
-                        @Html.DisplayFor(modelItem => item.NOTES)
-                    </td>
-                    <td>
-                        @{
-                            string formattedRD = item.RD ? "Y" : "";
-                        }
-                        <strong>
-                            @Html.DisplayFor(modelItem => formattedRD)
-                        </strong>
-                    </td>
-                    <td class="actions px-0">
-                        <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-outline-secondary btn-edit">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <button class="btn btn-outline-danger btn-delete" data-toggle="modal" data-target="#timeLogDeleteModal">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                        <input class="input-delete" type="hidden" value="@item.ID" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <div class="col-lg-6 p-0">
+            <button class="btn btn-primary float-right">
+                Export
+            </button>
+        </div>
+    </div>
+    <div class="row p-4">
+        <div class="col-lg-6 p-0 scroll">
+            <partial name="_IndexLogs" />
+        </div>
+    </div>
 </div>
 
 <!-- Modals -->

@@ -15,4 +15,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Pages\TimeLogs\_IndexLogs - Copy - Copy.cshtml.cs">
+      <DependentUpon>_IndexLogs - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\TimeLogs\_IndexLogs - Copy.cshtml.cs">
+      <DependentUpon>_IndexLogs.cshtml.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

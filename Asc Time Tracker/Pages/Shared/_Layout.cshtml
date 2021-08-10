@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Prevent site from being indexed, since only for internal use. -->
+    <meta name="robots" content="noindex">
+
     <title>@ViewData["Title"] - ASC Time Tracker</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -51,6 +54,8 @@
         <div class="container">
             @RenderBody()
         </div>
+
+        <!-- Login modal -->
     </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
