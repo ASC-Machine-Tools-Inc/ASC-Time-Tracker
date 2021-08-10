@@ -7,7 +7,7 @@
 
 <div class="card main-log-card">
     <div class="row card-header">
-        <div class="col-lg-6 p-0">
+        <div class="col-8 p-0">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="dateOption">Filter by</label>
@@ -18,17 +18,18 @@
                     <option>Month</option>
                 </select>
 
-                <button type="button" class="btn btn-secondary shadow-none">
+                <button type="button" class="btn week-prev shadow-none">
                     <i class="fas fa-arrow-left"></i>
                 </button>
-
-                <input id="datePicker" type="text" class="form-control week-picker" placeholder="Select a Week">
-                <button type="button" class="btn btn-secondary shadow-none">
+                <input id="datePicker" type="text"
+                       class="form-control week-picker shadow-none w-25 text-center"
+                       placeholder="Select a Week">
+                <button type="button" class="btn week-next shadow-none">
                     <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
-        <div class="col-lg-6 p-0">
+        <div class="col-4 p-0">
             <button class="btn btn-primary float-right">
                 Export
             </button>
@@ -64,8 +65,9 @@
 
 @section Scripts
 {
-    <script src="~/js/submit/indexModal.js"></script>
+    <script src="~/js/submit/deleteTimeLog.js"></script>
     <script src="~/js/ui/jobColor.js"></script>
+    <script src="~/js/time/dateFilter.js"></script>
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

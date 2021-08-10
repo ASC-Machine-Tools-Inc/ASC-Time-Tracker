@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.0.1" />
+    <PackageReference Include="Bootstrap.Datepicker" Version="1.8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>

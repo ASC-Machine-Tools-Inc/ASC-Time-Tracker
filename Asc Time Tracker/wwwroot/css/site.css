@@ -329,3 +329,36 @@ tr:hover .btn {
 #qr-reader {
     height: 100%;
 }
+
+/* Week picker styling */
+.datepicker td, .datepicker th {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+}
+
+.datepicker table tr td.active {
+    background: #3297fd;
+    border-color: #3297fd;
+}
+
+.datepicker .datepicker-days tr td.active {
+    background: #3297fd;
+}
+
+    .datepicker .datepicker-days tr td.active ~ td,
+    .datepicker .datepicker-days tr td.active {
+        color: #fff;
+        background-color: #3297fd !important;
+        border-radius: 0;
+    }
+
+.datepicker .datepicker-days tr:hover td,
+.datepicker table tr td.day:hover,
+.datepicker table tr td.focused {
+    background: #e8e8e8;
+    border-radius: 0;
+}
+
+.datepicker table tr td.day.focused, .datepicker table tr td.day:hover {
+    background: #c8c8c8 !important;
+}
