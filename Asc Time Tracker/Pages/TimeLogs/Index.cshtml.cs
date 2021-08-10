@@ -11,9 +11,9 @@ namespace Asc_Time_Tracker.Pages.TimeLogs
 {
     public class IndexModel : PageModel
     {
-        private readonly Asc_Time_Tracker.Data.Asc_Time_TrackerContext _context;
+        private readonly Data.Asc_Time_TrackerContext _context;
 
-        public IndexModel(Asc_Time_Tracker.Data.Asc_Time_TrackerContext context)
+        public IndexModel(Data.Asc_Time_TrackerContext context)
         {
             _context = context;
         }

@@ -8,6 +8,10 @@ $(document).ready(function () {
         forceParse: false,
     }).on("changeDate", function (e) {
         setWeekPicker(e.date);
+
+        // Reload logs with new dates
+        $("#indexLogs").load('@Url.Action("OnGetAsync")'
+            + '?startDate=' + startDate.toJSON() + '&endDate=' + endDate.toJSON());
     });;
 
     $(".week-prev").on("click",
