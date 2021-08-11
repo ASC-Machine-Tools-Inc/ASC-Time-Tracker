@@ -7,12 +7,22 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.0.1" />
+    <PackageReference Include="Bootstrap.Datepicker" Version="1.8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\TimeLogs\_IndexLogs - Copy - Copy.cshtml.cs">
+      <DependentUpon>_IndexLogs - Copy.cshtml.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\TimeLogs\_IndexLogs - Copy.cshtml.cs">
+      <DependentUpon>_IndexLogs.cshtml.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>
