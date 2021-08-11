@@ -59,14 +59,14 @@
             <a id="actionCardAdd" class="card-parent" data-toggle="modal" data-target="#timeLogSubmitModal">
                 <div class="card action-card action-card-add my-2">
                     <div class="card-body">
-                        <h4 class="action-card-title">Add Log Manually</h4>
+                        <span class="action-card-title">Add Log Manually</span>
                     </div>
                 </div>
             </a>
             <a class="card-parent" asp-area="" asp-page="/TimeLogs/Index">
                 <div class="card action-card action-card-view mb-2">
                     <div class="card-body">
-                        <h4 class="action-card-title">View My Logs</h4>
+                        <span class="action-card-title">View My Logs</span>
                     </div>
                 </div>
             </a>
@@ -134,7 +134,8 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="TimeLog.NOTES" class="control-label">Notes (optional)</label>
-                                <input asp-for="TimeLog.NOTES" class="form-control" />
+                                <input asp-for="TimeLog.NOTES" class="form-control"
+                                       placeholder="A short description of what you've been working on?" />
                                 <span asp-validation-for="TimeLog.NOTES" class="text-danger"></span>
                             </div>
                             <div class="form-group">

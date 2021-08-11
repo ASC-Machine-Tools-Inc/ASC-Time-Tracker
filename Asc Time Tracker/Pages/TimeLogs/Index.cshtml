@@ -8,7 +8,10 @@
 <div class="card main-log-card">
     <div class="row card-header">
         <div class="col-8 p-0">
-            <div class="input-group">
+
+            @using (Html.BeginForm("Index", "Index", FormMethod.Get,
+          new { @class = "input-group" }))
+            {
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="dateOption">Filter by</label>
                 </div>
@@ -16,6 +19,7 @@
                     <option>Day</option>
                     <option>Week</option>
                     <option>Month</option>
+                    <option>Custom Range</option>
                 </select>
 
                 <button type="button" class="btn week-prev shadow-none">
@@ -27,17 +31,73 @@
                 <button type="button" class="btn week-next shadow-none">
                     <i class="fas fa-arrow-right"></i>
                 </button>
-            </div>
+            }
         </div>
         <div class="col-4 p-0">
             <button class="btn btn-primary float-right">
+                <i class="bi bi-download"></i>
                 Export
             </button>
         </div>
     </div>
     <div class="row p-4">
-        <div id="indexLogs" class="col-lg-6 p-0 scroll">
-            <partial name="_IndexLogs" />
+        <!-- Logs display -->
+        <div class="col-lg-6 p-0 scroll">
+            @foreach (var item in Model.TimeLogs)
+            {
+                <div class="dropdown dropdown-mobile card-parent">
+                    <div class="card log-card" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="card-body px-4 py-2">
+                            <div class="row log-main justify-content-between my-1">
+                                <div class="col-9 text-nowrap text-truncate">
+                                    @{
+
+                                    }
+                                    @Html.DisplayFor(modelItem => item.NOTES)
+                                </div>
+                                <div class="col-3 text-right pl-0">
+                                    @{
+                                        // Make the time look nice, by converting from seconds into hours and minutes.
+                                        string formattedTime = (Math.Floor((item.TIME % 3600) / 60) + "").PadLeft(2, '0');
+                                        formattedTime = Math.Floor(item.TIME / 3600) + ":" + formattedTime;
+                                    }
+                                    @Html.DisplayFor(modelItem => formattedTime)
+                                </div>
+                            </div>
+                            <div class="row my-1">
+                                <div class="col-8 pt-1 text-nowrap text-truncate">
+                                    <span class="log-color">&nbsp;&nbsp;&nbsp;</span>
+                                    <strong class="log-job">
+                                        @Html.DisplayFor(modelItem => item.JOBNUM)
+                                    </strong>
+                                    <i class="bi bi-dot"></i>
+                                    @Html.DisplayFor(modelItem => item.DATE)
+
+                                    @{
+                                        string formattedRD = item.RD ? "RD" : "";
+                                    }
+                                    <strong>
+                                        @Html.DisplayFor(modelItem => formattedRD)
+                                    </strong>
+                                </div>
+                                <div class="col-4 text-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-menu w-50" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" asp-page="./Edit" asp-route-id="@item.ID">
+                            Edit
+                        </a>
+                        <a class="dropdown-item btn-delete" data-toggle="modal" data-target="#timeLogDeleteModal">
+                            Delete
+                        </a>
+                        <!-- Hidden field for passing item ID to delete modal -->
+                        <input class="input-delete" type="hidden" value="@item.ID" />
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

@@ -8,10 +8,6 @@ $(document).ready(function () {
         forceParse: false,
     }).on("changeDate", function (e) {
         setWeekPicker(e.date);
-
-        // Reload logs with new dates
-        $("#indexLogs").load('@Url.Action("OnGetAsync")'
-            + '?startDate=' + startDate.toJSON() + '&endDate=' + endDate.toJSON());
     });;
 
     $(".week-prev").on("click",
@@ -29,6 +25,8 @@ $(document).ready(function () {
         });
     setWeekPicker(new Date);
 });
+
+// Refresh the partial views for Index.
 
 function setWeekPicker(date) {
     startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
@@ -52,4 +50,15 @@ function setWeekPicker(date) {
         endDate.getDate() +
         "/" +
         endDate.getFullYear());
+
+    // Update the partial views.
+    updatePage();
+}
+
+function updatePage() {
+    $.ajax({
+        type: 'GET',
+        url: "/TimeLogs?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        datatype: "html"
+    });
 }
