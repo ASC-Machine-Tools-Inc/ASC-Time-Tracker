@@ -1,0 +1,370 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-image: url('../background.png');
+}
+
+/* Expand body to fill page */
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+.main {
+    height: 100%;
+}
+
+.nav-link {
+    color: #EFF0F0;
+    display: inline-block;
+    position: relative;
+}
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: white;
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .nav-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+.dropdown-item:active {
+    color: black;
+}
+
+.dropdown-item:hover {
+    background-color: #e8e8e8;
+}
+
+.dropdown-toggle::after {
+    margin-left: -.1em;
+    border: 0;
+}
+
+/* Card styling */
+.time-card {
+    min-height: 140px;
+}
+
+.time-col {
+    min-height: 50px;
+}
+
+.card-parent {
+    color: #212529;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .card-parent:hover {
+        color: #212529;
+        text-decoration: none;
+    }
+
+        .card-parent:hover .card {
+            transition: all 0.3s ease-out;
+            box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
+            top: -4px;
+            background-color: white;
+        }
+
+.action-card {
+    text-align: right;
+    border: 1px solid #343A40;
+}
+
+.action-card-add {
+    border-left: 6px solid #C16E70;
+}
+
+.action-card-view {
+    border-left: 6px solid #DC9E82;
+}
+
+.action-card-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    30% {
+        transform: scale(0.9);
+        -webkit-transform: scale(0.9);
+    }
+
+    70% {
+        transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+    }
+
+    90% {
+        transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+    }
+}
+
+/* Modal styling */
+.modal-footer {
+    background: hsl(0, 0%, 92%); /* hue, saturation, lightness */
+}
+
+input[type=checkbox] {
+    margin-top: .4rem;
+}
+
+/* Form styling */
+#timeFormSeparator {
+    margin: 0;
+}
+
+label.control-label {
+    font-weight: 600;
+}
+
+/* Table styling */
+.container-table {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+thead {
+    background-color: #e8e8e8;
+}
+
+    thead tr:hover {
+        background-color: #d8d8d8;
+    }
+
+#notes-col {
+    width: 40%;
+}
+
+tr:hover {
+    background-color: #f8f8f8;
+}
+
+.main-log-card {
+    border: 2px solid black;
+    padding: 0 12px;
+}
+
+.log-card {
+    border: 2px solid #a9a9a9;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+}
+
+.log-main {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.log-color {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 25px;
+    margin: 3px 4px 0px 4px;
+}
+
+.a-sort {
+    color: black;
+    display: inline-block;
+    position: relative;
+}
+
+    .a-sort:hover {
+        color: black;
+        text-decoration: none;
+    }
+
+    .a-sort::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: black;
+        transform-origin: bottom right;
+        transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    }
+
+    .a-sort:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+
+.scroll {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+/* Dropdown menu opening animation. */
+.dropdown-mobile .dropdown-menu {
+    -webkit-animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.320, 1.275) alternate both;
+    animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.320, 1.275) alternate both;
+}
+
+@-webkit-keyframes swing-in-top-fwd {
+    0% {
+        -webkit-transform: rotateX(-100deg);
+        transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+        transform-origin: top;
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+        transform-origin: top;
+        opacity: 1;
+    }
+}
+
+@keyframes swing-in-top-fwd {
+    0% {
+        -webkit-transform: rotateX(-100deg);
+        transform: rotateX(-100deg);
+        -webkit-transform-origin: top;
+        transform-origin: top;
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: rotateX(0deg);
+        transform: rotateX(0deg);
+        -webkit-transform-origin: top;
+        transform-origin: top;
+        opacity: 1;
+    }
+}
+
+/* Hide buttons on bigger screens */
+@media only screen and (min-width: 992px) {
+    tr .btn {
+        visibility: hidden;
+    }
+}
+
+/* Show buttons on hover */
+tr:hover .btn {
+    visibility: visible;
+}
+
+/* QR code scanner */
+.modal-tall .modal-dialog {
+    height: 100%;
+}
+
+.modal-tall .modal-content {
+    height: 100%;
+}
+
+#qr-reader {
+    height: 100%;
+}
+
+/* Week picker styling */
+.datepicker td, .datepicker th {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+}
+
+.datepicker table tr td.active {
+    background: #3297fd;
+    border-color: #3297fd;
+}
+
+.datepicker .datepicker-days tr td.active {
+    background: #3297fd !important;
+    border-radius: 0;
+}
+
+.datepicker .datepicker-months span.active {
+    background: #3297fd !important;
+}
+
+#weekContainer .datepicker .datepicker-days tr td.active ~ td,
+#weekContainer .datepicker .datepicker-days tr td.active {
+    color: #fff;
+    background-color: #3297fd !important;
+    border-radius: 0;
+}
+
+#weekContainer .datepicker .datepicker-days tr:hover td,
+#weekContainer .datepicker table tr td.day:hover,
+#weekContainer .datepicker table tr td.focused {
+    background: #e8e8e8;
+    border-radius: 0;
+}
+
+#weekContainer .datepicker table tr td.day.focused, .datepicker table tr td.day:hover {
+    background: #c8c8c8 !important;
+}

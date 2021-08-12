@@ -1,0 +1,33 @@
+﻿@model Asc_Time_Tracker.Pages.Home.GuideModel
+@{
+    ViewData["Title"] = "Guide";
+}
+
+<html>
+<body data-spy="scroll" data-bs-target="#toc">
+    <div class="container">
+        <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+                <nav id="toc" data-bs-toggle="toc" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
+                <h1>@ViewBag.Title</h1>
+                <p>
+                    For any questions not answered on this page, you can reach us on the
+                    <a href="/Home/About">About</a> page.
+                </p>
+
+                <h2>Time Logs</h2>
+
+                <h3>Creating</h3>
+
+                <h3>Editing</h3>
+
+                <h3>Deleting</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
