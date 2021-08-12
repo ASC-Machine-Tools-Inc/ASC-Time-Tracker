@@ -16,11 +16,6 @@ namespace Asc_Time_Tracker.Controllers
             return View();
         }
 
-        public IActionResult Dashboard()
-        {
-            return View();
-        }
-
         public IActionResult Guide()
         {
             return View();

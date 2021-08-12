@@ -14,22 +14,30 @@ namespace Asc_Time_Tracker.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        public IndexViewModel IndexViewModel { get; set; }
+
         public DateTime? CurrentStartDate { get; set; }
 
         public DateTime? CurrentEndDate { get; set; }
 
+        // Used for creating timelogs.
+        [BindProperty]
+        public TimeLog TimeLog { get; set; }
+
         public TimeLogController(ApplicationDbContext context)
         {
             _context = context;
+            IndexViewModel = new IndexViewModel();
         }
 
         // GET: TimeLog
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
-            //timeLogs = timeLogs.Where(logs => logs.Rd == true);
+            // Send along an empty IQueryable for the first render so there's no flashing.
+            IQueryable<TimeLog> timeLogs = _context.TimeLog.Take(0);
+            IndexViewModel.TimeLogs = timeLogs;
 
-            return View(await timeLogs.ToListAsync());
+            return View(IndexViewModel);
         }
 
         // GET: _IndexLogs partial view
@@ -83,6 +91,28 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult Create()
         {
             return View();
+        }
+
+        // Handles modal submission.
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            // Convert input to seconds.
+            int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 : Convert.ToInt32(Request.Form["timeHours"]);
+            int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 : Convert.ToInt32(Request.Form["timeMinutes"]);
+
+            // Convert input to seconds.
+            TimeLog.Time = hours * 3600 + minutes * 60;
+
+            _context.TimeLog.Add(TimeLog);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("TimeLogs/Index");
         }
 
         // POST: TimeLog/Create
