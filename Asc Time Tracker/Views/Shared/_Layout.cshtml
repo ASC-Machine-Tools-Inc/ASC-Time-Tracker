@@ -9,7 +9,14 @@
     <title>@ViewData["Title"] - ASC Time Tracker</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/img-styles.css" />
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/bundle.css" inline />
+    </environment>
 
     <!-- Date picker -->
     <link rel="stylesheet"
@@ -72,7 +79,21 @@
     <!-- QR code scanner -->
     <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 
-    <script src="~/js/time/timer.js"></script>
+    <!-- Use scripts in development so we can see the results of changes without rebuilding. -->
+    <environment include="Development">
+        <script src="~/js/submit/deleteTimeLog.js"></script>
+        <script src="~/js/submit/editConvertTime.js"></script> <!-- Might need for edit modal? -->
+
+        <script src="~/js/time/currTime.js"></script>
+        <script src="~/js/time/dateFilter.js"></script>
+        <script src="~/js/time/timer.js"></script>
+
+        <script src="~/js/ui/jobColor.js"></script>
+        <script src="~/js/ui/qrScanner.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundle.js" inline></script>
+    </environment>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

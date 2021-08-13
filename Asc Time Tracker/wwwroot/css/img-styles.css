@@ -1,0 +1,7 @@
+﻿/* Since the bundler and minifier messes up the urls for images,
+    these get their own files.
+*/
+
+body {
+    background-image: url('../background.png');
+}

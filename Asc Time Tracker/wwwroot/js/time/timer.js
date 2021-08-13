@@ -82,7 +82,7 @@ function JobTimer(interval, updateUI) {
             updateTime();
 
             // TODO: Convert into own function after adding more fields?
-            $('#TimeLog_JOBNUM_Display').html('');
+            $('#TimeLog_JobNum_Display').html('');
 
             $('#jobStatusCollapse').collapse('show');
             $('#jobTimeCollapse').collapse('hide');
