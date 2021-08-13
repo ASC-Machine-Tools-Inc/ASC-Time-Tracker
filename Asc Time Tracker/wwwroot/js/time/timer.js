@@ -19,16 +19,16 @@ function JobTimer(interval, updateUI) {
      * @param {string} values (Optional) List of fields in the format key:value,
      *                        with key-value pairs split with |.
      */
-    this.start = function (values = '') {
+    this.start = function (values = "") {
         expected = Date.now() + this.interval;
         timeout = setTimeout(step, this.interval);
         startTime = Date.now();
 
         if (values) {
-            let splitValues = values.split('|');
+            let splitValues = values.split("|");
 
             for (let i = 0; i < splitValues.length; i++) {
-                let splitPairs = splitValues[i].split(':');
+                let splitPairs = splitValues[i].split(":");
                 let pairKey = splitPairs[0];
                 let pairValue = splitPairs[1];
 
@@ -36,7 +36,7 @@ function JobTimer(interval, updateUI) {
 
                 // Update with saved fields
                 if (updateUI) {
-                    $('#' + pairKey + '_Display').html('Job # ' + pairValue);
+                    $("#" + pairKey + "_Display").html("Job # " + pairValue);
                 }
             }
         }
@@ -44,18 +44,18 @@ function JobTimer(interval, updateUI) {
         if (updateUI) {
             // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
             // every now and then to make things work.
-            $('#jobStatusCollapse').collapse('hide');
-            $('#jobTimeCollapse').collapse('show');
+            $("#jobStatusCollapse").collapse("hide");
+            $("#jobTimeCollapse").collapse("show");
 
-            document.getElementById('startBtn').style.display = 'none';
-            document.getElementById('scannerBtn').style.display = 'none';
-            document.getElementById('stopBtn').style.display = 'block';
-            document.getElementById('saveBtn').style.display = 'block';
-            document.getElementById('resetBtn').style.display = 'block';
+            document.getElementById("startBtn").style.display = "none";
+            document.getElementById("scannerBtn").style.display = "none";
+            document.getElementById("stopBtn").style.display = "block";
+            document.getElementById("saveBtn").style.display = "block";
+            document.getElementById("resetBtn").style.display = "block";
 
             // Animation if no saved time
-            if (!localStorage.getItem('savedTime')) {
-                $('#timeCard').addClass('shake');
+            if (!localStorage.getItem("savedTime")) {
+                $("#timeCard").addClass("shake");
             }
         }
     }
@@ -66,8 +66,8 @@ function JobTimer(interval, updateUI) {
         clearTimeout(timeout);
 
         if (updateUI) {
-            document.getElementById('startBtn').style.display = 'block';
-            document.getElementById('stopBtn').style.display = 'none';
+            document.getElementById("startBtn").style.display = "block";
+            document.getElementById("stopBtn").style.display = "none";
         }
     }
 
@@ -75,25 +75,25 @@ function JobTimer(interval, updateUI) {
         clearTimeout(timeout);
         self.timeExpended = 0;
         self.savedValues = {};
-        localStorage.removeItem('savedTime');
+        localStorage.removeItem("savedTime");
 
         if (updateUI) {
             // Update time display to 0.
             updateTime();
 
             // TODO: Convert into own function after adding more fields?
-            $('#TimeLog_JobNum_Display').html('');
+            $("#TimeLog_JobNum_Display").html("");
 
-            $('#jobStatusCollapse').collapse('show');
-            $('#jobTimeCollapse').collapse('hide');
+            $("#jobStatusCollapse").collapse("show");
+            $("#jobTimeCollapse").collapse("hide");
 
-            document.getElementById('startBtn').style.display = 'block';
-            document.getElementById('scannerBtn').style.display = 'inline-block';
-            document.getElementById('stopBtn').style.display = 'none';
-            document.getElementById('saveBtn').style.display = 'none';
-            document.getElementById('resetBtn').style.display = 'none';
+            document.getElementById("startBtn").style.display = "block";
+            document.getElementById("scannerBtn").style.display = "inline-block";
+            document.getElementById("stopBtn").style.display = "none";
+            document.getElementById("saveBtn").style.display = "none";
+            document.getElementById("resetBtn").style.display = "none";
 
-            $('#timeCard').removeClass('shake');
+            $("#timeCard").removeClass("shake");
         }
     }
 
@@ -103,13 +103,13 @@ function JobTimer(interval, updateUI) {
         let minutes = Math.floor((secs % 3600) / 60);
 
         if (updateUI) {
-            $('#timeLogSubmitModal').modal('show');
-            $('#timeHours').val(hours);
-            $('#timeMinutes').val(minutes);
+            $("#timeLogSubmitModal").modal("show");
+            $("#timeHours").val(hours);
+            $("#timeMinutes").val(minutes);
 
             if (self.savedValues) {
                 for (let field in self.savedValues) {
-                    $('#' + field).val(self.savedValues[field]);
+                    $("#" + field).val(self.savedValues[field]);
                 }
             }
         }
@@ -138,7 +138,7 @@ function JobTimer(interval, updateUI) {
 
     function saveTime() {
         // Store time in local storage
-        localStorage.setItem('savedTime', self.getTime());
+        localStorage.setItem("savedTime", self.getTime());
     }
 
     // Update relevant html.
@@ -146,13 +146,13 @@ function JobTimer(interval, updateUI) {
         let elapsedTime = self.getTime();
 
         let secs = Math.floor(elapsedTime / 1000);
-        let hours = String(Math.floor(secs / 3600)).padStart(2, '0');
-        let minutes = String(Math.floor((secs % 3600) / 60)).padStart(2, '0');
-        let seconds = String(secs % 60).padStart(2, '0');
+        let hours = String(Math.floor(secs / 3600)).padStart(2, "0");
+        let minutes = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
+        let seconds = String(secs % 60).padStart(2, "0");
 
-        let time = [hours, minutes, seconds].join(':');
+        let time = [hours, minutes, seconds].join(":");
 
-        document.getElementById('jobTime').innerHTML = time;
+        document.getElementById("jobTime").innerHTML = time;
     }
 }
 
@@ -161,12 +161,12 @@ var jobTimer;
 var dontEndTimer = false;
 
 $(document).ready(function () {
-    uiFlag = window.location.href.endsWith('Dashboard');
+    uiFlag = window.location.href.endsWith("TimeLog");
 
     // Initialization
     jobTimer = new JobTimer(10, uiFlag);
 
-    var time = parseInt(localStorage.getItem('savedTime'));
+    var time = parseInt(localStorage.getItem("savedTime"));
     if (time) {
         jobTimer.timeExpended = time;
         jobTimer.start();
@@ -175,7 +175,7 @@ $(document).ready(function () {
 
 // If saving current timer, end it on submission.
 // Shouldn't have to worry about validation - those fields are already populated.
-$('#timeLogFormSubmit').on('click', function (event) {
+$("#timeLogFormSubmit").on("click", function (event) {
     console.log(dontEndTimer);
     if (dontEndTimer) {
         dontEndTimer = false;
@@ -185,6 +185,6 @@ $('#timeLogFormSubmit').on('click', function (event) {
 });
 
 // Set flag.
-$('#actionCardAdd').on('click', function () {
+$("#actionCardAdd").on("click", function () {
     dontEndTimer = true;
 });

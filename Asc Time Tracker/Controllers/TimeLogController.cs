@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using ChartJSCore.Helpers;
+using ChartJSCore.Models;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -15,10 +16,6 @@ namespace Asc_Time_Tracker.Controllers
         private readonly ApplicationDbContext _context;
 
         public IndexViewModel IndexViewModel { get; set; }
-
-        public DateTime? CurrentStartDate { get; set; }
-
-        public DateTime? CurrentEndDate { get; set; }
 
         // Used for creating timelogs.
         [BindProperty]
@@ -33,6 +30,9 @@ namespace Asc_Time_Tracker.Controllers
         // GET: TimeLog
         public IActionResult Index()
         {
+            Chart barChart = GenerateLineChart();
+            ViewData["BarChart"] = barChart;
+
             // Send along an empty IQueryable for the first render so there's no flashing.
             IQueryable<TimeLog> timeLogs = _context.TimeLog.Take(0);
             IndexViewModel.TimeLogs = timeLogs;
@@ -43,30 +43,91 @@ namespace Asc_Time_Tracker.Controllers
         // GET: _IndexLogs partial view
         public async Task<IActionResult> _IndexLogs(DateTime? startDate, DateTime? endDate)
         {
-            if (startDate == null || endDate == null)
-            {
-                startDate = CurrentStartDate;
-                endDate = CurrentEndDate;
-            }
-            else
-            {
-                // Set hours back to 0 (since Javascript sends them through with timezone adjustment).
-                DateTime convStart = (DateTime)startDate;
-                DateTime convEnd = (DateTime)endDate;
-                startDate = new DateTime(convStart.Year, convStart.Month, convStart.Day, 0, 0, 0);
-                endDate = new DateTime(convEnd.Year, convEnd.Month, convEnd.Day, 0, 0, 0);
-            }
-            CurrentStartDate = startDate;
-            CurrentEndDate = endDate;
-
             IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
 
-            // Filter by date.
-            timeLogs = timeLogs.Where(logs =>
-                logs.Date >= startDate &&
-                logs.Date < endDate);
+            return PartialView(await IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate).ToListAsync());
+        }
+
+        // GET: _IndexStats partial view
+        public async Task<IActionResult> _IndexStats(DateTime? startDate, DateTime? endDate)
+        {
+            IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
+            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+
+            IEnumerable<TimeLog> timeLogsList = timeLogs.ToList();
+            foreach (TimeLog timeLog in timeLogs)
+            {
+            }
 
             return PartialView(await timeLogs.ToListAsync());
+        }
+
+        private static Chart GenerateLineChart()
+        {
+            Chart chart = new Chart();
+            chart.Type = Enums.ChartType.Line;
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
+            data.Labels = new List<string>() { "January", "February", "March", "April", "May", "June", "July" };
+
+            LineDataset dataset = new LineDataset()
+            {
+                Label = "My First dataset",
+                Data = new List<double?>() { 65, 59, 80, 81, 56, 55, 40 },
+                Fill = "false",
+                LineTension = 0.1,
+                BackgroundColor = ChartColor.FromRgba(75, 192, 192, 0.4),
+                BorderColor = ChartColor.FromRgba(75, 192, 192, 1),
+                BorderCapStyle = "butt",
+                BorderDash = new List<int> { },
+                BorderDashOffset = 0.0,
+                BorderJoinStyle = "miter",
+                PointBorderColor = new List<ChartColor>() { ChartColor.FromRgba(75, 192, 192, 1) },
+                PointBackgroundColor = new List<ChartColor>() { ChartColor.FromHexString("#fff") },
+                PointBorderWidth = new List<int> { 1 },
+                PointHoverRadius = new List<int> { 5 },
+                PointHoverBackgroundColor = new List<ChartColor>() { ChartColor.FromRgba(75, 192, 192, 1) },
+                PointHoverBorderColor = new List<ChartColor>() { ChartColor.FromRgba(220, 220, 220, 1) },
+                PointHoverBorderWidth = new List<int> { 2 },
+                PointRadius = new List<int> { 1 },
+                PointHitRadius = new List<int> { 10 },
+                SpanGaps = false
+            };
+
+            data.Datasets = new List<Dataset>();
+            data.Datasets.Add(dataset);
+
+            Options options = new Options()
+            {
+                Scales = new Scales()
+            };
+
+            Scales scales = new Scales()
+            {
+                YAxes = new List<Scale>()
+                {
+                    new CartesianScale()
+                }
+            };
+
+            CartesianScale yAxes = new CartesianScale()
+            {
+                Ticks = new Tick()
+            };
+
+            Tick tick = new Tick()
+            {
+                Callback = "function(value, index, values) {return '$' + value;}"
+            };
+
+            yAxes.Ticks = tick;
+            scales.YAxes = new List<Scale>() { yAxes };
+            options.Scales = scales;
+            chart.Options = options;
+
+            chart.Data = data;
+
+            return chart;
         }
 
         // GET: TimeLog/Details/5

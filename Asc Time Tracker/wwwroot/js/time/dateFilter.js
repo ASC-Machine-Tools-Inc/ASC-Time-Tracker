@@ -263,6 +263,14 @@ function updatePage() {
             colorJobs();
         }
     });
+
+    $.ajax({
+        type: "GET",
+        url: "TimeLog/_IndexStats?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        success: function (view) {
+            $("#indexStatsView").html(view);
+        }
+    });
 }
 
 // Return the date in a nice readable format.

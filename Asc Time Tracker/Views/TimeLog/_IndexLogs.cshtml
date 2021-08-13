@@ -1,6 +1,15 @@
 ﻿@model IEnumerable<TimeLog>
+<!-- Filler text to show for no timelogs.-->
+@if (!Model.Any())
+{
+    <div class="text-center">
+        <small class="text-muted">
+            No time logs were found for this date range.
+        </small>
+    </div>
+}
 
-@foreach (var item in Model)
+@foreach (var item in Model.Reverse())
 {
     <div class="dropdown dropdown-mobile card-parent">
         <div class="card log-card" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,13 +60,4 @@
             <input class="input-delete" type="hidden" value="@item.Id" />
         </div>
     </div>
-}
-
-@section Scripts
-{
-    <script src="~/js/submit/deleteTimeLog.js"></script>
-    <script src="~/js/ui/jobColor.js"></script>
-    <script src="~/js/time/dateFilter.js"></script>
-
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -100,6 +100,10 @@ html, body {
 }
 
 /* Card styling */
+.card {
+    border: 2px solid #343a40;
+}
+
 .time-card {
     min-height: 140px;
 }
@@ -128,15 +132,10 @@ html, body {
 
 .action-card {
     text-align: right;
-    border: 1px solid #343A40;
 }
 
 .action-card-add {
     border-left: 6px solid #C16E70;
-}
-
-.action-card-view {
-    border-left: 6px solid #DC9E82;
 }
 
 .action-card-title {
@@ -207,7 +206,6 @@ tr:hover {
 }
 
 .main-log-card {
-    border: 2px solid black;
     padding: 0 12px;
 }
 
@@ -262,6 +260,19 @@ tr:hover {
     max-height: 500px;
     overflow-y: auto;
 }
+
+.scroll-log-label {
+    margin: 0.5rem 0;
+}
+
+    .scroll-log-label i {
+        font-size: 1rem;
+        font-weight: 900;
+    }
+
+    .scroll-log-label span {
+        font-size: 1.25rem
+    }
 
 /* Dropdown menu opening animation. */
 .dropdown-mobile .dropdown-menu {
