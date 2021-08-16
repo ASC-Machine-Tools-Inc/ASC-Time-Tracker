@@ -259,7 +259,6 @@ function updatePage() {
         type: "GET",
         url: "TimeLog/_IndexLogs?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
         success: function (view) {
-            console.log(view);
             $("#indexLogsView").html(view);
             colorJobs();
         }

@@ -221,10 +221,9 @@ tr:hover {
 }
 
 .log-color {
-    width: 1rem;
-    height: 1rem;
     border-radius: 25px;
-    margin: 3px 4px 0px 4px;
+    margin: 0 0.5rem 2px 0;
+    opacity: 1;
 }
 
 .a-sort {
