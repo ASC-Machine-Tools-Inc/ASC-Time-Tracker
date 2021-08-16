@@ -1,5 +1,6 @@
-﻿@model IEnumerable<TimeLog>
-<!-- Filler text to show for no timelogs.-->
+﻿@using ChartJSCore.Models
+@model IEnumerable<TimeLog>
+<!-- Filler text to show for no time logs.-->
 @if (!Model.Any())
 {
     <div class="text-center">
@@ -16,5 +17,20 @@ else
             @Html.DisplayFor(modelItem => item.JobNum)
         </strong>
     }
+}
 
+<h5 class="card-title">Bar Chart</h5>
+<canvas id="barChart" width="200" height="200"></canvas>
+
+@{
+    // Workaround for getting scripts in partial view - if controller returns
+    // a valid chart in the ViewData, we draw it.
+    Chart chart = (Chart)ViewData["BarChart"];
+    if (chart != null)
+    {
+        <script>
+            @Html.Raw(chart.CreateChartCode("barChart"))
+        </script>
+
+    }
 }

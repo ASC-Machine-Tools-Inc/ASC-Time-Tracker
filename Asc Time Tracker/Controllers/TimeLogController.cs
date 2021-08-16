@@ -30,9 +30,6 @@ namespace Asc_Time_Tracker.Controllers
         // GET: TimeLog
         public IActionResult Index()
         {
-            Chart barChart = GenerateLineChart();
-            ViewData["BarChart"] = barChart;
-
             // Send along an empty IQueryable for the first render so there's no flashing.
             IQueryable<TimeLog> timeLogs = _context.TimeLog.Take(0);
             IndexViewModel.TimeLogs = timeLogs;
@@ -54,10 +51,19 @@ namespace Asc_Time_Tracker.Controllers
             IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
+            // Draw charts.
+            if (timeLogs.Any())
+            {
+                Chart barChart = GenerateLineChart();
+                ViewData["BarChart"] = barChart;
+            }
+
+            /*
             IEnumerable<TimeLog> timeLogsList = timeLogs.ToList();
             foreach (TimeLog timeLog in timeLogs)
             {
             }
+            */
 
             return PartialView(await timeLogs.ToListAsync());
         }
@@ -130,66 +136,27 @@ namespace Asc_Time_Tracker.Controllers
             return chart;
         }
 
-        // GET: TimeLog/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var timeLog = await _context.TimeLog
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (timeLog == null)
-            {
-                return NotFound();
-            }
-
-            return View(timeLog);
-        }
-
-        // GET: TimeLog/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+        // POST: TimeLog/Create
         // Handles modal submission.
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-
-            // Convert input to seconds.
-            int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 : Convert.ToInt32(Request.Form["timeHours"]);
-            int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 : Convert.ToInt32(Request.Form["timeMinutes"]);
-
-            // Convert input to seconds.
-            TimeLog.Time = hours * 3600 + minutes * 60;
-
-            _context.TimeLog.Add(TimeLog);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("TimeLogs/Index");
-        }
-
-        // POST: TimeLog/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EmpId,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
+        public async Task<IActionResult> CreateAsync()
         {
             if (ModelState.IsValid)
             {
-                _context.Add(timeLog);
+                // Convert input to seconds.
+                int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 : Convert.ToInt32(Request.Form["timeHours"]);
+                int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 : Convert.ToInt32(Request.Form["timeMinutes"]);
+
+                // Convert input to seconds.
+                TimeLog.Time = hours * 3600 + minutes * 60;
+
+                _context.TimeLog.Add(TimeLog);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
-            return View(timeLog);
+
+            return RedirectToAction("Index");
         }
 
         // GET: TimeLog/Edit/5
@@ -238,26 +205,8 @@ namespace Asc_Time_Tracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            return View(timeLog);
-        }
-
-        // GET: TimeLog/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var timeLog = await _context.TimeLog
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (timeLog == null)
-            {
-                return NotFound();
-            }
-
             return View(timeLog);
         }
 
@@ -266,10 +215,22 @@ namespace Asc_Time_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var timeLog = await _context.TimeLog.FindAsync(id);
-            _context.TimeLog.Remove(timeLog);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            // Grab the ID to delete from our hidden input field in the modal.
+            int logId;
+            if (int.TryParse(Request.Form["TimeLog.Id"], out logId))
+            {
+                TimeLog = await _context.TimeLog.FindAsync(logId);
+
+                if (TimeLog != null)
+                {
+                    // Important: need to get model again after removing and saving changes
+                    // to display correctly.
+                    _context.TimeLog.Remove(TimeLog);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("Index");
         }
 
         private bool TimeLogExists(int id)

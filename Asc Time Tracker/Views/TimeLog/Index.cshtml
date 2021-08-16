@@ -1,14 +1,13 @@
-﻿@using ChartJSCore.Models
+﻿@using Newtonsoft.Json
 @model IndexViewModel
 
 @{
     ViewData["Title"] = "Logs";
-
-    Chart barChart = (Chart)ViewData["BarChart"];
 }
 
 <div>
     <div class="row">
+        <!-- Time clock and options -->
         <div class="col-md-3">
             <h2 class="display-4">Hi, Test!</h2>
             <h4 id="time">@DateTime.Now</h4>
@@ -67,11 +66,13 @@
                 </div>
             </a>
         </div>
+
+        <!-- Time log list and stats -->
         <div class="col-md-9">
             <div class="card main-log-card">
                 <div class="row card-header">
                     <div class="col-sm-10 p-0">
-                        <!-- Date picker containers (slightly off-center, but eh) -->
+                        <!-- Date picker containers (slightly off, but eh, might fix later) -->
                         <div id="dayContainer"></div>
                         <div id="weekContainer"></div>
                         <div id="monthContainer"></div>
@@ -132,115 +133,110 @@
                         <div id="indexStatsView" class="col-lg-8">
                             @await Html.PartialAsync("_IndexStats", Model.TimeLogs)
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Bar Chart</h5>
-                                <canvas id="barChart"></canvas>
-                                <canvas id="myChart" width="200" height="200"></canvas>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Modals -->
-        <!-- QR code -->
-        <div class="modal modal-tall fade" id="qrScanModal" tabindex="-1" role="dialog" aria-labelledby="qrScanModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="qrScanModalLabel">Scan a ASC job QR code</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="toggleScanner()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="qr-reader"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Create time log -->
-        <div class="modal fade" id="timeLogSubmitModal" tabindex="-1" role="dialog" aria-labelledby="timeLogSubmitModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="timeLogSubmitModalLabel">Add a new time log</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="timeLogForm" method="post">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <div class="form-group" style="width: 30%;">
-                                <!-- TODO: autogenerate this from current user -->
-                                <label asp-for="TimeLog.EmpId" class="control-label"></label>
-                                <input asp-for="TimeLog.EmpId" class="form-control" />
-                                <span asp-validation-for="TimeLog.EmpId" class="text-danger"></span>
-                            </div>
-                            <div class="form-group" style="width: 50%;">
-                                <label asp-for="TimeLog.JobNum" class="control-label">Job Number (optional)</label>
-                                <input asp-for="TimeLog.JobNum" class="form-control" />
-                                <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
-                            </div>
-                            <div class="form-group" style="width: 50%;">
-                                <label asp-for="TimeLog.Date" class="control-label"></label>
-                                <input asp-for="TimeLog.Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                                <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="TimeLog.Time" class="control-label"></label>
-                                <div class="form-row" style="width: 50%;">
-                                    <div class="col">
-                                        <input id="timeHours" class="form-control" type="number" min="0"
-                                               placeholder="Hours" name="timeHours" runat="server" />
-                                    </div>
-                                    <h3 id="timeFormSeparator">:</h3>
-                                    <div class="col">
-                                        <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
-                                               placeholder="Minutes" name="timeMinutes" runat="server" />
-                                    </div>
-                                </div>
-                                <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="TimeLog.Notes" class="control-label">Notes (optional)</label>
-                                <input asp-for="TimeLog.Notes" class="form-control"
-                                       placeholder="A short description of what you've been working on?" />
-                                <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
-                                    <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="timeLogFormSubmit" type="submit" value="Create" form="timeLogForm" class="btn btn-primary">Add</button>
+        <div id="indexModals">
+            <!-- QR code -->
+            <div class="modal modal-tall fade" id="qrScanModal" tabindex="-1" role="dialog" aria-labelledby="qrScanModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="qrScanModalLabel">Scan a ASC job QR code</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="toggleScanner()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="qr-reader"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Edit time log -->
-        <!-- Delete time log -->
-        <div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Create time log -->
+            <div class="modal fade" id="timeLogSubmitModal" tabindex="-1" role="dialog" aria-labelledby="timeLogSubmitModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="timeLogSubmitModalLabel">Add a new time log</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="timeLogForm" asp-controller="TimeLog" asp-action="Create" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group" style="width: 30%;">
+                                    <!-- TODO: autogenerate this from current user -->
+                                    <label asp-for="TimeLog.EmpId" class="control-label"></label>
+                                    <input asp-for="TimeLog.EmpId" class="form-control" />
+                                    <span asp-validation-for="TimeLog.EmpId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group" style="width: 50%;">
+                                    <label asp-for="TimeLog.JobNum" class="control-label">Job Number (optional)</label>
+                                    <input asp-for="TimeLog.JobNum" class="form-control" />
+                                    <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
+                                </div>
+                                <div class="form-group" style="width: 50%;">
+                                    <label asp-for="TimeLog.Date" class="control-label"></label>
+                                    <input asp-for="TimeLog.Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                    <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TimeLog.Time" class="control-label"></label>
+                                    <div class="form-row" style="width: 50%;">
+                                        <div class="col">
+                                            <input id="timeHours" class="form-control" type="number" min="0"
+                                                   placeholder="Hours" name="timeHours" runat="server" />
+                                        </div>
+                                        <h3 id="timeFormSeparator">:</h3>
+                                        <div class="col">
+                                            <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
+                                                   placeholder="Minutes" name="timeMinutes" runat="server" />
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="TimeLog.Notes" class="control-label">Notes (optional)</label>
+                                    <input asp-for="TimeLog.Notes" class="form-control"
+                                           placeholder="A short description of what you've been working on?" />
+                                    <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                                        <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="timeLogFormSubmit" type="submit" value="Create" form="timeLogForm" class="btn btn-primary">Add</button>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <form method="post" asp-page-handler="Delete">
-                            <input id="TimeLog_Id" name="TimeLog.Id" data-val="true" data-val-required="The ID field is required." type="hidden" />
-                            <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
-                        </form>
+                </div>
+            </div>
+
+            <!-- Edit time log -->
+            <!-- Delete time log -->
+            <div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <form asp-controller="TimeLog" asp-action="Delete" method="post">
+                                <input id="TimeLog_Id" name="TimeLog.Id" data-val="true" data-val-required="The ID field is required." type="hidden" />
+                                <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -250,48 +246,5 @@
 
 @section Scripts
 {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <!-- Charting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-    <script>
-        @Html.Raw(barChart.CreateChartCode("barChart"));
-    </script>
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
