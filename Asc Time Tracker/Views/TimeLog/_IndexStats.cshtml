@@ -11,25 +11,21 @@
 }
 else
 {
-    foreach (var item in Model.Reverse())
-    {
-        <strong class="log-job">
-            @Html.DisplayFor(modelItem => item.JobNum)
-        </strong>
-    }
-}
+    <div class="col-6">
+        <canvas id="timeSpentChart"></canvas>
+    </div>
 
-<h5 class="card-title">Bar Chart</h5>
-<canvas id="barChart" width="200" height="200"></canvas>
+}
 
 @{
     // Workaround for getting scripts in partial view - if controller returns
     // a valid chart in the ViewData, we draw it.
-    Chart chart = (Chart)ViewData["BarChart"];
+    Chart chart = (Chart)ViewData["TimeSpentChart"];
+
     if (chart != null)
     {
         <script>
-            @Html.Raw(chart.CreateChartCode("barChart"))
+            @Html.Raw(chart.CreateChartCode("timeSpentChart"))
         </script>
 
     }

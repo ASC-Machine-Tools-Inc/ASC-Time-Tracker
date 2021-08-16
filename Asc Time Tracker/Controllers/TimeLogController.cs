@@ -8,6 +8,8 @@ using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
 using ChartJSCore.Helpers;
 using ChartJSCore.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -54,8 +56,7 @@ namespace Asc_Time_Tracker.Controllers
             // Draw charts.
             if (timeLogs.Any())
             {
-                Chart barChart = GenerateLineChart();
-                ViewData["BarChart"] = barChart;
+                ViewData["TimeSpentChart"] = GeneratePieChart(timeLogs);
             }
 
             /*
@@ -68,72 +69,90 @@ namespace Asc_Time_Tracker.Controllers
             return PartialView(await timeLogs.ToListAsync());
         }
 
-        private static Chart GenerateLineChart()
+        private static Chart GeneratePieChart(IQueryable<TimeLog> timeLogs)
         {
-            Chart chart = new Chart();
-            chart.Type = Enums.ChartType.Line;
+            // Sort time logs by top 5 with most time spent on them.
+            timeLogs = timeLogs.GroupBy(t => t.JobNum)
+                .Select(tg => new TimeLog
+                {
+                    JobNum = tg.Key,
+                    Time = tg.Sum(t => t.Time)
+                })
+                .OrderByDescending(t => t.Time)
+                .Take(5);
 
-            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data();
-            data.Labels = new List<string>() { "January", "February", "March", "April", "May", "June", "July" };
-
-            LineDataset dataset = new LineDataset()
+            Chart chart = new Chart
             {
-                Label = "My First dataset",
-                Data = new List<double?>() { 65, 59, 80, 81, 56, 55, 40 },
-                Fill = "false",
-                LineTension = 0.1,
-                BackgroundColor = ChartColor.FromRgba(75, 192, 192, 0.4),
-                BorderColor = ChartColor.FromRgba(75, 192, 192, 1),
-                BorderCapStyle = "butt",
-                BorderDash = new List<int> { },
-                BorderDashOffset = 0.0,
-                BorderJoinStyle = "miter",
-                PointBorderColor = new List<ChartColor>() { ChartColor.FromRgba(75, 192, 192, 1) },
-                PointBackgroundColor = new List<ChartColor>() { ChartColor.FromHexString("#fff") },
-                PointBorderWidth = new List<int> { 1 },
-                PointHoverRadius = new List<int> { 5 },
-                PointHoverBackgroundColor = new List<ChartColor>() { ChartColor.FromRgba(75, 192, 192, 1) },
-                PointHoverBorderColor = new List<ChartColor>() { ChartColor.FromRgba(220, 220, 220, 1) },
-                PointHoverBorderWidth = new List<int> { 2 },
-                PointRadius = new List<int> { 1 },
-                PointHitRadius = new List<int> { 10 },
-                SpanGaps = false
+                Type = Enums.ChartType.Pie
+            };
+
+            List<string> labels = new List<string>();
+            List<double?> time = new List<double?>();
+
+            foreach (TimeLog timeLog in timeLogs)
+            {
+                labels.Add(timeLog.JobNum);
+                double adjTime = Math.Round(timeLog.Time / 3600, 2);
+                time.Add(adjTime);
+            }
+
+            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data
+            {
+                Labels = labels
+            };
+
+            PieDataset dataset = new PieDataset()
+            {
+                BackgroundColor = new List<ChartColor>() {
+                    ChartColor.FromHexString("#FF6384"),
+                    ChartColor.FromHexString("#36A2EB"),
+                    ChartColor.FromHexString("#FFCE56"),
+                    ChartColor.FromHexString()
+                },
+                HoverBackgroundColor = new List<ChartColor>() {
+                    ChartColor.FromHexString("#FA3A3A"),
+                    ChartColor.FromHexString("#36A2EB"),
+                    ChartColor.FromHexString("#FFCE56")
+                },
+                Data = time
             };
 
             data.Datasets = new List<Dataset>();
             data.Datasets.Add(dataset);
 
-            Options options = new Options()
-            {
-                Scales = new Scales()
-            };
-
-            Scales scales = new Scales()
-            {
-                YAxes = new List<Scale>()
-                {
-                    new CartesianScale()
-                }
-            };
-
-            CartesianScale yAxes = new CartesianScale()
-            {
-                Ticks = new Tick()
-            };
-
-            Tick tick = new Tick()
-            {
-                Callback = "function(value, index, values) {return '$' + value;}"
-            };
-
-            yAxes.Ticks = tick;
-            scales.YAxes = new List<Scale>() { yAxes };
-            options.Scales = scales;
-            chart.Options = options;
-
             chart.Data = data;
 
             return chart;
+        }
+
+        public string jobNumToColor(string jobNum)
+        {
+            // Convert to hsl.
+            var s = 0.75;
+            var l = 0.5;
+
+            // Get hashcode from job number.
+            var hash = 0;
+            foreach (char c in jobNum)
+            {
+                hash = c + ((hash << 5) - hash);
+                hash = hash & hash; // Convert to 32bit integer.
+            }
+            var h = hash % 360;
+
+            // Convert hsl to rgb.
+            l /= 100;
+            var a = s * Math.Min(l, 1 - l) / 100;
+            Func<int, string> f = n =>
+            {
+                var k = (n + h / 30) % 12;
+                var color = l - a * Math.Max(Math.Min(Math.Min(k - 3, 9 - k), 1), -1);
+
+                // Convert to Hex and prefix "0" if needed.
+                // TODO SEE: https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex
+                return Math.Round(255 * color).ToString().PadLeft(2, '0');
+            };
+            return "${f(0)}${f(8)}${f(4)}";
         }
 
         // POST: TimeLog/Create
@@ -157,22 +176,6 @@ namespace Asc_Time_Tracker.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        // GET: TimeLog/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var timeLog = await _context.TimeLog.FindAsync(id);
-            if (timeLog == null)
-            {
-                return NotFound();
-            }
-            return View(timeLog);
         }
 
         // POST: TimeLog/Edit/5
