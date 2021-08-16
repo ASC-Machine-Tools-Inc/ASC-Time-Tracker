@@ -1,10 +1,26 @@
-﻿// Get ID of log to delete from the row to the modal.
-$(".btn-delete").on("click", function () {
-    console.log("clik");
-    console.log($(".input-delete", $(this).parent()).val());
+﻿// Since the elements are dynamically generated with AJAX, we bind to the body
+// instead and listen for any clicks on our delete buttons inside, instead of
+// binding to them directly.
+$("body").on("click", ".btn-delete", function () {
+    // Get ID of log to delete from the row to the modal.
     $("#TimeLog_Id").val($(".input-delete", $(this).parent()).val());
 });
 
-$("body").on("click", "#guy", function () {
-    console.log("yo");
+// Post to the TimeLogController to delete and refresh.
+$("#deleteForm").submit(function (e) {
+    e.preventDefault();
+
+    let logId = $("#TimeLog_Id").val();
+
+    $.ajax({
+        type: "POST",
+        url: "TimeLog/Delete",
+        data: {
+            __RequestVerificationToken: $("[name='__RequestVerificationToken']").val(),
+            id: logId
+        },
+        success: function (view) {
+            updatePage();
+        }
+    });
 });

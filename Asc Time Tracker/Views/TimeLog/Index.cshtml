@@ -146,7 +146,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="qrScanModalLabel">Scan a ASC job QR code</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="toggleScanner()">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close" onclick="toggleScanner()">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -214,7 +214,7 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button id="timeLogFormSubmit" type="submit" value="Create" form="timeLogForm" class="btn btn-primary">Add</button>
                         </div>
                     </div>
@@ -231,10 +231,10 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <form asp-controller="TimeLog" asp-action="Delete" method="post">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <form id="deleteForm" asp-controller="TimeLog" asp-action="Delete" method="post">
                                 <input id="TimeLog_Id" name="TimeLog.Id" data-val="true" data-val-required="The ID field is required." type="hidden" />
-                                <button type="submit" value="Delete" class="btn btn-danger">Yes, delete it</button>
+                                <button type="submit" value="Delete" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete it</button>
                             </form>
                         </div>
                     </div>

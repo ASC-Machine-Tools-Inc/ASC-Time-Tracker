@@ -215,19 +215,14 @@ namespace Asc_Time_Tracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            // Grab the ID to delete from our hidden input field in the modal.
-            int logId;
-            if (int.TryParse(Request.Form["TimeLog.Id"], out logId))
-            {
-                TimeLog = await _context.TimeLog.FindAsync(logId);
+            TimeLog = await _context.TimeLog.FindAsync(id);
 
-                if (TimeLog != null)
-                {
-                    // Important: need to get model again after removing and saving changes
-                    // to display correctly.
-                    _context.TimeLog.Remove(TimeLog);
-                    await _context.SaveChangesAsync();
-                }
+            if (TimeLog != null)
+            {
+                // Important: need to get model again after removing and saving changes
+                // to display correctly.
+                _context.TimeLog.Remove(TimeLog);
+                await _context.SaveChangesAsync();
             }
 
             return RedirectToAction("Index");
