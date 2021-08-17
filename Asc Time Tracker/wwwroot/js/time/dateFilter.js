@@ -73,13 +73,14 @@ $(".date-prev").on("click", function () {
     var prev = new Date(startDate.getTime());
 
     // Set the first range picker if we're using those.
-    if (currPicker === rangePickers) {
-        setRangeStartPicker(next);
-        return;
-    }
-
     prev.setDate(prev.getDate() - 1);
-    shiftDate(prev);
+
+    if (currPicker === rangePickers) {
+        setRangeStartPicker(prev);
+        return;
+    } else {
+        shiftDate(prev);
+    }
 });
 
 $(".date-next").on("click", function () {
