@@ -39,16 +39,16 @@ namespace Asc_Time_Tracker.Controllers
             return View(IndexViewModel);
         }
 
-        // GET: _IndexLogs partial view
-        public async Task<IActionResult> _IndexLogs(DateTime? startDate, DateTime? endDate)
+        // GET: IndexLogs partial view
+        public async Task<IActionResult> IndexLogs(DateTime? startDate, DateTime? endDate)
         {
             IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
 
             return PartialView(await IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate).ToListAsync());
         }
 
-        // GET: _IndexStats partial view
-        public async Task<IActionResult> _IndexStats(DateTime? startDate, DateTime? endDate)
+        // GET: IndexStats partial view
+        public async Task<IActionResult> IndexStats(DateTime? startDate, DateTime? endDate)
         {
             IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
@@ -81,78 +81,43 @@ namespace Asc_Time_Tracker.Controllers
                 .OrderByDescending(t => t.Time)
                 .Take(5);
 
-            Chart chart = new Chart
+            Chart chart = new()
             {
                 Type = Enums.ChartType.Pie
             };
 
-            List<string> labels = new List<string>();
-            List<double?> time = new List<double?>();
+            List<string> labels = new();
+            List<double?> time = new();
+            List<ChartColor> colors = new();
 
             foreach (TimeLog timeLog in timeLogs)
             {
                 labels.Add(timeLog.JobNum);
-                double adjTime = Math.Round(timeLog.Time / 3600, 2);
-                time.Add(adjTime);
+
+                double hours = Math.Round(timeLog.Time / 3600, 2);
+                time.Add(hours);
+
+                string hex = TimeLog.JobNumToRgb(timeLog.JobNum);
+                colors.Add(ChartColor.FromHexString(hex));
             }
 
-            ChartJSCore.Models.Data data = new ChartJSCore.Models.Data
+            ChartJSCore.Models.Data data = new()
             {
                 Labels = labels
             };
 
-            PieDataset dataset = new PieDataset()
+            PieDataset dataset = new()
             {
-                BackgroundColor = new List<ChartColor>() {
-                    ChartColor.FromHexString("#FF6384"),
-                    ChartColor.FromHexString("#36A2EB"),
-                    ChartColor.FromHexString("#FFCE56"),
-                    ChartColor.FromHexString()
-                },
-                HoverBackgroundColor = new List<ChartColor>() {
-                    ChartColor.FromHexString("#FA3A3A"),
-                    ChartColor.FromHexString("#36A2EB"),
-                    ChartColor.FromHexString("#FFCE56")
-                },
+                BackgroundColor = colors,
+                HoverBackgroundColor = colors,
                 Data = time
             };
 
-            data.Datasets = new List<Dataset>();
-            data.Datasets.Add(dataset);
+            data.Datasets = new List<Dataset> { dataset };
 
             chart.Data = data;
 
             return chart;
-        }
-
-        public string jobNumToColor(string jobNum)
-        {
-            // Convert to hsl.
-            var s = 0.75;
-            var l = 0.5;
-
-            // Get hashcode from job number.
-            var hash = 0;
-            foreach (char c in jobNum)
-            {
-                hash = c + ((hash << 5) - hash);
-                hash = hash & hash; // Convert to 32bit integer.
-            }
-            var h = hash % 360;
-
-            // Convert hsl to rgb.
-            l /= 100;
-            var a = s * Math.Min(l, 1 - l) / 100;
-            Func<int, string> f = n =>
-            {
-                var k = (n + h / 30) % 12;
-                var color = l - a * Math.Max(Math.Min(Math.Min(k - 3, 9 - k), 1), -1);
-
-                // Convert to Hex and prefix "0" if needed.
-                // TODO SEE: https://stackoverflow.com/questions/36721830/convert-hsl-to-rgb-and-hex
-                return Math.Round(255 * color).ToString().PadLeft(2, '0');
-            };
-            return "${f(0)}${f(8)}${f(4)}";
         }
 
         // POST: TimeLog/Create

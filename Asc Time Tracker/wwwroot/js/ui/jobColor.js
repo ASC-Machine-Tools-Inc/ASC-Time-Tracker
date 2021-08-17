@@ -5,15 +5,17 @@ function colorJobs() {
         let lightness = "50%";
 
         // Get hashcode from job number
-        let jobNum = $(this).siblings(".log-job").html();
+        let jobNum = $(this).siblings(".log-job").html().trim();
         let hash = 0;
         for (let i = 0; i < jobNum.length; i++) {
             hash = jobNum.charCodeAt(i) + ((hash << 5) - hash);
-            hash = hash & hash; // Convert to 32bit integer
+            hash &= hash; // Convert to 32bit integer
         }
         let hue = hash % 360;
 
         let hsl = "hsl(" + hue + "," + saturation + "," + lightness + ")";
+
+        console.log(hsl);
         $(this).css("background-color", hsl);
     });
 }

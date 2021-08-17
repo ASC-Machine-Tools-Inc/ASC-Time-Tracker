@@ -257,7 +257,7 @@ function updatePage() {
 
     $.ajax({
         type: "GET",
-        url: "TimeLog/_IndexLogs?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        url: "TimeLog/IndexLogs?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
         success: function (view) {
             $("#indexLogsView").html(view);
             colorJobs();
@@ -266,7 +266,7 @@ function updatePage() {
 
     $.ajax({
         type: "GET",
-        url: "TimeLog/_IndexStats?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        url: "TimeLog/IndexStats?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
         success: function (view) {
             $("#indexStatsView").html(view);
         }

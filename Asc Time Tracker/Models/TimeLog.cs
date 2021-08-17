@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 
 namespace Asc_Time_Tracker.Models
 {
@@ -50,5 +51,47 @@ namespace Asc_Time_Tracker.Models
         [Display(Name = "R & D")]
         [Required]
         public bool Rd { get; set; } = false;
+
+        /// <summary>
+        /// Return the RGB hex string for identifying a specific job number.
+        /// </summary>
+        /// <param name="jobNum">The job number to convert.</param>
+        /// <returns>An RGB hex string.</returns>
+        public static string JobNumToRgb(string jobNum)
+        {
+            // Convert to hsl to match javascript formula in jobColor.js.
+            double s = 75;
+            double l = 50;
+
+            // Get hashcode from job number.
+            var hash = 0;
+            foreach (char c in jobNum)
+            {
+                hash = c + ((hash << 5) - hash);
+                hash &= hash; // Convert to 32bit integer.
+            }
+            double h = hash % 360;
+            if (h < 0)
+            {
+                h = 360 + h;
+            }
+
+            // Convert hsl to rgb.
+            l /= 100;
+            double a = s * Math.Min(l, 1 - l) / 100;
+
+            // See https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB_alternative
+            // for fancy math done.
+            string Func(int n)
+            {
+                double k = (n + h / 30) % 12;
+                double color = l - a * Math.Max(Math.Min(Math.Min(k - 3, 9 - k), 1), -1);
+
+                // Convert to Hex and prefix "0" if needed.
+                return Convert.ToByte(Math.Round(255 * color)).ToString("X2");
+            }
+
+            return "#" + Func(0) + Func(8) + Func(4);
+        }
     }
 }

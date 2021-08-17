@@ -127,11 +127,11 @@
                     <div class="row">
                         <!-- Logs display -->
                         <div id="indexLogsView" class="col-lg-4 p-0 scroll">
-                            @await Html.PartialAsync("_IndexLogs", Model.TimeLogs)
+                            @await Html.PartialAsync("IndexLogs", Model.TimeLogs)
                         </div>
                         <!-- Stats display -->
                         <div id="indexStatsView" class="col-lg-8">
-                            @await Html.PartialAsync("_IndexStats", Model.TimeLogs)
+                            @await Html.PartialAsync("IndexStats", Model.TimeLogs)
                         </div>
                     </div>
                 </div>
