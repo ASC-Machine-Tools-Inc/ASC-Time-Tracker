@@ -14,8 +14,6 @@ function colorJobs() {
         let hue = hash % 360;
 
         let hsl = "hsl(" + hue + "," + saturation + "," + lightness + ")";
-
-        console.log(hsl);
         $(this).css("background-color", hsl);
     });
 }
