@@ -1,18 +1,18 @@
 ﻿@using ChartJSCore.Models
 @model IEnumerable<TimeLog>
 <!-- Filler text to show for no time logs.-->
-@if (!Model.Any())
+@if (Model.Any())
 {
-    <div class="text-center">
-        <small class="text-muted">
-            No time logs were found for this date range.
-        </small>
-    </div>
-}
-else
-{
-    <div class="col-6">
-        <canvas id="timeSpentChart"></canvas>
+    <div class="row text-center justify-content-center">
+        <div class="col-6 mb-5">
+            <strong>Top 5 Job Numbers by Hours Spent</strong>
+            <canvas id="timeSpentChart"></canvas>
+        </div>
+        <!-- Update when ChartJsCore is updated -->
+        <div class="col-12" style="display: none;">
+            <strong>Weekly Summary</strong>
+            <canvas id="weekBarChart"></canvas>
+        </div>
     </div>
 
 }
@@ -20,13 +20,20 @@ else
 @{
     // Workaround for getting scripts in partial view - if controller returns
     // a valid chart in the ViewData, we draw it.
-    Chart chart = (Chart)ViewData["TimeSpentChart"];
-
-    if (chart != null)
+    Chart timeSpentChart = (Chart)ViewData["TimeSpentChart"];
+    if (timeSpentChart != null)
     {
         <script>
-            @Html.Raw(chart.CreateChartCode("timeSpentChart"))
+            @Html.Raw(timeSpentChart.CreateChartCode("timeSpentChart"))
         </script>
-
     }
+
+    Chart weekBarChart = (Chart)ViewData["WeekBarChart"];
+    if (weekBarChart != null)
+    {
+        <script>
+            @Html.Raw(weekBarChart.CreateChartCode("weekBarChart"))
+        </script>
+    }
+
 }

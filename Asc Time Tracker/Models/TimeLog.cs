@@ -71,6 +71,7 @@ namespace Asc_Time_Tracker.Models
                 hash &= hash; // Convert to 32bit integer.
             }
             double h = hash % 360;
+            // Adjust color if negative.
             if (h < 0)
             {
                 h = 360 + h;
@@ -92,6 +93,11 @@ namespace Asc_Time_Tracker.Models
             }
 
             return "#" + Func(0) + Func(8) + Func(4);
+        }
+
+        public static int HoursAndMinutesToSeconds(int hours, int minutes)
+        {
+            return hours * 3600 + minutes * 60;
         }
     }
 }

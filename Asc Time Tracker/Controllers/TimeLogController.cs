@@ -19,22 +19,22 @@ namespace Asc_Time_Tracker.Controllers
 
         public IndexViewModel IndexViewModel { get; set; }
 
-        // Used for creating timelogs.
+        // Used for creating time logs.
         [BindProperty]
         public TimeLog TimeLog { get; set; }
 
         public TimeLogController(ApplicationDbContext context)
         {
             _context = context;
-            IndexViewModel = new IndexViewModel();
+            IndexViewModel = new IndexViewModel(_context.TimeLog);
         }
 
         // GET: TimeLog
         public IActionResult Index()
         {
-            // Send along an empty IQueryable for the first render so there's no flashing.
-            IQueryable<TimeLog> timeLogs = _context.TimeLog.Take(0);
-            IndexViewModel.TimeLogs = timeLogs;
+            // Send along the time logs for today by default.
+            IndexViewModel.TimeLogs = IndexViewModel
+                .FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
 
             return View(IndexViewModel);
         }
@@ -42,82 +42,23 @@ namespace Asc_Time_Tracker.Controllers
         // GET: IndexLogs partial view
         public async Task<IActionResult> IndexLogs(DateTime? startDate, DateTime? endDate)
         {
-            IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
-
-            return PartialView(await IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate).ToListAsync());
+            return PartialView(await IndexViewModel
+                .FilterTimeLogsByDate(startDate, endDate).ToListAsync());
         }
 
         // GET: IndexStats partial view
         public async Task<IActionResult> IndexStats(DateTime? startDate, DateTime? endDate)
         {
-            IQueryable<TimeLog> timeLogs = from log in _context.TimeLog select log;
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+            IQueryable<TimeLog> timeLogs = IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
 
             // Draw charts.
             if (timeLogs.Any())
             {
-                ViewData["TimeSpentChart"] = GeneratePieChart(timeLogs);
+                ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopFivePieChart();
+                ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart();
             }
-
-            /*
-            IEnumerable<TimeLog> timeLogsList = timeLogs.ToList();
-            foreach (TimeLog timeLog in timeLogs)
-            {
-            }
-            */
 
             return PartialView(await timeLogs.ToListAsync());
-        }
-
-        private static Chart GeneratePieChart(IQueryable<TimeLog> timeLogs)
-        {
-            // Sort time logs by top 5 with most time spent on them.
-            timeLogs = timeLogs.GroupBy(t => t.JobNum)
-                .Select(tg => new TimeLog
-                {
-                    JobNum = tg.Key,
-                    Time = tg.Sum(t => t.Time)
-                })
-                .OrderByDescending(t => t.Time)
-                .Take(5);
-
-            Chart chart = new()
-            {
-                Type = Enums.ChartType.Pie
-            };
-
-            List<string> labels = new();
-            List<double?> time = new();
-            List<ChartColor> colors = new();
-
-            foreach (TimeLog timeLog in timeLogs)
-            {
-                labels.Add(timeLog.JobNum);
-
-                double hours = Math.Round(timeLog.Time / 3600, 2);
-                time.Add(hours);
-
-                string hex = TimeLog.JobNumToRgb(timeLog.JobNum);
-                colors.Add(ChartColor.FromHexString(hex));
-            }
-
-            ChartJSCore.Models.Data data = new()
-            {
-                Labels = labels
-            };
-
-            PieDataset dataset = new()
-            {
-                BackgroundColor = colors,
-                HoverBackgroundColor = colors,
-                Data = time
-            };
-
-            data.Datasets = new List<Dataset> { dataset };
-
-            chart.Data = data;
-
-            return chart;
         }
 
         // POST: TimeLog/Create
@@ -130,11 +71,13 @@ namespace Asc_Time_Tracker.Controllers
             if (ModelState.IsValid)
             {
                 // Convert input to seconds.
-                int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 : Convert.ToInt32(Request.Form["timeHours"]);
-                int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 : Convert.ToInt32(Request.Form["timeMinutes"]);
+                int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 :
+                    Convert.ToInt32(Request.Form["timeHours"]);
+                int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 :
+                    Convert.ToInt32(Request.Form["timeMinutes"]);
 
                 // Convert input to seconds.
-                TimeLog.Time = hours * 3600 + minutes * 60;
+                TimeLog.Time = TimeLog.HoursAndMinutesToSeconds(hours, minutes);
 
                 _context.TimeLog.Add(TimeLog);
                 await _context.SaveChangesAsync();
