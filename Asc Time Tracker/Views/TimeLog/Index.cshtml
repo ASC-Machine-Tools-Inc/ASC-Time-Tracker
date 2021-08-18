@@ -10,7 +10,7 @@
         <!-- Time clock and options -->
         <div class="col-md-3">
             <h2 class="display-4">Hi, Test!</h2>
-            <h4 id="time">@DateTime.Now</h4>
+            <h3 id="time">@DateTime.Now</h3>
             <hr style="border: none; height: 2px; background-color: #000;" />
 
             <div id="timeCard" class="card border-dark my-2 align-items-center">
@@ -21,7 +21,7 @@
                         </div>
                         <strong id="TimeLog_JobNum_Display"></strong>
                         <div class="collapse multi-collapse" id="jobTimeCollapse">
-                            <h2 id="jobTime">00:00:00</h2>
+                            <div id="jobTime" class="time-display">00:00:00</div>
                         </div>
                     </div>
 
@@ -46,15 +46,14 @@
                         </button>
                     </div>
 
-                    <!-- Only show QR code scanner on mobile -->
+                    <!-- Only show QR code scanner on mobile (Disable for now)
                     <div class="col d-md-none justify-content-center my-2 p-0">
                         <button id="scannerBtn" type="button" class="btn btn-primary btn-lg"
                                 onclick="toggleScanner()">
                             Start with QR code
                         </button>
                     </div>
-                    <form>
-                    </form>
+                    -->
                 </div>
             </div>
 
@@ -119,18 +118,18 @@
                     <div class="col-sm-2 p-0">
                         <button class="btn btn-primary float-sm-end mt-2 mt-sm-0">
                             <i class="bi bi-download"></i>
-                            Export
+                            Export Logs
                         </button>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <!-- Logs display -->
-                        <div id="indexLogsView" class="col-lg-4 p-0 scroll">
+                        <div id="indexLogsView" class="col-lg-5 p-0 scroll">
                             @await Html.PartialAsync("IndexLogs", Model.TimeLogs)
                         </div>
                         <!-- Stats display -->
-                        <div id="indexStatsView" class="col-lg-8">
+                        <div id="indexStatsView" class="col-lg-7">
                             @await Html.PartialAsync("IndexStats", Model.TimeLogs)
                         </div>
                     </div>
@@ -168,48 +167,48 @@
                         <div class="modal-body">
                             <form id="timeLogForm" asp-controller="TimeLog" asp-action="Create" method="post">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group" style="width: 30%;">
+                                <div class="col-3 mb-3">
                                     <!-- TODO: autogenerate this from current user -->
-                                    <label asp-for="TimeLog.EmpId" class="control-label"></label>
+                                    <label asp-for="TimeLog.EmpId" class="form-label"></label>
                                     <input asp-for="TimeLog.EmpId" class="form-control" />
                                     <span asp-validation-for="TimeLog.EmpId" class="text-danger"></span>
                                 </div>
-                                <div class="form-group" style="width: 50%;">
-                                    <label asp-for="TimeLog.JobNum" class="control-label">Job Number (optional)</label>
+                                <div class="col-6 mb-3">
+                                    <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
                                     <input asp-for="TimeLog.JobNum" class="form-control" />
                                     <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
                                 </div>
-                                <div class="form-group" style="width: 50%;">
-                                    <label asp-for="TimeLog.Date" class="control-label"></label>
+                                <div class="col-6 mb-3">
+                                    <label asp-for="TimeLog.Date" class="form-label"></label>
                                     <input asp-for="TimeLog.Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                                     <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="TimeLog.Time" class="control-label"></label>
-                                    <div class="form-row" style="width: 50%;">
-                                        <div class="col">
+                                <div class="col mb-3">
+                                    <label asp-for="TimeLog.Time" class="form-label"></label>
+                                    <div class="row">
+                                        <div class="col-5">
                                             <input id="timeHours" class="form-control" type="number" min="0"
                                                    placeholder="Hours" name="timeHours" runat="server" />
                                         </div>
-                                        <h3 id="timeFormSeparator">:</h3>
-                                        <div class="col">
+                                        <div class="col-1">
+                                            <h3 id="timeFormSeparator">:</h3>
+                                        </div>
+                                        <div class="col-5">
                                             <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
                                                    placeholder="Minutes" name="timeMinutes" runat="server" />
                                         </div>
                                     </div>
                                     <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="TimeLog.Notes" class="control-label">Notes (optional)</label>
+                                <div class="col mb-3">
+                                    <label asp-for="TimeLog.Notes" class="form-label">Notes (optional)</label>
                                     <input asp-for="TimeLog.Notes" class="form-control"
                                            placeholder="A short description of what you've been working on?" />
                                     <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
-                                        <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
-                                    </div>
+                                <div class="form-check">
+                                    <input asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                                    <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
                                 </div>
                             </form>
                         </div>

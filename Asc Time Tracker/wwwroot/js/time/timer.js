@@ -21,9 +21,12 @@ function JobTimer(interval, updateUI) {
      */
     this.start = function (values = "") {
         expected = Date.now() + this.interval;
-        timeout = setTimeout(step, this.interval);
         startTime = Date.now();
+        localStorage.setItem("paused", "false");
 
+        step(); // Start timeout for updating time.
+
+        // Update with saved fields from QR code.
         if (values) {
             let splitValues = values.split("|");
 
@@ -34,7 +37,6 @@ function JobTimer(interval, updateUI) {
 
                 this.savedValues[pairKey] = pairValue;
 
-                // Update with saved fields
                 if (updateUI) {
                     $("#" + pairKey + "_Display").html("Job # " + pairValue);
                 }
@@ -48,20 +50,16 @@ function JobTimer(interval, updateUI) {
             $("#jobTimeCollapse").collapse("show");
 
             document.getElementById("startBtn").style.display = "none";
-            document.getElementById("scannerBtn").style.display = "none";
+            //document.getElementById("scannerBtn").style.display = "none";
             document.getElementById("stopBtn").style.display = "block";
             document.getElementById("saveBtn").style.display = "block";
             document.getElementById("resetBtn").style.display = "block";
-
-            // Animation if no saved time
-            if (!localStorage.getItem("savedTime")) {
-                $("#timeCard").addClass("shake");
-            }
         }
     }
 
     this.stop = function () {
         self.timeExpended = this.getTime();
+        localStorage.setItem("paused", "true");
 
         clearTimeout(timeout);
 
@@ -74,6 +72,7 @@ function JobTimer(interval, updateUI) {
     this.reset = function () {
         clearTimeout(timeout);
         self.timeExpended = 0;
+        localStorage.setItem("paused", "false");
         self.savedValues = {};
         localStorage.removeItem("savedTime");
 
@@ -88,12 +87,10 @@ function JobTimer(interval, updateUI) {
             $("#jobTimeCollapse").collapse("hide");
 
             document.getElementById("startBtn").style.display = "block";
-            document.getElementById("scannerBtn").style.display = "inline-block";
+            //document.getElementById("scannerBtn").style.display = "inline-block";
             document.getElementById("stopBtn").style.display = "none";
             document.getElementById("saveBtn").style.display = "none";
             document.getElementById("resetBtn").style.display = "none";
-
-            $("#timeCard").removeClass("shake");
         }
     }
 
@@ -137,7 +134,7 @@ function JobTimer(interval, updateUI) {
     }
 
     function saveTime() {
-        // Store time in local storage
+        // Store time in local storage.
         localStorage.setItem("savedTime", self.getTime());
     }
 
@@ -167,9 +164,21 @@ $(document).ready(function () {
     jobTimer = new JobTimer(10, uiFlag);
 
     var time = parseInt(localStorage.getItem("savedTime"));
+    var paused = JSON.parse(localStorage.getItem("paused"));
     if (time) {
         jobTimer.timeExpended = time;
         jobTimer.start();
+
+        // Start timer, but don't let time run.
+        if (paused) {
+            jobTimer.stop();
+        }
+    }
+
+    if (uiFlag) {
+        // Update UI if we're on the right page.
+        updateClock();
+        setDayPicker(new Date());
     }
 });
 

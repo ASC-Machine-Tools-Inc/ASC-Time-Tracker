@@ -47,14 +47,14 @@ namespace Asc_Time_Tracker.Controllers
         }
 
         // GET: IndexStats partial view
-        public async Task<IActionResult> IndexStats(DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> IndexStats(DateTime? startDate, DateTime? endDate, int pieCount)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
 
             // Draw charts.
             if (timeLogs.Any())
             {
-                ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopFivePieChart();
+                ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopXPieChart(pieCount);
                 ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart();
             }
 

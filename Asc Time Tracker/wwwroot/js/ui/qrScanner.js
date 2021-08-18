@@ -1,4 +1,6 @@
-﻿const qrCodeScanner = new Html5Qrcode("qr-reader");
+﻿if (window.location.href.endsWith("TimeLog")) {
+    const qrCodeScanner = new Html5Qrcode("qr-reader");
+}
 var scannerOn = false;
 
 /* QR code scanner format:

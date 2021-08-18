@@ -3,6 +3,9 @@
     currPicker;
 var startDate, endDate, savedDate;
 
+// Set default filter.
+var pieFilter = 5;
+
 $(document).ready(function () {
     // Prep the datepicker for days.
     dayPicker = $(".day-picker");
@@ -65,7 +68,6 @@ $(document).ready(function () {
 
     // Initialize.
     currPicker = dayPicker;
-    setDayPicker(new Date());
 });
 
 // Event handlers for shifting the current date.
@@ -164,6 +166,11 @@ $("#dateOption").on("change", function () {
     }
 });
 
+$("body").on("change", "#pieChartNumSelect", function () {
+    pieFilter = $("#pieChartNumSelect").val();
+    updateStats();
+})
+
 // Called by the prev and next buttons to change the date.
 function shiftDate(date) {
     if (currPicker === dayPicker) {
@@ -256,20 +263,31 @@ function updatePage() {
     // Don't send requests with null dates.
     if (!startDate || !endDate) return;
 
+    updateLogs();
+    updateStats();
+}
+
+function updateLogs() {
     $.ajax({
         type: "GET",
-        url: "TimeLog/IndexLogs?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        url: "TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
+            "&endDate=" + endDate.toJSON(),
         success: function (view) {
             $("#indexLogsView").html(view);
             colorJobs();
         }
     });
+}
 
+function updateStats() {
     $.ajax({
         type: "GET",
-        url: "TimeLog/IndexStats?startDate=" + startDate.toJSON() + "&endDate=" + endDate.toJSON(),
+        url: "TimeLog/IndexStats?startDate=" + startDate.toJSON() +
+            "&endDate=" + endDate.toJSON() +
+            "&pieCount=" + pieFilter,
         success: function (view) {
             $("#indexStatsView").html(view);
+            $("#pieChartNumSelect").val(pieFilter);
         }
     });
 }

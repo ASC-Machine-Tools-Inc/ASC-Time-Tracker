@@ -59,12 +59,12 @@ namespace Asc_Time_Tracker.Models
         }
 
         /// <summary>
-        /// Return a pie chart of the top 5 job numbers worked on for this time frame.
+        /// Return a pie chart of the top job numbers worked on for this time frame.
         /// </summary>
-        public Chart GenerateTopFivePieChart()
+        public Chart GenerateTopXPieChart(int x)
         {
-            // Sort time logs by top 5 with most time spent on them.
-            IQueryable<TimeLog> timeLogs = TakeTopXTimeLogs(5);
+            // Sort time logs by top (given number) by the most time spent on them.
+            IQueryable<TimeLog> timeLogs = TakeTopXTimeLogs(x);
 
             Chart chart = new()
             {

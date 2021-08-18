@@ -112,6 +112,11 @@ html, body {
     min-height: 50px;
 }
 
+.time-display {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
 .card-parent {
     color: #212529;
     cursor: pointer;
@@ -143,27 +148,6 @@ html, body {
     font-weight: 500;
 }
 
-.shake {
-    animation: shake 0.4s ease-in-out;
-}
-
-@keyframes shake {
-    30% {
-        transform: scale(0.9);
-        -webkit-transform: scale(0.9);
-    }
-
-    70% {
-        transform: scale(1.05);
-        -webkit-transform: scale(1.05);
-    }
-
-    90% {
-        transform: scale(0.95);
-        -webkit-transform: scale(0.95);
-    }
-}
-
 /* Modal styling */
 .modal-footer {
     background: hsl(0, 0%, 92%); /* hue, saturation, lightness */
@@ -178,7 +162,7 @@ input[type=checkbox] {
     margin: 0;
 }
 
-label.control-label {
+label.form-label {
     font-weight: 600;
 }
 
@@ -256,8 +240,15 @@ tr:hover {
     }
 
 .scroll {
-    max-height: 500px;
+    max-height: 300px;
     overflow-y: auto;
+}
+
+/* Time logs list is longer on desktop. */
+@media only screen and (min-width: 768px) {
+    .scroll {
+        max-height: 700px;
+    }
 }
 
 .scroll-log-label {
@@ -313,18 +304,6 @@ tr:hover {
         transform-origin: top;
         opacity: 1;
     }
-}
-
-/* Hide buttons on bigger screens */
-@media only screen and (min-width: 992px) {
-    tr .btn {
-        visibility: hidden;
-    }
-}
-
-/* Show buttons on hover */
-tr:hover .btn {
-    visibility: visible;
 }
 
 /* QR code scanner */

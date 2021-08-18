@@ -4,8 +4,19 @@
 @if (Model.Any())
 {
     <div class="row text-center justify-content-center">
-        <div class="col-6 mb-5">
-            <strong>Top 5 Job Numbers by Hours Spent</strong>
+        <div class="col-8 mt-3 mb-5">
+            <strong>
+                Top
+                <select id="pieChartNumSelect"
+                        class="form-select d-inline w-auto mx-1"
+                        aria-label="Top X select">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                Job Numbers by Hours Spent
+            </strong>
+
             <canvas id="timeSpentChart"></canvas>
         </div>
         <!-- Update when ChartJsCore is updated -->

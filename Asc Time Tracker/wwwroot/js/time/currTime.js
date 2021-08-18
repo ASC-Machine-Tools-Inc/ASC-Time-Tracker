@@ -22,4 +22,3 @@
     // Recursively call this function again.
     setTimeout(updateClock, 1000);
 }
-updateClock(); // Initial call.
