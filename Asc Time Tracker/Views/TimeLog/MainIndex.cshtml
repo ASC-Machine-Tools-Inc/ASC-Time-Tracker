@@ -160,23 +160,23 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="timeLogEditModalLabel">Add a new time log</h5>
+                            <h5 class="modal-title" id="timeLogEditModalLabel">Edit this time log</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="timeLogEditForm" asp-controller="TimeLog" asp-action="Edit" method="post">
+                            <form id="editForm" asp-controller="TimeLog" asp-action="Edit" method="post">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <!-- TODO: fill this -->
-                                <input type="hidden" name="TimeLog.Id" />
-                                <input type="hidden" name="TimeLog.Time" />
+                                <input type="hidden" id="TimeLogEditId" asp-for="TimeLog.Id" />
+                                <input type="hidden" id="TimeLogEditTime" asp-for="TimeLog.Time" />
                                 <div class="col-6 mb-3">
                                     <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
-                                    <input name="TimeLog.JobNum" class="form-control" />
+                                    <input id="TimeLogEditJobNum" asp-for="TimeLog.JobNum" class="form-control" />
                                     <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
                                 </div>
                                 <div class="col-6 mb-3">
                                     <label asp-for="TimeLog.Date" class="form-label"></label>
-                                    <input name="TimeLog.Date" class="form-control" />
+                                    <input id="TimeLogEditDate" asp-for="TimeLog.Date" class="form-control" />
                                     <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
                                 </div>
                                 <div class="col-6 mb-3">
@@ -193,19 +193,19 @@
                                 </div>
                                 <div class="col mb-3">
                                     <label asp-for="TimeLog.Notes" class="form-label">Notes (optional)</label>
-                                    <input name="TimeLog.Notes" class="form-control"
+                                    <input id="TimeLogEditNotes" asp-for="TimeLog.Notes" class="form-control"
                                            placeholder="A short description of what you've been working on?" />
                                     <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
                                 </div>
                                 <div class="form-check">
-                                    <input name="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                                    <input id="TimeLogEditRd" asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
                                     <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button id="timeLogEditFormSubmit" type="submit" value="Edit" form="timeLogForm" class="btn btn-primary">Save</button>
+                            <button id="timeLogEditFormSubmit" type="submit" form="editForm" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
@@ -223,7 +223,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                             <form id="deleteForm" asp-controller="TimeLog" asp-action="Delete" method="post">
                                 <input id="TimeLog_Id" name="TimeLog.Id" data-val="true" data-val-required="The ID field is required." type="hidden" />
-                                <button type="submit" value="Delete" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete it</button>
+                                <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete it</button>
                             </form>
                         </div>
                     </div>

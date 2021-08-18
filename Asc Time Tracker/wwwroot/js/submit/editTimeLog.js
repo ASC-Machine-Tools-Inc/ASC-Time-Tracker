@@ -1,7 +1,18 @@
-﻿// Convert the stored time in seconds into hours and minutes for the input.
+﻿$("body").on("click", ".btn-edit", function () {
+    // Move values from the time log card to the modal.
+    $("#TimeLogEditId").val($(".timelog-id", $(this).parent()).val());
+    $("#TimeLogEditJobNum").val($(".timelog-jobnum", $(this).parent()).val());
+    $("#TimeLogEditDate").val($(".timelog-date", $(this).parent()).val());
+    $("#TimeLogEditTime").val($(".timelog-time", $(this).parent()).val());
+    $("#TimeLogEditNotes").val($(".timelog-notes", $(this).parent()).val());
+    $("#TimeLogEditRd").val($(".timelog-rd", $(this).parent()).val());
+    console.log($(".timelog-rd", $(this).parent()).val());
+    convertTime();
+});
+
+// Convert the stored time in seconds into hours and minutes for the input.
 function convertTime() {
-    let time = $('#TimeLog_Time').val();
-    console.log(time);
+    let time = $('#TimeLogEditTime').val();
 
     let hours = Math.floor(time / 3600);
     let minutes = Math.floor((time % 3600) / 60);

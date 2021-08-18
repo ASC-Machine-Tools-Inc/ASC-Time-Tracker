@@ -50,7 +50,7 @@
         </div>
 
         <div class="dropdown-menu dropdown-menu-end w-100 h-100" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#timeLogEditModal">
+            <a class="dropdown-item btn-edit" data-bs-toggle="modal" data-bs-target="#timeLogEditModal">
                 Edit
             </a>
             <a class="dropdown-item btn-delete" data-bs-toggle="modal" data-bs-target="#timeLogDeleteModal">
@@ -58,6 +58,11 @@
             </a>
             <!-- Hidden fields for passing item info to modals -->
             <input class="timelog-id" type="hidden" value="@item.Id" />
+            <input class="timelog-jobnum" type="hidden" value="@item.JobNum" />
+            <input class="timelog-date" type="hidden" value="@item.Date.ToString("yyyy-MM-dd")" />
+            <input class="timelog-time" type="hidden" value="@item.Time" />
+            <input class="timelog-notes" type="hidden" value="@item.Notes" />
+            <input class="timelog-rd" type="hidden" value="@item.Rd" />
         </div>
     </div>
 }

@@ -3,12 +3,9 @@
 function pageLoad() {
     startDatePicker();
     startTimer();
-    convertTime();
 }
 
-// Call regularly for MainIndex.
+// Call like normal for MainIndex.
 $(document).ready(function () {
-    startDatePicker();
-    startTimer();
-    convertTime();
+    pageLoad();
 });

@@ -109,23 +109,27 @@ namespace Asc_Time_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
+        public async Task<IActionResult> Edit([Bind("Id,EmpId,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
         {
-            if (id != timeLog.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Convert input to seconds.
+                    int hours = (string.IsNullOrEmpty(Request.Form["timeHours"])) ? 0 :
+                        Convert.ToInt32(Request.Form["timeHours"]);
+                    int minutes = (string.IsNullOrEmpty(Request.Form["timeMinutes"])) ? 0 :
+                        Convert.ToInt32(Request.Form["timeMinutes"]);
+
+                    // Convert input to seconds.
+                    timeLog.Time = TimeLog.HoursAndMinutesToSeconds(hours, minutes);
+
                     _context.Update(timeLog);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TimeLogExists(timeLog.Id))
+                    if (!TimeLogExists(TimeLog.Id))
                     {
                         return NotFound();
                     }
@@ -134,9 +138,8 @@ namespace Asc_Time_Tracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("MainIndex");
             }
-            return View(timeLog);
+            return RedirectToAction("MainIndex");
         }
 
         // POST: TimeLog/Delete/5
