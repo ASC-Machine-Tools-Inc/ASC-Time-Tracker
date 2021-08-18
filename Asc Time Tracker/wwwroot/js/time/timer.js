@@ -157,8 +157,10 @@ var jobTimer;
 // Flag to keep timer running if form submitted another way (like Add Log Manually)
 var dontEndTimer = false;
 
-$(document).ready(function () {
+function startTimer() {
     uiFlag = window.location.href.endsWith("TimeLog");
+    datePickerFlag = window.location.href.endsWith("TimeLog") ||
+        window.location.href.endsWith("IndexInfo");
 
     // Initialization
     jobTimer = new JobTimer(10, uiFlag);
@@ -178,14 +180,17 @@ $(document).ready(function () {
     if (uiFlag) {
         // Update UI if we're on the right page.
         updateClock();
+    }
+
+    if (datePickerFlag) {
+        // Update date picker if we're on the right page.
         setDayPicker(new Date());
     }
-});
+};
 
 // If saving current timer, end it on submission.
 // Shouldn't have to worry about validation - those fields are already populated.
 $("#timeLogFormSubmit").on("click", function (event) {
-    console.log(dontEndTimer);
     if (dontEndTimer) {
         dontEndTimer = false;
     } else {

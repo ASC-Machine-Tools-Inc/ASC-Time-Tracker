@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using ChartJSCore.Helpers;
 using ChartJSCore.Models;
+using NUglify.Helpers;
 
 namespace Asc_Time_Tracker.Models
 {
@@ -54,6 +55,7 @@ namespace Asc_Time_Tracker.Models
                     JobNum = tg.Key,
                     Time = tg.Sum(t => t.Time)
                 })
+                .Where(t => t.JobNum != null)  // Skip null job num logs
                 .OrderByDescending(t => t.Time)
                 .Take(x);
         }

@@ -59,6 +59,11 @@ namespace Asc_Time_Tracker.Models
         /// <returns>An RGB hex string.</returns>
         public static string JobNumToRgb(string jobNum)
         {
+            if (jobNum == null)
+            {
+                return "#FFFFFF";
+            }
+
             // Convert to hsl to match javascript formula in jobColor.js.
             double s = 75;
             double l = 50;
@@ -98,6 +103,17 @@ namespace Asc_Time_Tracker.Models
         public static int HoursAndMinutesToSeconds(int hours, int minutes)
         {
             return hours * 3600 + minutes * 60;
+        }
+
+        public static string SecondsToHoursAndMinutesString(double seconds)
+        {
+            string result = Math.Round(seconds / 3600) + " hours";
+            if (seconds % 3600 / 60 > 0)
+            {
+                result += ", " + (seconds % 3600) / 60 + " minutes";
+            }
+
+            return result;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using Newtonsoft.Json
-@model IndexViewModel
+﻿@model IndexViewModel
 
 @{
     ViewData["Title"] = "Logs";
@@ -64,77 +63,19 @@
                     </div>
                 </div>
             </a>
+            <!-- Time log list and stats (show on mobile) -->
+            <a id="actionCardLogs" class="card-parent d-block d-md-none" asp-action="IndexInfo">
+                <div class="card action-card action-card-view">
+                    <div class="card-body">
+                        <span class="action-card-title">View Logs</span>
+                    </div>
+                </div>
+            </a>
         </div>
 
-        <!-- Time log list and stats -->
-        <div class="col-md-9">
-            <div class="card main-log-card">
-                <div class="row card-header">
-                    <div class="col-sm-10 p-0">
-                        <!-- Date picker containers (slightly off, but eh, might fix later) -->
-                        <div id="dayContainer"></div>
-                        <div id="weekContainer"></div>
-                        <div id="monthContainer"></div>
-                        <div id="rangeStartContainer"></div>
-                        <div id="rangeEndContainer"></div>
-
-                        <!-- Select which date picker to use. -->
-                        <div class="input-group d-inline-flex align-items-center w-auto">
-                            <label class="input-group-text" for="dateOption">Filter by</label>
-                            <select id="dateOption" class="form-select me-2">
-                                <option>Day</option>
-                                <option>Week</option>
-                                <option>Month</option>
-                                <option>All</option>
-                                <option>Custom range</option>
-                            </select>
-                        </div>
-
-                        <!-- Date pickers -->
-                        <div class="input-group d-inline-flex align-items-center  flex-nowrap
-                 w-auto mt-2 mt-md-0">
-                            <button type="button" class="btn date-prev shadow-none">
-                                <i class="fas fa-arrow-left"></i>
-                            </button>
-
-                            <input type="text"
-                                   class="form-control date-picker day-picker text-center">
-                            <input type="text"
-                                   class="form-control date-picker week-picker text-center">
-                            <input type="text"
-                                   class="form-control date-picker month-picker text-center">
-                            <div id="dateRangePicker" class="input-group input-daterange">
-                                <input type="text" class="form-control range-picker-start text-center">
-                                <div class="input-group-text">to</div>
-                                <input type="text" class="form-control ranger-picker-end text-center">
-                            </div>
-
-                            <button type="button" class="btn date-next shadow-none">
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2 p-0">
-                        <button class="btn btn-primary float-sm-end mt-2 mt-sm-0">
-                            <i class="bi bi-download"></i>
-                            Export Logs
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <!-- Logs display -->
-                        <div id="indexLogsView" class="col-lg-5 p-0 scroll">
-                            @await Html.PartialAsync("IndexLogs", Model.TimeLogs)
-                        </div>
-                        <!-- Stats display -->
-                        <div id="indexStatsView" class="col-lg-7">
-                            @await Html.PartialAsync("IndexStats", Model.TimeLogs)
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Time log list and stats (show on desktop) -->
+        <div class="col-md-9 mt-4 mt-md-0 d-none d-md-block">
+            <partial name="IndexInfoPartial" />
         </div>
 
         <!-- Modals -->
@@ -183,20 +124,14 @@
                                     <input asp-for="TimeLog.Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                                     <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
                                 </div>
-                                <div class="col mb-3">
+                                <div class="col-6 mb-3">
                                     <label asp-for="TimeLog.Time" class="form-label"></label>
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <input id="timeHours" class="form-control" type="number" min="0"
-                                                   placeholder="Hours" name="timeHours" runat="server" />
-                                        </div>
-                                        <div class="col-1">
-                                            <h3 id="timeFormSeparator">:</h3>
-                                        </div>
-                                        <div class="col-5">
-                                            <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
-                                                   placeholder="Minutes" name="timeMinutes" runat="server" />
-                                        </div>
+                                    <div class="input-group d-inline-flex">
+                                        <input id="timeHours" class="form-control" type="number" min="0"
+                                               placeholder="Hours" name="timeHours" runat="server" />
+                                        <h3 class="mx-1">:</h3>
+                                        <input id="timeMinutes" class="form-control" type="number" min="0" max="59"
+                                               placeholder="Minutes" name="timeMinutes" runat="server" />
                                     </div>
                                     <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
                                 </div>
@@ -221,6 +156,61 @@
             </div>
 
             <!-- Edit time log -->
+            <div class="modal fade" id="timeLogEditModal" tabindex="-1" role="dialog" aria-labelledby="timeLogEditModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="timeLogEditModalLabel">Add a new time log</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="timeLogEditForm" asp-controller="TimeLog" asp-action="Edit" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <!-- TODO: fill this -->
+                                <input type="hidden" name="TimeLog.Id" />
+                                <input type="hidden" name="TimeLog.Time" />
+                                <div class="col-6 mb-3">
+                                    <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
+                                    <input name="TimeLog.JobNum" class="form-control" />
+                                    <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <label asp-for="TimeLog.Date" class="form-label"></label>
+                                    <input name="TimeLog.Date" class="form-control" />
+                                    <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <!-- TODO: fill these -->
+                                    <label asp-for="TimeLog.Time" class="form-label"></label>
+                                    <div class="input-group d-inline-flex">
+                                        <input id="timeHoursEdit" class="form-control" type="number" min="0"
+                                               placeholder="Hours" name="timeHours" runat="server" />
+                                        <h3 class="mx-1">:</h3>
+                                        <input id="timeMinutesEdit" class="form-control" type="number" min="0" max="59"
+                                               placeholder="Minutes" name="timeMinutes" runat="server" />
+                                    </div>
+                                    <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
+                                </div>
+                                <div class="col mb-3">
+                                    <label asp-for="TimeLog.Notes" class="form-label">Notes (optional)</label>
+                                    <input name="TimeLog.Notes" class="form-control"
+                                           placeholder="A short description of what you've been working on?" />
+                                    <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-check">
+                                    <input name="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                                    <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button id="timeLogEditFormSubmit" type="submit" value="Edit" form="timeLogForm" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Delete time log -->
             <div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -246,4 +236,5 @@
 @section Scripts
 {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
 }

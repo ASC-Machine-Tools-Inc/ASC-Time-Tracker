@@ -3,7 +3,7 @@
 // binding to them directly.
 $("body").on("click", ".btn-delete", function () {
     // Get ID of log to delete from the row to the modal.
-    $("#TimeLog_Id").val($(".input-delete", $(this).parent()).val());
+    $("#TimeLog_Id").val($(".timelog-id", $(this).parent()).val());
 });
 
 // Post to the TimeLogController to delete and refresh.

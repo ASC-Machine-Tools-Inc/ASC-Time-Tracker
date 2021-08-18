@@ -137,10 +137,15 @@ html, body {
 
 .action-card {
     text-align: right;
+    margin: 0.5rem 0;
 }
 
 .action-card-add {
     border-left: 6px solid #C16E70;
+}
+
+.action-card-view {
+    border-left: 6px solid #5B9BC2;
 }
 
 .action-card-title {
@@ -205,6 +210,13 @@ tr:hover {
 }
 
 .log-color {
+    border-radius: 25px;
+    margin: 0 4px 2px 0;
+    opacity: 1;
+}
+
+/* Copy of log color, but color set from controller instead */
+.log-color-top {
     border-radius: 25px;
     margin: 0 4px 2px 0;
     opacity: 1;

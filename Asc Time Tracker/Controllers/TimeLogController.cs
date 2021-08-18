@@ -6,10 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
-using ChartJSCore.Helpers;
-using ChartJSCore.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -29,14 +25,26 @@ namespace Asc_Time_Tracker.Controllers
             IndexViewModel = new IndexViewModel(_context.TimeLog);
         }
 
-        // GET: TimeLog
-        public IActionResult Index()
+        // GET: MainIndex
+        public IActionResult MainIndex()
         {
             // Send along the time logs for today by default.
             IndexViewModel.TimeLogs = IndexViewModel
                 .FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
 
             return View(IndexViewModel);
+        }
+
+        // GET: IndexInfo
+        public IActionResult IndexInfo()
+        {
+            return MainIndex();
+        }
+
+        // GET: IndexInfo partial view
+        public IActionResult IndexInfoPartial()
+        {
+            return PartialView(IndexViewModel);
         }
 
         // GET: IndexLogs partial view
@@ -51,9 +59,19 @@ namespace Asc_Time_Tracker.Controllers
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
 
-            // Draw charts.
             if (timeLogs.Any())
             {
+                // Grab statistics.
+                // Move to model?
+                ViewData["TotalTimeSpent"] = TimeLog.SecondsToHoursAndMinutesString(
+                    timeLogs.Sum(t => t.Time));
+
+                TimeLog topTimeLog = IndexViewModel.TakeTopXTimeLogs(1).First();
+                ViewData["TopJobNum"] = topTimeLog.JobNum;
+                ViewData["TopJobNumColor"] = TimeLog.JobNumToRgb(topTimeLog.JobNum);
+                ViewData["TopTime"] = TimeLog.SecondsToHoursAndMinutesString(topTimeLog.Time);
+
+                // Draw charts.
                 ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopXPieChart(pieCount);
                 ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart();
             }
@@ -83,7 +101,7 @@ namespace Asc_Time_Tracker.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("MainIndex");
         }
 
         // POST: TimeLog/Edit/5
@@ -91,7 +109,7 @@ namespace Asc_Time_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,EmpId,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
+        public async Task<IActionResult> Edit(int id, [Bind("JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
         {
             if (id != timeLog.Id)
             {
@@ -116,7 +134,7 @@ namespace Asc_Time_Tracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("MainIndex");
             }
             return View(timeLog);
         }
@@ -130,13 +148,11 @@ namespace Asc_Time_Tracker.Controllers
 
             if (TimeLog != null)
             {
-                // Important: need to get model again after removing and saving changes
-                // to display correctly.
                 _context.TimeLog.Remove(TimeLog);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("MainIndex");
         }
 
         private bool TimeLogExists(int id)

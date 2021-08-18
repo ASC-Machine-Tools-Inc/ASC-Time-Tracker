@@ -6,7 +6,7 @@ var startDate, endDate, savedDate;
 // Set default filter.
 var pieFilter = 5;
 
-$(document).ready(function () {
+function startDatePicker() {
     // Prep the datepicker for days.
     dayPicker = $(".day-picker");
     dayPicker.datepicker({
@@ -68,7 +68,7 @@ $(document).ready(function () {
 
     // Initialize.
     currPicker = dayPicker;
-});
+};
 
 // Event handlers for shifting the current date.
 $(".date-prev").on("click", function () {
@@ -270,7 +270,7 @@ function updatePage() {
 function updateLogs() {
     $.ajax({
         type: "GET",
-        url: "TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
+        url: "/TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON(),
         success: function (view) {
             $("#indexLogsView").html(view);
@@ -282,7 +282,7 @@ function updateLogs() {
 function updateStats() {
     $.ajax({
         type: "GET",
-        url: "TimeLog/IndexStats?startDate=" + startDate.toJSON() +
+        url: "/TimeLog/IndexStats?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON() +
             "&pieCount=" + pieFilter,
         success: function (view) {

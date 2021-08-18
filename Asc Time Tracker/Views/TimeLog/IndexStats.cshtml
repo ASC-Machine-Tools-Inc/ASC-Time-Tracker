@@ -3,8 +3,36 @@
 <!-- Filler text to show for no time logs.-->
 @if (Model.Any())
 {
-    <div class="row text-center justify-content-center">
-        <div class="col-8 mt-3 mb-5">
+    <div class="row">
+        <h4 class="text-center mt-3 mt-lg-0">Stats for this time frame</h4>
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <th scope="row">
+                        Total time spent:
+                    </th>
+                    <td class="text-end">
+                        @ViewData["TotalTimeSpent"]
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Most worked job number:
+                    </td>
+                    <td class="text-end">
+                        <span class="placeholder log-color-top"
+                              style="color: @ViewData["TopJobNumColor"]">
+                            &nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span>
+                            @ViewData["TopJobNum"]
+                            (@ViewData["TopTime"])
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6 mt-3 mb-5 text-center justify-content-center">
             <strong>
                 Top
                 <select id="pieChartNumSelect"
@@ -20,7 +48,7 @@
             <canvas id="timeSpentChart"></canvas>
         </div>
         <!-- Update when ChartJsCore is updated -->
-        <div class="col-12" style="display: none;">
+        <div class="col-md-12" style="display: none;">
             <strong>Weekly Summary</strong>
             <canvas id="weekBarChart"></canvas>
         </div>
