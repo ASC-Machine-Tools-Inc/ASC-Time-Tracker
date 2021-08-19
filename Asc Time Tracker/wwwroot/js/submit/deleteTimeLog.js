@@ -14,12 +14,12 @@ $("#deleteForm").submit(function (e) {
 
     $.ajax({
         type: "POST",
-        url: "TimeLog/Delete",
+        url: $(this).attr("action"),
         data: {
             __RequestVerificationToken: $("[name='__RequestVerificationToken']").val(),
             id: logId
         },
-        success: function (view) {
+        success: function () {
             updatePage();
         }
     });
