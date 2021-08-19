@@ -5,8 +5,11 @@
     $("#TimeLogEditDate").val($(".timelog-date", $(this).parent()).val());
     $("#TimeLogEditTime").val($(".timelog-time", $(this).parent()).val());
     $("#TimeLogEditNotes").val($(".timelog-notes", $(this).parent()).val());
-    $("#TimeLogEditRd").val($(".timelog-rd", $(this).parent()).val());
-    console.log($(".timelog-rd", $(this).parent()).val());
+
+    // Set checkbox to time log's value for research and design flag.
+    var isRd = ($(".timelog-rd", $(this).parent()).val() === "True");
+    $("#TimeLogEditRd").prop("checked", isRd);
+
     convertTime();
 });
 

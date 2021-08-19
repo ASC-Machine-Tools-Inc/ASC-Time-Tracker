@@ -198,8 +198,10 @@
                                     <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
                                 </div>
                                 <div class="form-check">
-                                    <input id="TimeLogEditRd" asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
-                                    <label asp-for="TimeLog.Rd" class="form-check-label">Research and Development tax credit eligible</label>
+                                    <label for="TimeLogEditRd" class="form-check-label">
+                                        <input id="TimeLogEditRd" asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                                        Research and Development tax credit eligible
+                                    </label>
                                 </div>
                             </form>
                         </div>
