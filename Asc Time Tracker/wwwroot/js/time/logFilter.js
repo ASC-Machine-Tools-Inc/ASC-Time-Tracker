@@ -1,15 +1,28 @@
-﻿var dayPicker, weekPicker, monthPicker,
-    rangePickers, rangeStartPicker, rangeEndPicker,
-    currPicker;
+﻿/* Handles all the filtering for the index, updating the view
+ * with ajax.
+ */
+
+var datePickers = {};
+var fieldPickers = {};
+
 var startDate, endDate, savedDate;
+var savedFilter;
 
 // Set default filter.
 var pieFilter = 5;
 
-function startDatePicker() {
+// ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
+// ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
+
+function startPickers() {
+    startDatePickers();
+    startFieldPickers();
+}
+
+function startDatePickers() {
     // Prep the datepicker for days.
-    dayPicker = $(".day-picker");
-    dayPicker.datepicker({
+    datePickers["day"] = $(".day-picker");
+    datePickers["day"].datepicker({
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
@@ -19,9 +32,9 @@ function startDatePicker() {
     });
 
     // Prep the datepicker for weeks.
-    weekPicker = $(".week-picker");
-    weekPicker.hide();
-    weekPicker.datepicker({
+    datePickers["week"] = $(".week-picker");
+    datePickers["week"].hide();
+    datePickers["week"].datepicker({
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
@@ -31,9 +44,9 @@ function startDatePicker() {
     });
 
     // Prep the datepicker for months.
-    monthPicker = $(".month-picker");
-    monthPicker.hide();
-    monthPicker.datepicker({
+    datePickers["month"] = $(".month-picker");
+    datePickers["month"].hide();
+    datePickers["month"].datepicker({
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
@@ -44,12 +57,15 @@ function startDatePicker() {
         setMonthPicker(e.date);
     });
 
+    // Set a dummy value for selecting all.
+    datePickers["all"] = null;
+
     // Prep the custom range picker.
-    rangePickers = $("#dateRangePicker");
-    rangePickers.hide();
-    rangeStartPicker = $(".range-picker-start");
-    rangeEndPicker = $(".ranger-picker-end");
-    rangeStartPicker.datepicker({
+    datePickers["range"] = $("#dateRangePicker");
+    datePickers["range"].hide();
+    datePickers["rangeStart"] = $(".range-picker-start");
+    datePickers["rangeEnd"] = $(".ranger-picker-end");
+    datePickers["rangeStart"].datepicker({
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
@@ -57,7 +73,7 @@ function startDatePicker() {
     }).on("changeDate", function (e) {
         setRangeStartPicker(e.date);
     });
-    rangeEndPicker.datepicker({
+    datePickers["rangeEnd"].datepicker({
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
@@ -67,8 +83,27 @@ function startDatePicker() {
     });
 
     // Initialize.
-    currPicker = dayPicker;
+    datePickers["current"] = datePickers["day"];
 };
+
+function startFieldPickers() {
+    fieldPickers["jobNum"] = $(".job-number-picker");
+    fieldPickers["jobNum"].on("change", function () {
+        console.log("Job number changed");
+    });
+
+    fieldPickers["notes"] = $(".notes-picker");
+    fieldPickers["notes"].hide();
+
+    fieldPickers["rd"] = $(".rd-picker");
+    fieldPickers["rd"].hide();
+
+    // Initialize.
+    fieldPickers["current"] = fieldPickers["jobNum"];
+}
+
+// █▀▀ █ █ █▀▀ █▄ █ ▀█▀  █   ▀█▀ █▀▀ ▀█▀ █▀▀ █▄ █ █▀▀ █▀█ █▀▀
+// ██▄ ▀▄▀ ██▄ █ ▀█  █   █▄▄ ▄█▄ ▄██  █  ██▄ █ ▀█ ██▄ █▀▄ ▄██
 
 // Event handlers for shifting the current date.
 $(".date-prev").on("click", function () {
@@ -77,7 +112,7 @@ $(".date-prev").on("click", function () {
     // Set the first range picker if we're using those.
     prev.setDate(prev.getDate() - 1);
 
-    if (currPicker === rangePickers) {
+    if (datePickers["current"] === datePickers["range"]) {
         setRangeStartPicker(prev);
         return;
     } else {
@@ -89,14 +124,14 @@ $(".date-next").on("click", function () {
     var next = new Date(endDate.getTime());
 
     // Set the second range picker if we're using those.
-    if (currPicker === rangePickers) {
+    if (datePickers["current"] === datePickers["range"]) {
         setRangeEndPicker(next);
         return;
     }
 
     // Don't add one if we're using the dayPicker,
     // since its endDate is already one ahead..
-    if (currPicker !== dayPicker) {
+    if (datePickers["current"] !== datePickers["day"]) {
         next.setDate(next.getDate() + 1);
     }
 
@@ -105,48 +140,27 @@ $(".date-next").on("click", function () {
 
 // Update the date when we switch the filter.
 $("#dateOption").on("change", function () {
-    // Show the arrows to switch (All will hide them if selected).
+    // Show the arrows to switch if choosing a time frame.
     $(".date-prev").show();
     $(".date-next").show();
 
     switch (this.value) {
         case "Day":
             if (savedDate) setDayPicker(savedDate);
-
-            dayPicker.show();
-            weekPicker.hide();
-            monthPicker.hide();
-            rangePickers.hide();
-
-            currPicker = dayPicker;
+            datePickers["current"] = datePickers["day"];
             break;
         case "Week":
             if (savedDate) setWeekPicker(savedDate);
-
-            dayPicker.hide();
-            weekPicker.show();
-            monthPicker.hide();
-            rangePickers.hide();
-
-            currPicker = weekPicker;
+            datePickers["current"] = datePickers["week"];
             break;
         case "Month":
             if (savedDate) setMonthPicker(savedDate);
-
-            dayPicker.hide();
-            weekPicker.hide();
-            monthPicker.show();
-            rangePickers.hide();
-
-            currPicker = monthPicker;
+            datePickers["current"] = datePickers["month"];
             break;
         case "All":
-            dayPicker.hide();
-            weekPicker.hide();
-            monthPicker.hide();
-            rangePickers.hide();
             $(".date-prev").hide();
             $(".date-next").hide();
+            datePickers["current"] = datePickers["all"];
 
             // Get all logs from epoch to 5138 (if they enter logs for the future).
             // Should be fine, right? If anyone sees this software from the future
@@ -156,28 +170,65 @@ $("#dateOption").on("change", function () {
             updatePage();
             break;
         case "Custom range":
-            dayPicker.hide();
-            weekPicker.hide();
-            monthPicker.hide();
-            rangePickers.show();
-
-            currPicker = rangePickers;
+            datePickers["current"] = datePickers["range"];
             break;
+    }
+
+    // Toggle visibility of date pickers.
+    let dateOptions = ["day", "week", "month", "range"];
+    for (let option of dateOptions) {
+        if (datePickers["current"] === datePickers[option]) {
+            datePickers[option].show();
+        } else {
+            datePickers[option].hide();
+        }
     }
 });
 
+// Update the filter when we switch the field.
+$("#fieldOption").on("change", function () {
+    switch (this.value) {
+        case "Job number":
+            // if (savedFilter) doThing;
+            fieldPickers["current"] = fieldPickers["jobNum"];
+            break;
+        case "Notes":
+            // if (savedFilter) doThing;
+            fieldPickers["current"] = fieldPickers["notes"];
+            break;
+        case "Research and design":
+            // if (savedFilter) doThing;
+            fieldPickers["current"] = fieldPickers["rd"];
+            break;
+    }
+
+    // Toggle visibility of field pickers.
+    let fieldOptions = ["jobNum", "notes", "rd"];
+    for (let option of fieldOptions) {
+        if (fieldPickers["current"] === fieldPickers[option]) {
+            fieldPickers[option].show();
+        } else {
+            fieldPickers[option].hide();
+        }
+    }
+});
+
+// Update number of jobs shown for pie chart when dropdown changed.
 $("body").on("change", "#pieChartNumSelect", function () {
     pieFilter = $("#pieChartNumSelect").val();
     updateStats();
 })
 
+// █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
+// █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
+
 // Called by the prev and next buttons to change the date.
 function shiftDate(date) {
-    if (currPicker === dayPicker) {
+    if (datePickers["current"] === datePickers["day"]) {
         setDayPicker(date);
-    } else if (currPicker === weekPicker) {
+    } else if (datePickers["current"] === datePickers["week"]) {
         setWeekPicker(date);
-    } else if (currPicker === monthPicker) {
+    } else if (datePickers["current"] === datePickers["month"]) {
         setMonthPicker(date);
     }
 }
@@ -187,11 +238,11 @@ function setDayPicker(date) {
     // Advance day by 1 to next day's midnight to grab any logs during the day.
     endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
-    dayPicker.datepicker("update", date);
+    datePickers["day"].datepicker("update", date);
 
     savedDate = date;
 
-    dayPicker.val(dateToString(date));
+    datePickers["day"].val(dateToString(date));
 
     // Update the partial views.
     updatePage();
@@ -202,13 +253,13 @@ function setWeekPicker(date) {
     endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
 
     // Set selected day to the start of the week for styling.
-    weekPicker.datepicker("update", startDate);
+    datePickers["week"].datepicker("update", startDate);
 
     // Store saved date if we switch filtering.
     savedDate = date;
 
     // Show the display as the corresponding week.
-    weekPicker.val(
+    datePickers["week"].val(
         dateToString(startDate) +
         " - " +
         dateToString(endDate));
@@ -222,13 +273,13 @@ function setMonthPicker(date) {
     startDate = new Date(date.getFullYear(), date.getMonth() + 0, 1);
     endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
-    monthPicker.datepicker("update", date);
+    datePickers["month"].datepicker("update", date);
 
     // Store saved date if we switch filtering.
     savedDate = date;
 
     // Show the display as the corresponding month.
-    monthPicker.val(
+    datePickers["month"].val(
         date.toLocaleString('default', { month: 'long' }) +
         " " +
         date.getFullYear());
@@ -240,9 +291,9 @@ function setMonthPicker(date) {
 function setRangeStartPicker(date) {
     startDate = date;
 
-    rangeStartPicker.datepicker("update", date);
+    datePickers["rangeStart"].datepicker("update", date);
 
-    rangeStartPicker.val(dateToString(date));
+    datePickers["rangeStart"].val(dateToString(date));
 
     updatePage();
 }
@@ -251,12 +302,20 @@ function setRangeEndPicker(date) {
     // Advance day by 1 to next day's midnight to grab any logs during the day.
     endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
 
-    rangeEndPicker.datepicker("update", date);
+    datePickers["rangeEnd"].datepicker("update", date);
 
-    rangeEndPicker.val(dateToString(date));
+    datePickers["rangeEnd"].val(dateToString(date));
 
     updatePage();
 }
+
+// Return the date in a nice readable format.
+function dateToString(date) {
+    return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+}
+
+// ▄▀▄ ▀█▀ ▄▀▄ ▀▄▀
+// █▀█ ▄█  █▀█ █ █
 
 // Refresh the partial views for Index.
 function updatePage() {
@@ -290,9 +349,4 @@ function updateStats() {
             $("#pieChartNumSelect").val(pieFilter);
         }
     });
-}
-
-// Return the date in a nice readable format.
-function dateToString(date) {
-    return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 }

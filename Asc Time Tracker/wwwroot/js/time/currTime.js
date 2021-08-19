@@ -1,4 +1,5 @@
-﻿function updateClock() {
+﻿// Updates the display for the current time.
+function updateClock() {
     var now = new Date(),
         months = ['January', 'February', 'Harch', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'];
