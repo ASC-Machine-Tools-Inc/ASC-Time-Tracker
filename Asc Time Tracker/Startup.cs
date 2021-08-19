@@ -1,5 +1,6 @@
 using System;
 using Asc_Time_Tracker.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -35,6 +36,15 @@ namespace Asc_Time_Tracker
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            // Hide pages unless logged in or explicitly allowed to
+            // view with [AllowAnonymous] or another policy.
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
 
             // Don't bundle and minify when developing.
             if (Environment.IsDevelopment())
