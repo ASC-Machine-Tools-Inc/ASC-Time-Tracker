@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
@@ -22,6 +24,7 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
@@ -29,12 +32,14 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
+            IConfiguration configuration,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _configuration = configuration;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -83,12 +88,47 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 // Check that the user entered a valid code.
-                if (Input.SecretRoleCode != )
+                if (Input.SecretRoleCode != _configuration.GetSection("RoleCodes")["User"] &&
+                    Input.SecretRoleCode != _configuration.GetSection("RoleCodes")["Manager"] &&
+                    Input.SecretRoleCode != _configuration.GetSection("RoleCodes")["Admin"])
+                {
+                    ModelState.AddModelError(string.Empty, "Bad ASC code.");
+                    return Page();
+                }
 
-                    var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    // Assign user roles and create them if they don't exist.
+                    if (Input.SecretRoleCode == _configuration.GetSection("RoleCodes")["User"])
+                    {
+                        if (!await _roleManager.RoleExistsAsync("User"))
+                        {
+                            await _roleManager.CreateAsync(new IdentityRole("User"));
+                        }
+
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    else if (Input.SecretRoleCode == _configuration.GetSection("RoleCodes")["Manager"])
+                    {
+                        if (!await _roleManager.RoleExistsAsync("Manager"))
+                        {
+                            await _roleManager.CreateAsync(new IdentityRole("Manager"));
+                        }
+
+                        await _userManager.AddToRoleAsync(user, "Manager");
+                    }
+                    else if (Input.SecretRoleCode == _configuration.GetSection("RoleCodes")["Admin"])
+                    {
+                        if (!await _roleManager.RoleExistsAsync("Admin"))
+                        {
+                            await _roleManager.CreateAsync(new IdentityRole("Admin"));
+                        }
+
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
