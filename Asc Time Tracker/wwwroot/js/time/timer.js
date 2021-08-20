@@ -154,12 +154,13 @@ function JobTimer(interval, updateUI) {
 }
 
 var jobTimer;
+
 // Flag to keep timer running if form submitted another way (like Add Log Manually)
 var dontEndTimer = false;
 
 function startTimer() {
-    uiFlag = window.location.href.endsWith("TimeLog");
-    datePickerFlag = window.location.href.endsWith("TimeLog") ||
+    let uiFlag = window.location.href.endsWith("TimeLog");
+    let datePickerFlag = window.location.href.endsWith("TimeLog") ||
         window.location.href.endsWith("IndexInfo");
 
     // Initialization
@@ -179,7 +180,7 @@ function startTimer() {
 
     if (uiFlag) {
         // Update UI if we're on the right page.
-        updateClock();
+        // updateClock();
     }
 
     if (datePickerFlag) {
@@ -201,4 +202,9 @@ $("#timeLogFormSubmit").on("click", function (event) {
 // Set flag.
 $("#actionCardAdd").on("click", function () {
     dontEndTimer = true;
+});
+
+// Reset the timer on logout so it can be restarted next time.
+$("#logoutButton").on("click", function () {
+    jobTimer.reset();
 });

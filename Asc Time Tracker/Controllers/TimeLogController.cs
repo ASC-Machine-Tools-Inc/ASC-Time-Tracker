@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Asc_Time_Tracker.Controllers
 {

@@ -33,7 +33,20 @@ namespace Asc_Time_Tracker
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<IdentityUser>(options =>
+                    {
+                        // Disable confirmation.
+                        options.SignIn.RequireConfirmedAccount = false;
+                        options.SignIn.RequireConfirmedEmail = false;
+                        options.SignIn.RequireConfirmedPhoneNumber = false;
+
+                        // Disable password requirements.
+                        options.Password.RequireDigit = false;
+                        options.Password.RequiredLength = 1;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                    })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();

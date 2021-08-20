@@ -85,23 +85,27 @@
     <!-- Charting -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
 
-    <!-- Use scripts in development so we can see the results of changes without rebuilding. -->
-    <environment include="Development">
-        <script src="~/js/submit/deleteTimeLog.js"></script>
-        <script src="~/js/submit/editTimeLog.js"></script> <!-- Might need for edit modal? -->
+    <!-- Don't run scripts if user isn't signed in-->
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <!-- Use scripts in development so we can see the results of changes without rebuilding. -->
+        <environment include="Development">
+            <script src="~/js/submit/deleteTimeLog.js"></script>
+            <script src="~/js/submit/editTimeLog.js"></script> <!-- Might need for edit modal? -->
 
-        <script src="~/js/time/currTime.js"></script>
-        <script src="~/js/time/logFilter.js"></script>
-        <script src="~/js/time/timer.js"></script>
+            <script src="~/js/time/currTime.js"></script>
+            <script src="~/js/time/logFilter.js"></script>
+            <script src="~/js/time/timer.js"></script>
 
-        <script src="~/js/ui/jobColor.js"></script>
-        <script src="~/js/ui/qrScanner.js"></script>
+            <script src="~/js/ui/jobColor.js"></script>
+            <script src="~/js/ui/qrScanner.js"></script>
 
-        <script src="~/js/pageLoad.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/bundle.js" inline></script>
-    </environment>
+            <script src="~/js/pageLoad.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/js/bundle.js" inline></script>
+        </environment>
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

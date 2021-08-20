@@ -1,4 +1,5 @@
-﻿if (window.location.href.endsWith("TimeLog")) {
+﻿/* TODO: readd later with ability to scan
+if (window.location.href.endsWith("TimeLog")) {
     const qrCodeScanner = new Html5Qrcode("qr-reader");
 }
 var scannerOn = false;
@@ -8,7 +9,6 @@ var scannerOn = false;
  *
  * Example:
  * ASC|TimeLog_JobNum:12345E
- */
 
 const qrCodeSuccessCallback = (decodedText, decodedResult) => {
     console.log(`Code scanned = ${decodedText}`, decodedResult);
@@ -39,3 +39,4 @@ function toggleScanner() {
 
     scannerOn = !scannerOn;
 }
+ */

@@ -52,10 +52,8 @@
                                 <input name="login" id="login" class="btn login-btn mb-4" type="submit" value="Login">
                             </div>
 
-                            <div class="forgot-password-link">
-                                <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a> |
-                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a> |
-                                <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                            <div class="account-options">
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                             </div>
                         </form>
                     </div>
@@ -64,11 +62,9 @@
         </div>
 
         <!-- Update notification alert -->
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <strong>Update, 7/30/2021 (v1.2.4):</strong> Export coils functionality added, mobile UI improvements and bug fixes.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Update, 8/20/2021 (v1.0.0):</strong> Time tracker launched with basic functionality.
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
             <hr />
             <ul class="m-0">
@@ -80,17 +76,6 @@
                         </li>
                         <li>
                             Revamped the details page (and some others) with a new look.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    Bug fixes:
-                    <ul>
-                        <li>
-                            Dates can now be properly edited for history records.
-                        </li>
-                        <li>
-                            Other various small fixes.
                         </li>
                     </ul>
                 </li>

@@ -47,12 +47,14 @@
                                            placeholder="Code sent with email" />
                                     <span asp-validation-for="Input.SecretRoleCode" class="text-danger"></span>
                                 </div>
-                                <button type="submit" class="btn login-btn mb-4">Register</button>
+                                <button type="submit" class="btn login-btn">Register</button>
                             </div>
                         </form>
 
-                        <div class="forgot-password-link">
-                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Back to login</a>
+                        <div class="account-options">
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">
+                                Back to login
+                            </a>
                         </div>
                     </div>
                 </div>
