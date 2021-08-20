@@ -12,11 +12,11 @@ namespace Asc_Time_Tracker.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// The employee ID of the user creating this log.
+        /// The employee ID for user creating this log.
         /// </summary>
         [Display(Name = "Employee ID")]
         [Required]
-        public int EmpId { get; set; }
+        public string EmpId { get; set; }
 
         /// <summary>
         /// The job number that was worked on for this log.
