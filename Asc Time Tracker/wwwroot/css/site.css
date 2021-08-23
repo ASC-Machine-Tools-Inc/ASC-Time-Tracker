@@ -331,25 +331,31 @@ tr:hover {
     height: 100%;
 }
 
-/* Week picker styling */
-.datepicker td, .datepicker th {
-    border-radius: 0 !important;
-    -webkit-border-radius: 0 !important;
+/* Datepicker */
+.datepicker {
+    top: 42px !important;
+    left: 50px !important;
 }
 
-.datepicker table tr td.active {
-    background: #3297fd;
-    border-color: #3297fd;
-}
+    /* Week picker styling */
+    .datepicker td, .datepicker th {
+        border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+    }
 
-.datepicker .datepicker-days tr td.active {
-    background: #3297fd !important;
-    border-radius: 0;
-}
+    .datepicker table tr td.active {
+        background: #3297fd;
+        border-color: #3297fd;
+    }
 
-.datepicker .datepicker-months span.active {
-    background: #3297fd !important;
-}
+    .datepicker .datepicker-days tr td.active {
+        background: #3297fd !important;
+        border-radius: 0;
+    }
+
+    .datepicker .datepicker-months span.active {
+        background: #3297fd !important;
+    }
 
 #weekContainer .datepicker .datepicker-days tr td.active ~ td,
 #weekContainer .datepicker .datepicker-days tr td.active {

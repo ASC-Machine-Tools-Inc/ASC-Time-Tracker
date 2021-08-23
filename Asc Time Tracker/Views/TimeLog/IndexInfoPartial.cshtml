@@ -31,13 +31,6 @@
                     </form>
                 }
                 <div class="row my-2">
-                    <!-- Date picker containers (slightly off, but eh, might fix later) -->
-                    <div id="dayContainer"></div>
-                    <div id="weekContainer"></div>
-                    <div id="monthContainer"></div>
-                    <div id="rangeStartContainer"></div>
-                    <div id="rangeEndContainer"></div>
-
                     <!-- Select which date picker to use. -->
                     <div class="input-group d-inline-flex align-items-center w-auto">
                         <label class="input-group-text" for="dateOption">Time frame</label>
@@ -68,6 +61,13 @@
                             <div class="input-group-text">to</div>
                             <input type="text" class="form-control ranger-picker-end text-center">
                         </div>
+
+                        <!-- Date picker containers (slightly off, but eh, might fix later) -->
+                        <div id="dayContainer"></div>
+                        <div id="weekContainer"></div>
+                        <div id="monthContainer"></div>
+                        <div id="rangeStartContainer"></div>
+                        <div id="rangeEndContainer"></div>
 
                         <button type="button" class="btn date-next shadow-none">
                             <i class="fas fa-arrow-right"></i>

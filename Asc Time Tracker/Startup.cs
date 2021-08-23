@@ -113,7 +113,7 @@ namespace Asc_Time_Tracker
             {
                 endpoints.MapControllerRoute(
                     "default",
-                    "{controller=Home}/{action=MainIndex}");
+                    "{controller=TimeLog}/{action=MainIndex}");
                 endpoints.MapRazorPages();
             });
         }

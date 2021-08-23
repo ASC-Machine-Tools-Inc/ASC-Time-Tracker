@@ -159,9 +159,8 @@ var jobTimer;
 var dontEndTimer = false;
 
 function startTimer() {
-    let uiFlag = window.location.href.endsWith("TimeLog");
-    let datePickerFlag = window.location.href.endsWith("TimeLog") ||
-        window.location.href.endsWith("IndexInfo");
+    // Check if this page contains the timer to update.
+    let uiFlag = $(".time-col").length > 0;
 
     // Initialization
     jobTimer = new JobTimer(10, uiFlag);
@@ -178,13 +177,8 @@ function startTimer() {
         }
     }
 
-    if (uiFlag) {
-        // Update UI if we're on the right page.
-        // updateClock();
-    }
-
-    if (datePickerFlag) {
-        // Update date picker if we're on the right page.
+    // Update date picker if we're on the right page.
+    if ($(".day-picker")[0]) {
         setDayPicker(new Date());
     }
 };
