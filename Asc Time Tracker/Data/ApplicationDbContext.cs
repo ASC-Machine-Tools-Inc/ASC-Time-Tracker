@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Asc_Time_Tracker.Models;
+﻿using Asc_Time_Tracker.Models;
 using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 
 namespace Asc_Time_Tracker.Data
 {

@@ -1,10 +1,9 @@
+using ChartJSCore.Helpers;
+using ChartJSCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using ChartJSCore.Helpers;
-using ChartJSCore.Models;
-using NUglify.Helpers;
 
 namespace Asc_Time_Tracker.Models
 {
