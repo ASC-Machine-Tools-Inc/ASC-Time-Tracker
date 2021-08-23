@@ -19,13 +19,22 @@ namespace Asc_Time_Tracker.Models
         }
 
         /// <summary>
+        /// Take an IQueryable of TimeLogs and return the ones with the given
+        /// employee id (usually their email).
+        /// </summary>
+        public void FilterTimeLogsByEmpId(string empId)
+        {
+            TimeLogs = TimeLogs.Where(t => t.EmpId.Equals(empId));
+        }
+
+        /// <summary>
         /// Take an IQueryable of TimeLogs and return the ones within the given time frame.
         /// </summary>
-        public IQueryable<TimeLog> FilterTimeLogsByDate(DateTime? startDate, DateTime? endDate)
+        public void FilterTimeLogsByDate(DateTime? startDate, DateTime? endDate)
         {
             if (startDate == null || endDate == null)
             {
-                return null;
+                return;
             }
             // Set hours back to 0 (since Javascript sends them through with timezone adjustment).
             DateTime convStart = (DateTime)startDate;
@@ -36,11 +45,9 @@ namespace Asc_Time_Tracker.Models
                 0, 0, 0);
 
             // Filter by date.
-            TimeLogs = TimeLogs.Where(logs =>
-                logs.Date >= startDate &&
-                logs.Date < endDate);
-
-            return TimeLogs;
+            TimeLogs = TimeLogs.Where(t =>
+                t.Date >= startDate &&
+                t.Date < endDate);
         }
 
         /// <summary>

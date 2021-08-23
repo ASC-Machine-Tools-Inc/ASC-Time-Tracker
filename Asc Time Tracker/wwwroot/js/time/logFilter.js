@@ -8,6 +8,8 @@ var fieldPickers = {};
 var startDate, endDate, savedDate;
 var savedFilter;
 
+var savedEmpId;
+
 // Set default filter.
 var pieFilter = 5;
 
@@ -17,6 +19,9 @@ var pieFilter = 5;
 function startPickers() {
     startDatePickers();
     startFieldPickers();
+
+    // Use user id as default one.
+    if (savedEmpId == null) savedEmpId = $("#empIdFilter").val();
 }
 
 function startDatePickers() {
@@ -86,6 +91,7 @@ function startDatePickers() {
     datePickers["current"] = datePickers["day"];
 };
 
+// TODO: add field filters
 function startFieldPickers() {
     fieldPickers["jobNum"] = $(".job-number-picker");
     fieldPickers["jobNum"].on("change", function () {
@@ -217,7 +223,18 @@ $("#fieldOption").on("change", function () {
 $("body").on("change", "#pieChartNumSelect", function () {
     pieFilter = $("#pieChartNumSelect").val();
     updateStats();
-})
+});
+
+$("#empIdFilterForm").submit(function (e) {
+    e.preventDefault();
+
+    savedEmpId = $("#empIdFilter").val();
+
+    // Append the email to the employee id if it doesn't have one.
+    if (savedEmpId.substr(-9) !== "@ascmt.com") savedEmpId += "@ascmt.com";
+
+    updatePage();
+});
 
 // █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
 // █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
@@ -336,7 +353,8 @@ function updateLogs() {
     $.ajax({
         type: "GET",
         url: "/TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
-            "&endDate=" + endDate.toJSON(),
+            "&endDate=" + endDate.toJSON() +
+            "&empId=" + savedEmpId,
         success: function (view) {
             $("#indexLogsView").html(view);
             colorJobs();
@@ -349,6 +367,7 @@ function updateStats() {
         type: "GET",
         url: "/TimeLog/IndexStats?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON() +
+            "&empId=" + savedEmpId +
             "&pieCount=" + pieFilter,
         success: function (view) {
             $("#indexStatsView").html(view);

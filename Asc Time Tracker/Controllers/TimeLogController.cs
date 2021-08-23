@@ -30,8 +30,7 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult MainIndex()
         {
             // Send along the time logs for today by default.
-            IndexViewModel.TimeLogs = IndexViewModel
-                .FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
+            IndexViewModel.FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
 
             return View(IndexViewModel);
         }
@@ -49,23 +48,32 @@ namespace Asc_Time_Tracker.Controllers
         }
 
         // GET: IndexLogs partial view
-        public async Task<IActionResult> IndexLogs(DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> IndexLogs(
+            DateTime? startDate,
+            DateTime? endDate,
+            string empId)
         {
-            return PartialView(await IndexViewModel
-                .FilterTimeLogsByDate(startDate, endDate).ToListAsync());
+            IndexViewModel.FilterTimeLogsByEmpId(empId);
+            IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
+            return PartialView(await IndexViewModel.TimeLogs.ToListAsync());
         }
 
         // GET: IndexStats partial view
-        public async Task<IActionResult> IndexStats(DateTime? startDate, DateTime? endDate, int pieCount)
+        public async Task<IActionResult> IndexStats(
+            DateTime? startDate,
+            DateTime? endDate,
+            string empId,
+            int pieCount)
         {
-            IQueryable<TimeLog> timeLogs = IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
+            IndexViewModel.FilterTimeLogsByEmpId(empId);
+            IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
 
-            if (timeLogs.Any())
+            if (IndexViewModel.TimeLogs.Any())
             {
                 // Grab statistics.
                 // Move to model?
                 ViewData["TotalTimeSpent"] = TimeLog.SecondsToHoursAndMinutesString(
-                    timeLogs.Sum(t => t.Time));
+                    IndexViewModel.TimeLogs.Sum(t => t.Time));
 
                 TimeLog topTimeLog = IndexViewModel.TakeTopXTimeLogs(1).First();
                 ViewData["TopJobNum"] = topTimeLog.JobNum;
@@ -77,7 +85,7 @@ namespace Asc_Time_Tracker.Controllers
                 ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart();
             }
 
-            return PartialView(await timeLogs.ToListAsync());
+            return PartialView(await IndexViewModel.TimeLogs.ToListAsync());
         }
 
         // POST: TimeLog/Create

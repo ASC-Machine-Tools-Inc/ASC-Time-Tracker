@@ -9,6 +9,27 @@
                 Filters
             </button>
             <div class="collapse" id="filters">
+                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                {
+                    <form id="empIdFilterForm"
+                          class="input-group my-2">
+                        <span class="input-group-text">User ID</span>
+                        <input id="empIdFilter"
+                               type="text"
+                               class="form-control"
+                               value="@User.Identity.Name"
+                               placeholder="Enter an email to filter (user & user@ascmt.com both work)" />
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                    </form>
+                }
+                else
+                {
+                    <form id="empIdFilterForm">
+                        <input id="empIdFilter"
+                               type="hidden"
+                               value="@User.Identity.Name" />
+                    </form>
+                }
                 <div class="row my-2">
                     <!-- Date picker containers (slightly off, but eh, might fix later) -->
                     <div id="dayContainer"></div>
@@ -54,26 +75,26 @@
                     </div>
                 </div>
                 <!-- TODO: implement filters later
-                    <div class="row">
-                    <!-- Select which fields to filter by.
-                    <div class="input-group d-inline-flex align-items-center w-auto">
-                        <label class="input-group-text" for="fieldOption">Filter by</label>
-                        <select id="fieldOption" class="form-select me-2">
-                            <option>Job number</option>
-                            <option>Notes</option>
-                            <option>Research and design</option>
-                        </select>
+                <div class="row">
+                <!-- Select which fields to filter by.
+                <div class="input-group d-inline-flex align-items-center w-auto">
+                <label class="input-group-text" for="fieldOption">Filter by</label>
+                <select id="fieldOption" class="form-select me-2">
+                    <option>Job number</option>
+                    <option>Notes</option>
+                    <option>Research and design</option>
+                </select>
 
-                        <!-- Search fields.
-                        <input type="text"
-                               class="form-control job-number-picker">
-                        <input type="text"
-                               class="form-control notes-picker">
-                        <div class="form-check">
-                            <input type="checkbox"
-                                   class="form-check-input rd-picker ms-1" />
-                        </div>
-                    </div>
+                <!-- Search fields.
+                <input type="text"
+                       class="form-control job-number-picker">
+                <input type="text"
+                       class="form-control notes-picker">
+                <div class="form-check">
+                    <input type="checkbox"
+                           class="form-check-input rd-picker ms-1" />
+                </div>
+                </div>
                 </div>
                 -->
             </div>
