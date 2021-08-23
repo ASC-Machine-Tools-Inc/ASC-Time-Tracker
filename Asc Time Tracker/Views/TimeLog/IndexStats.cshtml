@@ -1,0 +1,78 @@
+﻿@using ChartJSCore.Models
+@model IEnumerable<TimeLog>
+<!-- Filler text to show for no time logs.-->
+@if (Model.Any())
+{
+    <div class="row">
+        <h4 class="text-center mt-3 mt-lg-0">Stats for this time frame</h4>
+        <div class="col-md-6">
+            <table class="table">
+                <tr>
+                    <th scope="row">
+                        Total time spent:
+                    </th>
+                    <td class="text-end">
+                        @ViewData["TotalTimeSpent"]
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Top job number:
+                    </td>
+                    <td class="text-end">
+                        <span class="placeholder log-color-top"
+                              style="color: @ViewData["TopJobNumColor"]">
+                            &nbsp;&nbsp;&nbsp;
+                        </span>
+                        <span>
+                            @ViewData["TopJobNum"]
+                            (@ViewData["TopTime"])
+                        </span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6 mt-3 mb-5 text-center justify-content-center">
+            <strong>
+                Top
+                <select id="pieChartNumSelect"
+                        class="form-select d-inline w-auto mx-1"
+                        aria-label="Top X select">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                Job Numbers by Hours Spent
+            </strong>
+
+            <canvas id="timeSpentChart"></canvas>
+        </div>
+        <!-- Update when ChartJsCore is updated -->
+        <div class="col-md-12" style="display: none;">
+            <strong>Weekly Summary</strong>
+            <canvas id="weekBarChart"></canvas>
+        </div>
+    </div>
+
+}
+
+@{
+    // Workaround for getting scripts in partial view - if controller returns
+    // a valid chart in the ViewData, we draw it.
+    Chart timeSpentChart = (Chart)ViewData["TimeSpentChart"];
+    if (timeSpentChart != null)
+    {
+        <script>
+            @Html.Raw(timeSpentChart.CreateChartCode("timeSpentChart"))
+        </script>
+    }
+
+    Chart weekBarChart = (Chart)ViewData["WeekBarChart"];
+    if (weekBarChart != null)
+    {
+        <script>
+            @Html.Raw(weekBarChart.CreateChartCode("weekBarChart"))
+        </script>
+    }
+
+}

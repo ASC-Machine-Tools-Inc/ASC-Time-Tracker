@@ -1,4 +1,7 @@
-﻿function updateClock() {
+﻿// Updates the display for the current time.
+// TODO: currently unused, may move to navbar or remove
+/*
+function updateClock() {
     var now = new Date(),
         months = ['January', 'February', 'Harch', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'];
@@ -22,4 +25,4 @@
     // Recursively call this function again.
     setTimeout(updateClock, 1000);
 }
-updateClock(); // Initial call.
+*/

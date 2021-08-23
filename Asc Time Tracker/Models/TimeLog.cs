@@ -11,11 +11,11 @@ namespace Asc_Time_Tracker.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// The employee ID of the user creating this log.
+        /// The employee ID for user creating this log.
         /// </summary>
         [Display(Name = "Employee ID")]
         [Required]
-        public int EmpId { get; set; }
+        public string EmpId { get; set; }
 
         /// <summary>
         /// The job number that was worked on for this log.
@@ -50,5 +50,69 @@ namespace Asc_Time_Tracker.Models
         [Display(Name = "R & D")]
         [Required]
         public bool Rd { get; set; } = false;
+
+        /// <summary>
+        /// Return the RGB hex string for identifying a specific job number.
+        /// </summary>
+        /// <param name="jobNum">The job number to convert.</param>
+        /// <returns>An RGB hex string.</returns>
+        public static string JobNumToRgb(string jobNum)
+        {
+            if (jobNum == null)
+            {
+                return "#FFFFFF";
+            }
+
+            // Convert to hsl to match javascript formula in jobColor.js.
+            double s = 75;
+            double l = 50;
+
+            // Get hashcode from job number.
+            var hash = 0;
+            foreach (char c in jobNum)
+            {
+                hash = c + ((hash << 5) - hash);
+                hash &= hash; // Convert to 32bit integer.
+            }
+            double h = hash % 360;
+            // Adjust color if negative.
+            if (h < 0)
+            {
+                h = 360 + h;
+            }
+
+            // Convert hsl to rgb.
+            l /= 100;
+            double a = s * Math.Min(l, 1 - l) / 100;
+
+            // See https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB_alternative
+            // for fancy math done.
+            string Func(int n)
+            {
+                double k = (n + h / 30) % 12;
+                double color = l - a * Math.Max(Math.Min(Math.Min(k - 3, 9 - k), 1), -1);
+
+                // Convert to Hex and prefix "0" if needed.
+                return Convert.ToByte(Math.Round(255 * color)).ToString("X2");
+            }
+
+            return "#" + Func(0) + Func(8) + Func(4);
+        }
+
+        public static int HoursAndMinutesToSeconds(int hours, int minutes)
+        {
+            return hours * 3600 + minutes * 60;
+        }
+
+        public static string SecondsToHoursAndMinutesString(double seconds)
+        {
+            string result = Math.Round(seconds / 3600) + " hours";
+            if (seconds % 3600 / 60 > 0)
+            {
+                result += ", " + (seconds % 3600) / 60 + " minutes";
+            }
+
+            return result;
+        }
     }
 }

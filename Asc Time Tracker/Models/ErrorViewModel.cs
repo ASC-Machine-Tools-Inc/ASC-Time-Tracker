@@ -1,5 +1,3 @@
-using System;
-
 namespace Asc_Time_Tracker.Models
 {
     public class ErrorViewModel

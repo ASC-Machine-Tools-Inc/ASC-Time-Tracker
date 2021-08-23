@@ -1,0 +1,96 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Log Info";
+}
+
+<!-- Time log list and stats full view -->
+<partial name="IndexInfoPartial" />
+
+<!-- Modals -->
+<!-- Edit time log -->
+<div class="modal fade" id="timeLogEditModal" tabindex="-1" role="dialog" aria-labelledby="timeLogEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="timeLogEditModalLabel">Edit this time log</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm" asp-controller="TimeLog" asp-action="Edit" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <!-- TODO: fill this -->
+                    <input type="hidden" id="TimeLogEditId" asp-for="TimeLog.Id" />
+                    <input type="hidden" id="TimeLogEditEmpId" asp-for="TimeLog.EmpId" />
+                    <input type="hidden" id="TimeLogEditTime" asp-for="TimeLog.Time" />
+                    <div class="col-6 mb-3">
+                        <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
+                        <input id="TimeLogEditJobNum" asp-for="TimeLog.JobNum" class="form-control" />
+                        <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label asp-for="TimeLog.Date" class="form-label"></label>
+                        <input id="TimeLogEditDate" asp-for="TimeLog.Date" class="form-control" />
+                        <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <!-- TODO: fill these -->
+                        <label asp-for="TimeLog.Time" class="form-label"></label>
+                        <div class="input-group d-inline-flex">
+                            <input id="timeHoursEdit" class="form-control" type="number" min="0"
+                                   placeholder="Hours" name="timeHours" runat="server" />
+                            <h3 class="mx-1">:</h3>
+                            <input id="timeMinutesEdit" class="form-control" type="number" min="0" max="59"
+                                   placeholder="Minutes" name="timeMinutes" runat="server" />
+                        </div>
+                        <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
+                    </div>
+                    <div class="col mb-3">
+                        <label asp-for="TimeLog.Notes" class="form-label">Notes (optional)</label>
+                        <input id="TimeLogEditNotes" asp-for="TimeLog.Notes" class="form-control"
+                               placeholder="A short description of what you've been working on?" />
+                        <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
+                    </div>
+                    <div class="form-check">
+                        <label for="TimeLogEditRd" class="form-check-label">
+                            <input id="TimeLogEditRd" asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
+                            Research and Development tax credit eligible
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="timeLogEditFormSubmit" type="submit" form="editForm" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete time log -->
+<div class="modal fade" id="timeLogDeleteModal" tabindex="-1" role="dialog" aria-labelledby="timeLogDeleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="timeLogDeleteModalLabel">Delete this time log?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" asp-controller="TimeLog" asp-action="Delete" method="post">
+                    <input id="TimeLog_Id" name="TimeLog.Id" data-val="true" data-val-required="The ID field is required." type="hidden" />
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Yes, delete it</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+        pageLoad();
+    </script>
+}

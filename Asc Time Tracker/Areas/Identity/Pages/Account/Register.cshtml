@@ -1,0 +1,68 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex align-items-center px-5 py-3">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-lg-5">
+                    <img src="~/register_bg.jpg" alt="login" class="login-card-img">
+                </div>
+                <div class="col-lg-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper">
+                            <i class="far fa-clock"></i>
+                            <h1>ASC Time Tracker</h1>
+                        </div>
+                        <p class="login-card-description">Create a new account</p>
+
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                            <div class="col-12 col-md-6">
+                                <div asp-validation-summary="All"></div>
+
+                                <div class="mb-2">
+                                    <label asp-for="Input.Email" class="form-label"></label>
+                                    <input asp-for="Input.Email" class="form-control"
+                                           placeholder="yourname@ascmt.com" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label asp-for="Input.Password" class="form-label"></label>
+                                    <input asp-for="Input.Password" class="form-control"
+                                           placeholder="***********" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+                                    <input asp-for="Input.ConfirmPassword" class="form-control"
+                                           placeholder="***********" />
+                                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label asp-for="Input.SecretRoleCode" class="form-label"></label>
+                                    <input asp-for="Input.SecretRoleCode" class="form-control"
+                                           placeholder="Code sent with email" />
+                                    <span asp-validation-for="Input.SecretRoleCode" class="text-danger"></span>
+                                </div>
+                                <button type="submit" class="btn login-btn">Register</button>
+                            </div>
+                        </form>
+
+                        <div class="account-options">
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">
+                                Back to login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

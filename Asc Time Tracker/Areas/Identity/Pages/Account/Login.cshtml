@@ -1,0 +1,96 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex align-items-center px-md-5 py-md-3">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
+                <div class="col-lg-5">
+                    <img src="~/login_bg.jpg" alt="login" class="login-card-img">
+                </div>
+                <div class="col-lg-7">
+                    <div class="card-body">
+                        <div class="brand-wrapper">
+                            <i class="far fa-clock"></i>
+                            <h1>ASC Time Tracker</h1>
+                        </div>
+                        <p class="login-card-description">Sign into your account</p>
+
+                        <form id="account" method="post">
+                            <div class="col-12 col-md-6">
+                                <div class="mb-2">
+                                    <label asp-for="Input.Email" class="form-label"></label>
+                                    <div class="row m-auto">
+                                        <input asp-for="Input.Email" class="form-control mb-2"
+                                               placeholder="yourname@ascmt.com" />
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label asp-for="Input.Password" class="form-label"></label>
+                                    <div class="row m-auto">
+                                        <input asp-for="Input.Password" class="form-control mb-2"
+                                               placeholder="***********" />
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="checkbox">
+                                        <label asp-for="Input.RememberMe">
+                                            <input asp-for="Input.RememberMe" />
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessage("LoginError", "", new { @class = "text-danger" })
+                                <input name="login" id="login" class="btn login-btn mb-4" type="submit" value="Login">
+                            </div>
+
+                            <div class="account-options">
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Update notification alert -->
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Update, 8/20/2021 (v1.0.0):</strong> Time tracker launched with basic functionality.
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <hr />
+            <ul class="m-0">
+                <li>
+                    Features:
+                    <ul>
+                        <li>
+                            Users can start timers when they start working on jogs,
+                            and save them when they're done, only needing to enter
+                            the job number and any additional notes.
+                        </li>
+                        <li>
+                            Users can also add logs manually without using the timer.
+                        </li>
+                        <li>
+                            A logs and stats view shows logs for a certain time
+                            frame, with color coded marks corresponding to job
+                            numbers.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
