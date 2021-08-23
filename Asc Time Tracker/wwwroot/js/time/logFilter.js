@@ -250,7 +250,7 @@ function setDayPicker(date) {
 
 function setWeekPicker(date) {
     startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
 
     // Set selected day to the start of the week for styling.
     datePickers["week"].datepicker("update", startDate);
@@ -258,11 +258,17 @@ function setWeekPicker(date) {
     // Store saved date if we switch filtering.
     savedDate = date;
 
+    // Display end date as one day less so it doesn't look like it's running into next week.
+    let displayEndDate = new Date(
+        endDate.getFullYear(),
+        endDate.getMonth(),
+        date.getDate() - date.getDay() + 6);
+
     // Show the display as the corresponding week.
     datePickers["week"].val(
         dateToString(startDate) +
         " - " +
-        dateToString(endDate));
+        dateToString(displayEndDate));
 
     // Update the partial views.
     updatePage();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Asc_Time_Tracker.Models;
+using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,14 +14,14 @@ namespace Asc_Time_Tracker.Data
         {
         }
 
-        public DbSet<Models.TimeLog> TimeLog { get; set; }
+        public DbSet<TimeLog> TimeLog { get; set; }
 
         // Seed our database with some time logs for testing.
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            Random rnd = new Random();
+            Random rnd = new();
             const int logsToAdd = 250;
 
             // Amount of hours to generate logs for up to daily.
@@ -39,19 +40,21 @@ namespace Asc_Time_Tracker.Data
             {
                 int rndTimeHours = rnd.Next(1, Math.Min(4, dailyHoursLimit - dailyHours + 1));
                 int rndJobNum = rnd.Next(20000, 30000);
+                var faker = new Faker();
 
-                TimeLog timeLog = new TimeLog
+                TimeLog timeLog = new()
                 {
                     Id = i,
                     EmpId = "timeuser@ascmt.com",
                     Date = DateTime.Today.AddDays(daysOffset),
                     Time = rndTimeHours * 3600,  // Convert to seconds
                     JobNum = rndJobNum.ToString(),
-                    Notes = "First log!" // TODO BOGUS
+                    Notes = faker.Hacker.Phrase()
                 };
 
                 timeLogs.Add(timeLog);
 
+                // If we reach our daily limit, go back a day and add logs to that.
                 dailyHours += rndTimeHours;
                 if (dailyHours == dailyHoursLimit)
                 {
