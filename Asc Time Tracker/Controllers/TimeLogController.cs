@@ -29,7 +29,8 @@ namespace Asc_Time_Tracker.Controllers
         // GET: MainIndex
         public IActionResult MainIndex()
         {
-            // Send along the time logs for today by default.
+            // Send along the time logs for today and the current user by default.
+            IndexViewModel.FilterTimeLogsByEmpId(User.Identity.Name);
             IndexViewModel.FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
 
             return View(IndexViewModel);
@@ -138,7 +139,7 @@ namespace Asc_Time_Tracker.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TimeLogExists(TimeLog.Id))
+                    if (!TimeLogExists(timeLog.Id))
                     {
                         return NotFound();
                     }

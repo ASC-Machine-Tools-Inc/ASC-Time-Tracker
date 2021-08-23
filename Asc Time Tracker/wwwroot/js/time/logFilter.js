@@ -277,8 +277,8 @@ function setWeekPicker(date) {
 
     // Display end date as one day less so it doesn't look like it's running into next week.
     let displayEndDate = new Date(
-        endDate.getFullYear(),
-        endDate.getMonth(),
+        date.getFullYear(),
+        date.getMonth(),
         date.getDate() - date.getDay() + 6);
 
     // Show the display as the corresponding week.
@@ -293,7 +293,7 @@ function setWeekPicker(date) {
 
 function setMonthPicker(date) {
     // Set day to 1 so we don't get results from last day of first month!
-    startDate = new Date(date.getFullYear(), date.getMonth() + 0, 1);
+    startDate = new Date(date.getFullYear(), date.getMonth(), 1);
     endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
     datePickers["month"].datepicker("update", date);

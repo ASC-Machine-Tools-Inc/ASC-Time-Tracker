@@ -156,8 +156,8 @@
                     <div class="modal-body">
                         <form id="editForm" asp-controller="TimeLog" asp-action="Edit" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            <!-- TODO: fill this -->
                             <input type="hidden" id="TimeLogEditId" asp-for="TimeLog.Id" />
+                            <input type="hidden" id="TimeLogEditEmpId" asp-for="TimeLog.EmpId" />
                             <input type="hidden" id="TimeLogEditTime" asp-for="TimeLog.Time" />
                             <div class="col-6 mb-3">
                                 <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>

@@ -1,6 +1,7 @@
 ﻿$("body").on("click", ".btn-edit", function () {
     // Move values from the time log card to the modal.
     $("#TimeLogEditId").val($(".timelog-id", $(this).parent()).val());
+    $("#TimeLogEditEmpId").val($(".timelog-empid", $(this).parent()).val());
     $("#TimeLogEditJobNum").val($(".timelog-jobnum", $(this).parent()).val());
     $("#TimeLogEditDate").val($(".timelog-date", $(this).parent()).val());
     $("#TimeLogEditTime").val($(".timelog-time", $(this).parent()).val());
