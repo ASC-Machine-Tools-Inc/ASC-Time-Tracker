@@ -34,46 +34,46 @@
     <!-- Hide navbar if not logged in. -->
     @if (SignInManager.IsSignedIn(User))
     {
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="TimeLog" asp-action="MainIndex">ASC Time Tracker</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="TimeLog" asp-action="MainIndex">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light d-block d-md-none" asp-controller="TimeLog" asp-action="IndexInfo">Logs</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
-                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Help
-                                <i class="bi bi-caret-down-fill small"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <!-- TODO: finish guide
-                                <a class="dropdown-item" asp-controller="Home" asp-action="Guide">User Guide</a>
-                                -->
-                                <a class="dropdown-item" asp-controller="Home" asp-action="About">About</a>
-                            </div>
-                        </li>
-                    </ul>
-                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-controller="TimeLog" asp-action="MainIndex">ASC Time Tracker</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-controller="TimeLog" asp-action="MainIndex">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light d-block d-md-none" asp-controller="TimeLog" asp-action="IndexInfo">Logs</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Help
+                                    <i class="bi bi-caret-down-fill small"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <!-- TODO: finish guide
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="Guide">User Guide</a>
+                                    -->
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="About">About</a>
+                                </div>
+                            </li>
+                        </ul>
+                        @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
                         {
-                    <span class="text-light mx-2">Role: Manager</span>
+                            <span class="text-light mx-2">Role: Manager</span>
                         }
-                    <partial name="_LoginPartial" />
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
     }
 
     <div class="container-fluid">
@@ -88,29 +88,30 @@
     <!-- Datepicker -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-    <!-- Charting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script>
+    <!-- Charting
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
 
     <!-- Don't run scripts if user isn't signed in-->
     @if (SignInManager.IsSignedIn(User))
     {
         <!-- Use scripts in development so we can see the results of changes without rebuilding. -->
-    <environment include="Development">
-        <script src="~/js/submit/deleteTimeLog.js"></script>
-        <script src="~/js/submit/editTimeLog.js"></script>
+        <environment include="Development">
+            <script src="~/js/submit/deleteTimeLog.js"></script>
+            <script src="~/js/submit/editTimeLog.js"></script>
 
-        <script src="~/js/time/currTime.js"></script>
-        <script src="~/js/time/logFilter.js"></script>
-        <script src="~/js/time/timer.js"></script>
+            <script src="~/js/time/currTime.js"></script>
+            <script src="~/js/time/logFilter.js"></script>
+            <script src="~/js/time/timer.js"></script>
 
-        <script src="~/js/ui/jobColor.js"></script>
-        <script src="~/js/ui/qrScanner.js"></script>
+            <script src="~/js/ui/jobColor.js"></script>
+            <script src="~/js/ui/qrScanner.js"></script>
 
-        <script src="~/js/pageLoad.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="~/js/bundle.js" inline></script>
-    </environment>
+            <script src="~/js/pageLoad.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/js/bundle.js" inline></script>
+        </environment>
     }
 
     @await RenderSectionAsync("Scripts", required: false)
