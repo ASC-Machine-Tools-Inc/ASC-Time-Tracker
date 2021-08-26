@@ -21,8 +21,14 @@ namespace Asc_Time_Tracker.Data
         {
             base.OnModelCreating(builder);
 
+            List<TimeLog> timeLogs = SeedTimeLogs(250);
+
+            builder.Entity<TimeLog>().HasData(timeLogs);
+        }
+
+        public static List<TimeLog> SeedTimeLogs(int logsToAdd)
+        {
             Random rnd = new();
-            const int logsToAdd = 250;
 
             // Amount of hours to generate logs for up to daily.
             const int dailyHoursLimit = 8;
@@ -63,7 +69,7 @@ namespace Asc_Time_Tracker.Data
                 }
             }
 
-            builder.Entity<TimeLog>().HasData(timeLogs);
+            return timeLogs;
         }
     }
 }
