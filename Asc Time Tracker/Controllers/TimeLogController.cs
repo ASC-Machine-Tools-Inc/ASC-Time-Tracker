@@ -28,6 +28,7 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult MainIndex()
         {
             // Send along the time logs for today and the current user by default.
+            IndexViewModel.TimeLogs = _context.TimeLog;
             IndexViewModel.FilterTimeLogsByEmpId(User.Identity.Name);
             IndexViewModel.FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
 
@@ -52,6 +53,7 @@ namespace Asc_Time_Tracker.Controllers
             DateTime? endDate,
             string empId)
         {
+            IndexViewModel.TimeLogs = _context.TimeLog;
             IndexViewModel.FilterTimeLogsByEmpId(empId);
             IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
             return PartialView(await IndexViewModel.TimeLogs.ToListAsync());
@@ -64,6 +66,7 @@ namespace Asc_Time_Tracker.Controllers
             string empId,
             int pieCount)
         {
+            IndexViewModel.TimeLogs = _context.TimeLog;
             IndexViewModel.FilterTimeLogsByEmpId(empId);
             IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
 
@@ -74,10 +77,14 @@ namespace Asc_Time_Tracker.Controllers
                 ViewData["TotalTimeSpent"] = TimeLog.SecondsToHoursAndMinutesString(
                     IndexViewModel.TimeLogs.Sum(t => t.Time));
 
-                TimeLog topTimeLog = IndexViewModel.TakeTopXTimeLogs(1).First();
-                ViewData["TopJobNum"] = topTimeLog.JobNum;
-                ViewData["TopJobNumColor"] = TimeLog.JobNumToRgb(topTimeLog.JobNum);
-                ViewData["TopTime"] = TimeLog.SecondsToHoursAndMinutesString(topTimeLog.Time);
+                IQueryable<TimeLog> topTimeLogs = IndexViewModel.TakeTopXTimeLogs(1);
+                if (topTimeLogs.Any())
+                {
+                    TimeLog topTimeLog = topTimeLogs.First();
+                    ViewData["TopJobNum"] = topTimeLog.JobNum;
+                    ViewData["TopJobNumColor"] = TimeLog.JobNumToRgb(topTimeLog.JobNum);
+                    ViewData["TopTime"] = TimeLog.SecondsToHoursAndMinutesString(topTimeLog.Time);
+                }
 
                 // Draw charts.
                 ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopXPieChart(pieCount);

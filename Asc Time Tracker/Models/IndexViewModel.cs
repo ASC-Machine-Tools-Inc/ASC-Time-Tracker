@@ -9,7 +9,8 @@ namespace Asc_Time_Tracker.Models
 {
     public class IndexViewModel
     {
-        public TimeLog TimeLog;
+        public TimeLog TimeLog { get; set; }
+
         public IQueryable<TimeLog> TimeLogs { get; set; }
 
         public IndexViewModel(IQueryable<TimeLog> timeLogs)

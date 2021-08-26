@@ -15,38 +15,45 @@
                         @ViewData["TotalTimeSpent"]
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        Top job number:
-                    </td>
-                    <td class="text-end">
-                        <span class="placeholder log-color-top"
-                              style="color: @ViewData["TopJobNumColor"]">
-                            &nbsp;&nbsp;&nbsp;
-                        </span>
-                        <span>
-                            @ViewData["TopJobNum"]
-                            (@ViewData["TopTime"])
-                        </span>
-                    </td>
-                </tr>
+                @if (ViewData["TopJobNum"] != null)
+                {
+                    <tr>
+                        <td>
+                            Top job number:
+                        </td>
+                        <td class="text-end">
+                            <span class="placeholder log-color-top"
+                                  style="color: @ViewData["TopJobNumColor"]">
+                                &nbsp;&nbsp;&nbsp;
+                            </span>
+                            <span>
+                                @ViewData["TopJobNum"]
+                                (@ViewData["TopTime"])
+                            </span>
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
-        <div class="col-md-6 mt-3 mb-5 text-center justify-content-center">
-            <strong>
-                Top
-                <select id="pieChartNumSelect"
-                        class="form-select d-inline w-auto mx-1"
-                        aria-label="Top X select">
-                    <option value="3">3</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                </select>
-                Job Numbers by Hours Spent
-            </strong>
+        @if (ViewData["TopJobNum"] != null)
+        {
+            <div class="col-md-6 mt-3 mb-5 text-center justify-content-center">
+                <strong>
+                    Top
+                    <select id="pieChartNumSelect"
+                            class="form-select d-inline w-auto mx-1"
+                            aria-label="Top X select">
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                    </select>
+                    Job Numbers by Hours Spent
+                </strong>
 
-            <canvas id="timeSpentChart"></canvas>
-        </div>
+                <canvas id="timeSpentChart"></canvas>
+            </div>
+        }
+
         <!-- Update when ChartJsCore is updated -->
         <div class="col-md-12" style="display: none;">
             <strong>Weekly Summary</strong>
