@@ -106,7 +106,7 @@ namespace Asc_Time_Tracker.Models
 
         public static string SecondsToHoursAndMinutesString(double seconds)
         {
-            string result = Math.Round(seconds / 3600) + " hours";
+            string result = Math.Floor(seconds / 3600) + " hours";
             if (seconds % 3600 / 60 > 0)
             {
                 result += ", " + (seconds % 3600) / 60 + " minutes";
