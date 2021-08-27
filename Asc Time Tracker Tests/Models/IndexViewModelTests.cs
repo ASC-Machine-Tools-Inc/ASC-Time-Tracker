@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Asc_Time_Tracker.Controllers;
 using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using Bogus.DataSets;
 using ChartJSCore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -40,7 +40,12 @@ namespace Asc_Time_Tracker_Tests.Models
                 timeLogsList.Add(new TimeLog
                 {
                     Id = timeLogsList.Count + 1,
-                    EmpId = "TEST USER ID"
+                    EmpId = "TEST USER ID",
+                    Date = DateTime.Today,
+                    JobNum = "TEST JOB NUM",
+                    Notes = "TEST NOTES",
+                    Rd = false,
+                    Time = 3600
                 });
             }
             IQueryable<TimeLog> timeLogs = timeLogsList.AsQueryable();
