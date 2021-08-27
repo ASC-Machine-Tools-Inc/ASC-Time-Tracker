@@ -22,7 +22,7 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones with the given
         /// employee id (usually their email).
         /// </summary>
-        public IQueryable<TimeLog> FilterTimeLogsByEmpId(IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog> FilterTimeLogsByEmpId(IQueryable<TimeLog> timeLogs,
                                                          string empId)
         {
             return timeLogs.Where(t => t.EmpId.Equals(empId));
@@ -31,13 +31,13 @@ namespace Asc_Time_Tracker.Models
         /// <summary>
         /// Take an IQueryable of TimeLogs and return the ones within the given time frame.
         /// </summary>
-        public IQueryable<TimeLog> FilterTimeLogsByDate(IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog> FilterTimeLogsByDate(IQueryable<TimeLog> timeLogs,
                                                         DateTime? startDate,
                                                         DateTime? endDate)
         {
             if (startDate == null || endDate == null)
             {
-                return null;
+                return Enumerable.Empty<TimeLog>().AsQueryable();
             }
             // Set hours back to 0 (since Javascript sends them through with timezone adjustment).
             DateTime convStart = (DateTime)startDate;
@@ -55,9 +55,9 @@ namespace Asc_Time_Tracker.Models
 
         /// <summary>
         /// Take an IQueryable of TimeLogs and return them in sorted order of
-        /// time spent, descending, up to the given limit x.
+        /// time spent, descending, up to the given limit.
         /// </summary>
-        public IQueryable<TimeLog> TakeTopXTimeLogs(IQueryable<TimeLog> timeLogs, int x)
+        public static IQueryable<TimeLog> TakeTopXTimeLogs(IQueryable<TimeLog> timeLogs, int limit)
         {
             return timeLogs.GroupBy(t => t.JobNum)
                 .Select(tg => new TimeLog
@@ -67,16 +67,16 @@ namespace Asc_Time_Tracker.Models
                 })
                 .Where(t => t.JobNum != null)  // Skip null job num logs
                 .OrderByDescending(t => t.Time)
-                .Take(x);
+                .Take(limit);
         }
 
         /// <summary>
         /// Return a pie chart of the top job numbers worked on for this time frame.
         /// </summary>
-        public Chart GenerateTopXPieChart(IQueryable<TimeLog> timeLogs, int x)
+        public static Chart GenerateTopXPieChart(IQueryable<TimeLog> timeLogs, int limit)
         {
             // Sort time logs by top (given number) by the most time spent on them.
-            timeLogs = TakeTopXTimeLogs(timeLogs, x);
+            timeLogs = TakeTopXTimeLogs(timeLogs, limit);
 
             Chart chart = new()
             {
@@ -117,7 +117,7 @@ namespace Asc_Time_Tracker.Models
             return chart;
         }
 
-        public Chart GenerateWeekBarChart(IQueryable<TimeLog> timeLogs)
+        public static Chart GenerateWeekBarChart(IQueryable<TimeLog> timeLogs)
         {
             // Filter time logs to this week.
             timeLogs = TakeTopXTimeLogs(timeLogs, 1000);
