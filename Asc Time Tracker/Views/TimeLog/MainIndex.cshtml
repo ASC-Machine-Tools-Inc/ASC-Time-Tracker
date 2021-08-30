@@ -7,9 +7,26 @@
 <div class="row">
     <!-- Time clock and options -->
     <div class="col-md-3">
-        <div id="timeCard" class="card border-dark mb-2 align-items-center">
+        <!-- Link to action cards -->
+        <a id="actionCardAdd" class="card-parent" data-bs-toggle="modal" data-bs-target="#timeLogSubmitModal">
+            <div class="card action-card action-card-add">
+                <div class="card-body">
+                    <span class="action-card-title">Add Log Manually</span>
+                </div>
+            </div>
+        </a>
+        <!-- Time log list and stats (show on mobile) -->
+        <a id="actionCardLogs" class="card-parent d-block d-md-none" asp-action="IndexInfo">
+            <div class="card action-card action-card-view">
+                <div class="card-body">
+                    <span class="action-card-title">View Logs</span>
+                </div>
+            </div>
+        </a>
+
+        <div id="timeCard" class="card border-dark my-3 ">
             <div class="card-body time-card text-center">
-                <div class="col time-col justify-content-center">
+                <div class="col time-col">
                     <div class="collapse multi-collapse show" id="jobStatusCollapse">
                         <h4>No log currently active</h4>
                     </div>
@@ -51,21 +68,43 @@
             </div>
         </div>
 
-        <a id="actionCardAdd" class="card-parent" data-bs-toggle="modal" data-bs-target="#timeLogSubmitModal">
-            <div class="card action-card action-card-add">
-                <div class="card-body">
-                    <span class="action-card-title">Add Log Manually</span>
+        <a class="card-parent">
+            <div id="timeCard2" class="card time-card-add my-3">
+                <div class="card-body time-card d-flex
+                     align-items-center justify-content-center">
+                    <h4>
+                        <i class="fas fa-plus"></i>
+                        Add New Timer
+                    </h4>
                 </div>
             </div>
         </a>
-        <!-- Time log list and stats (show on mobile) -->
-        <a id="actionCardLogs" class="card-parent d-block d-md-none" asp-action="IndexInfo">
-            <div class="card action-card action-card-view">
-                <div class="card-body">
-                    <span class="action-card-title">View Logs</span>
+
+        <div class="dropdown">
+            <button id="timerOptionsBtn" type="button"
+                    class="btn btn-secondary dropdown-toggle"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-cog"></i>
+                Timer Options
+                <i class="bi bi-caret-down-fill small"></i>
+            </button>
+            <div class="dropdown-menu p-3" aria-labelledby="timerOptionsBtn">
+                <span class="font-weight-bold">Multiple timers running allowed:</span>
+                <hr class="dropdown-divider">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        No, only one at a time
+                    </label>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 
     <!-- Time log list and stats (show on desktop) -->
