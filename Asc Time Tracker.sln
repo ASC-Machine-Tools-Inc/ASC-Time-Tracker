@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asc Time Tracker", "Asc Time Tracker\Asc Time Tracker.csproj", "{93792187-DE71-421C-8C03-81E909335D68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asc Time Tracker Tests", "Asc Time Tracker Tests\Asc Time Tracker Tests.csproj", "{DAC2CEA1-98AD-4B50-A72D-2B61034C2BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{93792187-DE71-421C-8C03-81E909335D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93792187-DE71-421C-8C03-81E909335D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93792187-DE71-421C-8C03-81E909335D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAC2CEA1-98AD-4B50-A72D-2B61034C2BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAC2CEA1-98AD-4B50-A72D-2B61034C2BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAC2CEA1-98AD-4B50-A72D-2B61034C2BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAC2CEA1-98AD-4B50-A72D-2B61034C2BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

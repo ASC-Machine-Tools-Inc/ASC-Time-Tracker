@@ -22,19 +22,22 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones with the given
         /// employee id (usually their email).
         /// </summary>
-        public void FilterTimeLogsByEmpId(string empId)
+        public static IQueryable<TimeLog> FilterTimeLogsByEmpId(IQueryable<TimeLog> timeLogs,
+                                                         string empId)
         {
-            TimeLogs = TimeLogs.Where(t => t.EmpId.Equals(empId));
+            return timeLogs.Where(t => t.EmpId.Equals(empId));
         }
 
         /// <summary>
         /// Take an IQueryable of TimeLogs and return the ones within the given time frame.
         /// </summary>
-        public void FilterTimeLogsByDate(DateTime? startDate, DateTime? endDate)
+        public static IQueryable<TimeLog> FilterTimeLogsByDate(IQueryable<TimeLog> timeLogs,
+                                                        DateTime? startDate,
+                                                        DateTime? endDate)
         {
             if (startDate == null || endDate == null)
             {
-                return;
+                return Enumerable.Empty<TimeLog>().AsQueryable();
             }
             // Set hours back to 0 (since Javascript sends them through with timezone adjustment).
             DateTime convStart = (DateTime)startDate;
@@ -45,18 +48,18 @@ namespace Asc_Time_Tracker.Models
                 0, 0, 0);
 
             // Filter by date.
-            TimeLogs = TimeLogs.Where(t =>
+            return timeLogs.Where(t =>
                 t.Date >= startDate &&
                 t.Date < endDate);
         }
 
         /// <summary>
         /// Take an IQueryable of TimeLogs and return them in sorted order of
-        /// time spent, descending, up to the given limit x.
+        /// time spent, descending, up to the given limit.
         /// </summary>
-        public IQueryable<TimeLog> TakeTopXTimeLogs(int x)
+        public static IQueryable<TimeLog> TakeTopXTimeLogs(IQueryable<TimeLog> timeLogs, int limit)
         {
-            return TimeLogs.GroupBy(t => t.JobNum)
+            return timeLogs.GroupBy(t => t.JobNum)
                 .Select(tg => new TimeLog
                 {
                     JobNum = tg.Key,
@@ -64,16 +67,16 @@ namespace Asc_Time_Tracker.Models
                 })
                 .Where(t => t.JobNum != null)  // Skip null job num logs
                 .OrderByDescending(t => t.Time)
-                .Take(x);
+                .Take(limit);
         }
 
         /// <summary>
         /// Return a pie chart of the top job numbers worked on for this time frame.
         /// </summary>
-        public Chart GenerateTopXPieChart(int x)
+        public static Chart GenerateTopXPieChart(IQueryable<TimeLog> timeLogs, int limit)
         {
             // Sort time logs by top (given number) by the most time spent on them.
-            IQueryable<TimeLog> timeLogs = TakeTopXTimeLogs(x);
+            timeLogs = TakeTopXTimeLogs(timeLogs, limit);
 
             Chart chart = new()
             {
@@ -114,10 +117,10 @@ namespace Asc_Time_Tracker.Models
             return chart;
         }
 
-        public Chart GenerateWeekBarChart()
+        public static Chart GenerateWeekBarChart(IQueryable<TimeLog> timeLogs)
         {
             // Filter time logs to this week.
-            IQueryable<TimeLog> timeLogs = TakeTopXTimeLogs(5);
+            timeLogs = TakeTopXTimeLogs(timeLogs, 1000);
 
             Chart chart = new()
             {
@@ -126,6 +129,7 @@ namespace Asc_Time_Tracker.Models
 
             ChartJSCore.Models.Data data = new()
             {
+                Datasets = new List<Dataset>(),
                 Labels = new List<string>() { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
             };
 
@@ -155,14 +159,36 @@ namespace Asc_Time_Tracker.Models
                 BorderWidth = new List<int>() { 1 }
             }; */
 
-            data.Datasets = new List<Dataset>();
-
             foreach (TimeLog timeLog in timeLogs)
             {
-                Dataset temp = new()
+                string hex = TimeLog.JobNumToRgb(timeLog.JobNum);
+                //colors.Add(ChartColor.FromHexString(hex));
+
+                BarDataset temp = new()
                 {
+                    Label = timeLog.JobNum,
                     Data = new List<double?>() { 12, 19, 3, 5, 2, 3, timeLog.Time / 3600 },
-                    Label = timeLog.JobNum
+                    BackgroundColor = new List<ChartColor>
+                    {
+                        ChartColor.FromRgba(255, 99, 132, 0.2),
+                        ChartColor.FromRgba(54, 162, 235, 0.2),
+                        ChartColor.FromRgba(255, 206, 86, 0.2),
+                        ChartColor.FromRgba(75, 192, 192, 0.2),
+                        ChartColor.FromRgba(153, 102, 255, 0.2),
+                        ChartColor.FromRgba(255, 159, 64, 0.2),
+                        ChartColor.FromRgba(153, 102, 255, 0.2)
+                    },
+                    BorderColor = new List<ChartColor>
+                    {
+                        ChartColor.FromRgb(255, 99, 132),
+                        ChartColor.FromRgb(54, 162, 235),
+                        ChartColor.FromRgb(255, 206, 86),
+                        ChartColor.FromRgb(75, 192, 192),
+                        ChartColor.FromRgb(153, 102, 255),
+                        ChartColor.FromRgb(255, 159, 64),
+                        ChartColor.FromRgb(153, 102, 255)
+                    },
+                    BorderWidth = new List<int>() { 1 }
                 };
 
                 data.Datasets.Add(temp);
@@ -192,10 +218,6 @@ namespace Asc_Time_Tracker.Models
                 {
                     new BarScale
                     {
-                        BarPercentage = 0.5,
-                        BarThickness = 6,
-                        MaxBarThickness = 8,
-                        MinBarLength = 2,
                         GridLines = new GridLine()
                         {
                             OffsetGridLines = true

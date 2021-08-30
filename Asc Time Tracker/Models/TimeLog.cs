@@ -58,7 +58,7 @@ namespace Asc_Time_Tracker.Models
         /// <returns>An RGB hex string.</returns>
         public static string JobNumToRgb(string jobNum)
         {
-            if (jobNum == null)
+            if (string.IsNullOrEmpty(jobNum))
             {
                 return "#FFFFFF";
             }
@@ -106,10 +106,27 @@ namespace Asc_Time_Tracker.Models
 
         public static string SecondsToHoursAndMinutesString(double seconds)
         {
-            string result = Math.Floor(seconds / 3600) + " hours";
-            if (seconds % 3600 / 60 > 0)
+            if (seconds < 60)
             {
-                result += ", " + (seconds % 3600) / 60 + " minutes";
+                return "";
+            }
+
+            string result = "";
+
+            int hours = (int)(seconds / 3600);
+            int minutes = (int)(seconds % 3600 / 60);
+
+            if (hours >= 1)
+            {
+                result = hours + " hour";
+                if (hours > 1) result += "s";
+                if (minutes > 0) result += ", ";
+            }
+
+            if (minutes > 0)
+            {
+                result += minutes + " minute";
+                if (minutes > 1) result += "s";
             }
 
             return result;
