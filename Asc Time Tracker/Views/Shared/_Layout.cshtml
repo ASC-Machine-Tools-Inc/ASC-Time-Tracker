@@ -65,6 +65,7 @@
                                 </div>
                             </li>
                         </ul>
+                        <span class="text-light mx-2">Logged in as: @User.Identity.Name</span>
                         @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
                         {
                             <span class="text-light mx-2">Role: Manager</span>
