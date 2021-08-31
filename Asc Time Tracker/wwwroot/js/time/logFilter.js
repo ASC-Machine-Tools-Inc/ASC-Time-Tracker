@@ -231,7 +231,7 @@ $("#empIdFilterForm").submit(function (e) {
     savedEmpId = $("#empIdFilter").val();
 
     // Append the email to the employee id if it doesn't have one.
-    if (savedEmpId.substr(-9) !== "@ascmt.com") savedEmpId += "@ascmt.com";
+    if (savedEmpId.substr(-10) !== "@ascmt.com") savedEmpId += "@ascmt.com";
 
     updatePage();
 });
