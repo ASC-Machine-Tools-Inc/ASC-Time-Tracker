@@ -355,6 +355,11 @@ function updateLogs() {
         url: "/TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON() +
             "&empId=" + savedEmpId,
+        beforeSend: function () {
+            // Display loading message.
+            $("#logsLoadingMessage").removeClass("d-none");
+            $("#timeLogs").hide();
+        },
         success: function (view) {
             $("#indexLogsView").html(view);
             colorJobs();
@@ -369,6 +374,10 @@ function updateStats() {
             "&endDate=" + endDate.toJSON() +
             "&empId=" + savedEmpId +
             "&pieCount=" + pieFilter,
+        beforeSend: function () {
+            // Hide until load.
+            $("#indexStatsView").html("");
+        },
         success: function (view) {
             $("#indexStatsView").html(view);
             $("#pieChartNumSelect").val(pieFilter);

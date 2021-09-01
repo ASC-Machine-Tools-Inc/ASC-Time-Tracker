@@ -1,92 +1,103 @@
 ﻿@model IEnumerable<TimeLog>
-<!-- Filler text to show for no timelogs.-->
-@if (!Model.Any())
-{
-    <div class="text-center">
-        <small class="text-muted">
-            No time logs were found for this date range.
-        </small>
-    </div>
-}
+<!-- Loading text. -->
+<div id="logsLoadingMessage" class="text-center d-none">
+    <small class="text-muted">
+        Loading...
+    </small>
+</div>
 
-@foreach (var item in Model.Reverse())
-{
-    <div class="dropdown dropdown-mobile card-parent">
-        <div class="card log-card" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <div class="card-body px-4 py-2">
-                <div class="row log-main justify-content-between my-1">
-                    <div class="col-9 text-nowrap text-truncate">
-                        @Html.DisplayFor(modelItem => item.Notes)
-                    </div>
-                    <div class="col-3 text-end ps-0">
-                        @{
-                            // Make the time look nice, by converting from seconds into hours and minutes.
-                            string formattedTime = (Math.Floor((item.Time % 3600) / 60) + "").PadLeft(2, '0');
-                            formattedTime = Math.Floor(item.Time / 3600) + ":" + formattedTime;
-                        }
-                        @Html.DisplayFor(modelItem => formattedTime)
-                    </div>
-                </div>
-                <div class="row my-1">
-                    <div class="col-8 pt-1 text-nowrap text-truncate">
-                        <span class="placeholder log-color">&nbsp;&nbsp;&nbsp;</span>
-                        <strong class="log-job">
-                            @Html.DisplayFor(modelItem => item.JobNum)
-                        </strong>
-                        <i class="bi bi-dot"></i>
-                        @Html.DisplayFor(modelItem => item.Date)
+<div id="timeLogs">
+    <!-- Filler text to show for no timelogs.-->
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <small class="text-muted">
+                No time logs were found for this date range.
+            </small>
+        </div>
+    }
 
-                        @{
-                            string formattedRD = item.Rd ? "RD" : "";
-                        }
-                        <strong>
-                            @Html.DisplayFor(modelItem => formattedRD)
-                        </strong>
+    @foreach (var item in Model.Reverse())
+    {
+        <div class="dropdown dropdown-mobile card-parent">
+            <div class="card log-card" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="card-body px-4 py-2">
+                    <div class="row log-main justify-content-between my-1">
+                        <div class="col-9 text-nowrap text-truncate">
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </div>
+                        <div class="col-3 text-end ps-0">
+                            @{
+                                // Make the time look nice, by converting from seconds into hours and minutes.
+                                string formattedTime = (Math.Floor((item.Time % 3600) / 60) + "").PadLeft(2, '0');
+                                formattedTime = Math.Floor(item.Time / 3600) + ":" + formattedTime;
+                            }
+                            @Html.DisplayFor(modelItem => formattedTime)
+                        </div>
                     </div>
-                    <div class="col-4 text-end">
+                    <div class="row my-1">
+                        <div class="col-8 pt-1 text-nowrap text-truncate">
+                            <span class="placeholder log-color">&nbsp;&nbsp;&nbsp;</span>
+                            <strong class="log-job">
+                                @Html.DisplayFor(modelItem => item.JobNum)
+                            </strong>
+                            <i class="bi bi-dot"></i>
+                            @Html.DisplayFor(modelItem => item.Date)
+
+                            @{
+                                string formattedRD = item.Rd ? "RD" : "";
+                            }
+                            <strong>
+                                @Html.DisplayFor(modelItem => formattedRD)
+                            </strong>
+                        </div>
+                        <div class="col-4 text-end">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="dropdown-menu dropdown-menu-end w-100 h-100" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item btn-edit" data-bs-toggle="modal" data-bs-target="#timeLogEditModal">
-                Edit
-            </a>
-            <a class="dropdown-item btn-delete" data-bs-toggle="modal" data-bs-target="#timeLogDeleteModal">
-                Delete
-            </a>
-            <!-- Hidden fields for passing item info to modals -->
-            <input class="timelog-id" type="hidden" value="@item.Id" />
-            <input class="timelog-empid" type="hidden" value="@item.EmpId" />
-            <input class="timelog-jobnum" type="hidden" value="@item.JobNum" />
-            <input class="timelog-date" type="hidden" value="@item.Date.ToString("yyyy-MM-dd")" />
-            <input class="timelog-time" type="hidden" value="@item.Time" />
-            <input class="timelog-notes" type="hidden" value="@item.Notes" />
-            <input class="timelog-rd" type="hidden" value="@item.Rd.ToString()" />
+            <div class="dropdown-menu dropdown-menu-end w-100 h-100" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item btn-edit" data-bs-toggle="modal" data-bs-target="#timeLogEditModal">
+                    Edit
+                </a>
+                <a class="dropdown-item btn-delete" data-bs-toggle="modal" data-bs-target="#timeLogDeleteModal">
+                    Delete
+                </a>
+                <!-- Hidden fields for passing item info to modals -->
+                <input class="timelog-id" type="hidden" value="@item.Id" />
+                <input class="timelog-empid" type="hidden" value="@item.EmpId" />
+                <input class="timelog-jobnum" type="hidden" value="@item.JobNum" />
+                <input class="timelog-date" type="hidden" value="@item.Date.ToString("yyyy-MM-dd")" />
+                <input class="timelog-time" type="hidden" value="@item.Time" />
+                <input class="timelog-notes" type="hidden" value="@item.Notes" />
+                <input class="timelog-rd" type="hidden" value="@item.Rd.ToString()" />
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
 
 <!-- Placeholder card we could use while time log cards load
-<div class="card log-card" aria-hidden="true" style="opacity: 0.75;">
-    <div class="card-body px-4 py-2">
-        <div class="row log-main justify-content-between my-1">
-            <span class="placeholder placeholder-lg placeholder-wave col-8"
-                  style="margin-left: 12px"></span>
-            <span class="placeholder placeholder-lg placeholder-wave"
-                  style="margin-right: 12px; width: 15%;"></span>
-        </div>
-        <div class="row my-1">
-            <div class="col-8 pt-1 text-nowrap text-truncate">
-                <span class="placeholder placeholder-wave col-2"
-                      style="border-radius: 25px; margin: 0 0.5rem 0 0;">
-                </span>
-                <span class="placeholder placeholder-wave col-3"></span>
-                <i class="bi bi-dot"></i>
-                <span class="placeholder placeholder-wave col-4"></span>
+
+<div id="placeholderLogs" style="display: none;">
+    <div class="card log-card" aria-hidden="true" style="opacity: 0.75;">
+        <div class="card-body px-4 py-2">
+            <div class="row log-main justify-content-between my-1">
+                <span class="placeholder placeholder-lg placeholder-wave col-8"
+                      style="margin-left: 12px"></span>
+                <span class="placeholder placeholder-lg placeholder-wave"
+                      style="margin-right: 12px; width: 15%;"></span>
+            </div>
+            <div class="row my-1">
+                <div class="col-8 pt-1 text-nowrap text-truncate">
+                    <span class="placeholder placeholder-wave col-2"
+                          style="border-radius: 25px; margin: 0 0.5rem 0 0;">
+                    </span>
+                    <span class="placeholder placeholder-wave col-3"></span>
+                    <i class="bi bi-dot"></i>
+                    <span class="placeholder placeholder-wave col-4"></span>
+                </div>
             </div>
         </div>
     </div>
-</div>
--->
+</div> -->

@@ -128,6 +128,10 @@ html, body {
     text-decoration: none;
 }
 
+    .card-parent + .card-parent {
+        margin-top: 0.5rem;
+    }
+
     .card-parent:hover {
         color: #212529;
         text-decoration: none;
@@ -135,7 +139,7 @@ html, body {
 
         .card-parent:hover .card {
             transition: all 0.3s ease-out;
-            box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
+            box-shadow: 0 4px 8px rgba(38, 38, 38, 0.25);
             top: -4px;
             background-color: white;
         }
@@ -148,7 +152,6 @@ html, body {
 
 .action-card {
     text-align: right;
-    margin: 0 0 0.5rem 0;
 }
 
 .action-card-add {
