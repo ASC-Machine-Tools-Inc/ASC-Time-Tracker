@@ -1,12 +1,13 @@
 ﻿/**
  * Timer for logging time spent on stuff.
  *
- * @param {int}      interval  Interval speed (in milliseconds)
- * @param {bool}     updateUI (Optional) Flag to change display (set if on right page)
+ * @param {int}      id       Number to identify this specific timer by.
+ * @param {int}      interval Interval speed (in milliseconds)
+ * @param {bool}     updateUi (Optional) Flag to change display (set if on right page)
  */
-function JobTimer(interval, updateUI) {
+function JobTimer(interval, updateUi) {
     var self = this; // Looks odd, but used as reference back to JobTimer and not anything else.
-    var expected, timeout, startTime;
+    var expected, timeout, startTime; // Values for ensuring we keep track of the correct time.
     this.timeExpended = 0; // Needed to save time when timer is paused
     this.interval = interval;
 
@@ -37,13 +38,13 @@ function JobTimer(interval, updateUI) {
 
                 this.savedValues[pairKey] = pairValue;
 
-                if (updateUI) {
+                if (updateUi) {
                     $("#" + pairKey + "_Display").html("Job # " + pairValue);
                 }
             }
         }
 
-        if (updateUI) {
+        if (updateUi) {
             // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
             // every now and then to make things work.
             $("#jobStatusCollapse").collapse("hide");
@@ -63,7 +64,7 @@ function JobTimer(interval, updateUI) {
 
         clearTimeout(timeout);
 
-        if (updateUI) {
+        if (updateUi) {
             document.getElementById("startBtn").style.display = "block";
             document.getElementById("stopBtn").style.display = "none";
         }
@@ -76,7 +77,7 @@ function JobTimer(interval, updateUI) {
         self.savedValues = {};
         localStorage.removeItem("savedTime");
 
-        if (updateUI) {
+        if (updateUi) {
             // Update time display to 0.
             updateTime();
 
@@ -99,7 +100,7 @@ function JobTimer(interval, updateUI) {
         let hours = Math.floor(secs / 3600);
         let minutes = Math.floor((secs % 3600) / 60);
 
-        if (updateUI) {
+        if (updateUi) {
             $("#timeLogSubmitModal").modal("show");
             $("#timeHours").val(hours);
             $("#timeMinutes").val(minutes);
@@ -125,7 +126,7 @@ function JobTimer(interval, updateUI) {
 
         saveTime();
 
-        if (updateUI) {
+        if (updateUi) {
             updateTime();
         }
 
@@ -135,7 +136,7 @@ function JobTimer(interval, updateUI) {
 
     function saveTime() {
         // Store time in local storage.
-        localStorage.setItem("savedTime", self.getTime());
+        localStorage.setItem("savedTime" + id, self.getTime());
     }
 
     // Update relevant html.
@@ -152,53 +153,3 @@ function JobTimer(interval, updateUI) {
         document.getElementById("jobTime").innerHTML = time;
     }
 }
-
-var jobTimer;
-
-// Flag to keep timer running if form submitted another way (like Add Log Manually)
-var dontEndTimer = false;
-
-function startTimer() {
-    // Check if this page contains the timer to update.
-    let uiFlag = $(".time-col").length > 0;
-
-    // Initialization
-    jobTimer = new JobTimer(10, uiFlag);
-
-    var time = parseInt(localStorage.getItem("savedTime"));
-    var paused = JSON.parse(localStorage.getItem("paused"));
-    if (time) {
-        jobTimer.timeExpended = time;
-        jobTimer.start();
-
-        // Start timer, but don't let time run.
-        if (paused) {
-            jobTimer.stop();
-        }
-    }
-
-    // Update date picker if we're on the right page.
-    if ($(".day-picker")[0]) {
-        setDayPicker(new Date());
-    }
-};
-
-// If saving current timer, end it on submission.
-// Shouldn't have to worry about validation - those fields are already populated.
-$("#timeLogFormSubmit").on("click", function (event) {
-    if (dontEndTimer) {
-        dontEndTimer = false;
-    } else {
-        jobTimer.reset();
-    }
-});
-
-// Set flag.
-$("#actionCardAdd").on("click", function () {
-    dontEndTimer = true;
-});
-
-// Reset the timer on logout so it can be restarted next time.
-$("#logoutButton").on("click", function () {
-    jobTimer.reset();
-});

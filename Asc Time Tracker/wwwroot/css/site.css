@@ -209,6 +209,8 @@ tr:hover {
 }
 
 .main-log-card {
+    background: #fff;
+    background: rgba(255,255,255,0.8);
     padding: 0 12px;
 }
 
@@ -268,6 +270,11 @@ tr:hover {
 .scroll {
     max-height: 300px;
     overflow-y: auto;
+}
+
+.stats-pie-card {
+    border: 2px solid #a9a9a9;
+    padding: 1.5rem 0.5rem;
 }
 
 /* Time logs list is longer on desktop. */

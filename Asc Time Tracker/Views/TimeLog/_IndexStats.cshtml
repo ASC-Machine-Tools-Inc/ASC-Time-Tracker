@@ -3,9 +3,9 @@
 <!-- Filler text to show for no time logs.-->
 @if (Model.Any())
 {
-    <div class="row">
+    <div class="row justify-content-center">
         <h4 class="text-center mt-3 mt-lg-0">Stats for this time frame</h4>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <table class="table">
                 <tr>
                     <th scope="row">
@@ -37,20 +37,22 @@
         </div>
         @if (ViewData["TopJobNum"] != null)
         {
-            <div class="col-md-6 mt-3 mb-5 text-center justify-content-center">
-                <strong>
-                    Top
-                    <select id="pieChartNumSelect"
-                            class="form-select d-inline w-auto mx-1"
-                            aria-label="Top X select">
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                    </select>
-                    Job Numbers by Hours Spent
-                </strong>
+            <div class="col-md-12 mt-3 mb-5 text-center justify-content-center">
+                <div class="card stats-pie-card">
+                    <strong>
+                        Top
+                        <select id="pieChartNumSelect"
+                                class="form-select d-inline w-auto mx-1"
+                                aria-label="Top X select">
+                            <option value="3">3</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                        </select>
+                        Job Numbers by Hours Spent
+                    </strong>
 
-                <canvas id="timeSpentChart"></canvas>
+                    <canvas id="timeSpentChart"></canvas>
+                </div>
             </div>
         }
 
