@@ -2,6 +2,8 @@
  * with ajax.
  */
 
+const SHOW_LOADING_MESSAGE_TIMEOUT = 3000;
+
 var datePickers = {};
 var fieldPickers = {};
 
@@ -350,17 +352,22 @@ function updatePage() {
 }
 
 function updateLogs() {
+    var loadingTimeout;
+
     $.ajax({
         type: "GET",
-        url: "/TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
+        url: "/TimeLog/_IndexLogs?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON() +
             "&empId=" + savedEmpId,
         beforeSend: function () {
-            // Display loading message.
-            $("#logsLoadingMessage").removeClass("d-none");
-            $("#timeLogs").hide();
+            // Display loading message if it takes a while.
+            loadingTimeout = setTimeout(function () {
+                $("#logsLoadingMessage").removeClass("d-none");
+                $("#timeLogs").hide();
+            }, SHOW_LOADING_MESSAGE_TIMEOUT);
         },
         success: function (view) {
+            clearTimeout(loadingTimeout);
             $("#indexLogsView").html(view);
             colorJobs();
         }
@@ -370,15 +377,18 @@ function updateLogs() {
 function updateStats() {
     $.ajax({
         type: "GET",
-        url: "/TimeLog/IndexStats?startDate=" + startDate.toJSON() +
+        url: "/TimeLog/_IndexStats?startDate=" + startDate.toJSON() +
             "&endDate=" + endDate.toJSON() +
             "&empId=" + savedEmpId +
             "&pieCount=" + pieFilter,
         beforeSend: function () {
-            // Hide until load.
-            $("#indexStatsView").html("");
+            // Hide until load if it takes a while.
+            loadingTimeout = setTimeout(function () {
+                $("#indexStatsView").html("");
+            }, SHOW_LOADING_MESSAGE_TIMEOUT);
         },
         success: function (view) {
+            clearTimeout(loadingTimeout);
             $("#indexStatsView").html(view);
             $("#pieChartNumSelect").val(pieFilter);
         }

@@ -43,12 +43,14 @@ namespace Asc_Time_Tracker.Controllers
         }
 
         // GET: IndexInfo partial view
+        [ActionName("_IndexInfo")]
         public IActionResult IndexInfoPartial()
         {
             return PartialView(IndexViewModel);
         }
 
         // GET: IndexLogs partial view
+        [ActionName("_IndexLogs")]
         public async Task<IActionResult> IndexLogs(
             DateTime? startDate,
             DateTime? endDate,
@@ -62,6 +64,7 @@ namespace Asc_Time_Tracker.Controllers
         }
 
         // GET: IndexStats partial view
+        [ActionName("_IndexStats")]
         public async Task<IActionResult> IndexStats(
             DateTime? startDate,
             DateTime? endDate,
