@@ -98,6 +98,15 @@ namespace Asc_Time_Tracker.Controllers
             return PartialView(await timeLogs.ToListAsync());
         }
 
+        // GET: Timer partial view
+        [ActionName("_Timer")]
+        public async Task<IActionResult> IndexStats(
+            int timerId)
+        {
+            ViewData["TimerId"] = timerId;
+            return PartialView();
+        }
+
         // POST: TimeLog/Create
         // Handles modal submission.
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD

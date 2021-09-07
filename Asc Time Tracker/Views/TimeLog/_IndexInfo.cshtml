@@ -112,11 +112,11 @@
     <div class="card-body">
         <div class="row">
             <!-- Logs display -->
-            <div id="indexLogsView" class="col-lg-4 p-0 scroll">
+            <div id="indexLogsView" class="col-lg-6 p-0 scroll">
                 @await Html.PartialAsync("_IndexLogs", Model.TimeLogs)
             </div>
             <!-- Stats display -->
-            <div id="indexStatsView" class="col-lg-8">
+            <div id="indexStatsView" class="col-lg-6">
                 @await Html.PartialAsync("_IndexStats", Model.TimeLogs)
             </div>
         </div>

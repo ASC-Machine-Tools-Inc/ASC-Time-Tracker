@@ -24,62 +24,22 @@
             </div>
         </a>
 
-        <div id="timeCard" class="card border-dark my-3">
-            <div class="card-body time-card text-center">
-                <div class="col time-col">
-                    <div class="collapse multi-collapse show" id="jobStatusCollapse">
-                        <h4>No log currently active</h4>
-                    </div>
-                    <strong id="TimeLog_JobNum_Display"></strong>
-                    <div class="collapse multi-collapse" id="jobTimeCollapse">
-                        <div id="jobTime" class="time-display">00:00:00</div>
-                    </div>
-                </div>
+        <div id="timersCol">
+            <partial name="_Timer" />
 
-                <div class="btn-toolbar justify-content-center">
-                    <button id="startBtn" type="button" class="btn btn-primary btn-lg mx-1"
-                            onclick="jobTimer.start()" aria-expanded="true"
-                            aria-controls="jobStatusCollapse jobTimeCollapse">
-                        Start
-                    </button>
-                    <button id="stopBtn" type="button" class="btn btn-secondary btn-lg mx-1"
-                            onclick="jobTimer.stop()" style="display: none;">
-                        Pause
-                    </button>
-                    <button id="resetBtn" type="button" class="btn btn-danger btn-lg mx-1"
-                            onclick="jobTimer.reset()" style="display: none;"
-                            aria-expanded="false" aria-controls="jobStatusCollapse jobTimeCollapse">
-                        Reset
-                    </button>
-                    <button id="saveBtn" type="button" class="btn btn-primary btn-lg mx-1"
-                            onclick="jobTimer.save()" style="display: none;">
-                        Save
-                    </button>
-                </div>
-
-                <!-- Only show QR code scanner on mobile (Disable for now)
-                <div class="col d-md-none justify-content-center my-2 p-0">
-                    <button id="scannerBtn" type="button" class="btn btn-primary btn-lg"
-                            onclick="toggleScanner()">
-                        Start with QR code
-                    </button>
-                </div>
-                -->
-            </div>
-        </div>
-
-        <!-- TODO: replace main timer above with just add? -->
-        <a class="card-parent">
-            <div id="timeCard2" class="card time-card-add my-3">
-                <div class="card-body time-card d-flex
+            <!-- TODO: replace main timer above with just add? -->
+            <a class="card-parent">
+                <div id="addTimerCard" class="card time-card-add my-3">
+                    <div class="card-body time-card d-flex
                      align-items-center justify-content-center">
-                    <h4>
-                        <i class="fas fa-plus"></i>
-                        Add New Timer
-                    </h4>
+                        <h4>
+                            <i class="fas fa-plus"></i>
+                            Add New Timer
+                        </h4>
+                    </div>
                 </div>
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
 
     <!-- Time log list and stats (show on desktop) -->

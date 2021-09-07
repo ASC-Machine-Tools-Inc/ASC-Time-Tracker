@@ -356,9 +356,12 @@ function updateLogs() {
 
     $.ajax({
         type: "GET",
-        url: "/TimeLog/_IndexLogs?startDate=" + startDate.toJSON() +
-            "&endDate=" + endDate.toJSON() +
-            "&empId=" + savedEmpId,
+        url: "/TimeLog/_IndexLogs",
+        data: {
+            startDate: startDate.toJSON(),
+            endDate: endDate.toJSON(),
+            empId: savedEmpId
+        },
         beforeSend: function () {
             // Display loading message if it takes a while.
             loadingTimeout = setTimeout(function () {
@@ -377,10 +380,13 @@ function updateLogs() {
 function updateStats() {
     $.ajax({
         type: "GET",
-        url: "/TimeLog/_IndexStats?startDate=" + startDate.toJSON() +
-            "&endDate=" + endDate.toJSON() +
-            "&empId=" + savedEmpId +
-            "&pieCount=" + pieFilter,
+        url: "/TimeLog/_IndexStats",
+        data: {
+            startDate: startDate.toJSON(),
+            endDate: endDate.toJSON(),
+            empId: savedEmpId,
+            pieCount: pieFilter,
+        },
         beforeSend: function () {
             // Hide until load if it takes a while.
             loadingTimeout = setTimeout(function () {

@@ -1,0 +1,47 @@
+﻿<div class="card border-dark my-3">
+    <div class="card-body time-card text-center">
+        <div class="col timer-header-col">
+            <button type="button" class="btn-close float-end"></button>
+            <div class="collapse multi-collapse show" id="jobStatusCollapse">
+                <h4>No log currently active</h4>
+            </div>
+            <strong id="TimeLog_JobNum_Display"></strong>
+            <div class="collapse multi-collapse" id="jobTimeCollapse">
+                <div id="jobTime" class="time-display">00:00:00</div>
+            </div>
+        </div>
+
+        <div class="btn-toolbar justify-content-center">
+            <input id="timerId" type="hidden" value="@ViewData["TimerId"]" />
+            <button id="startBtn" type="button"
+                    class="btn btn-primary btn-lg mx-1
+                    timer-function-btn start-timer-btn"
+                    aria-expanded="true"
+                    aria-controls="jobStatusCollapse jobTimeCollapse">
+                Start <!-- TODO: make first button start with notes -->
+            </button>
+            <button id="stopBtn" type="button" class="btn btn-secondary btn-lg mx-1"
+                    onclick="jobTimer.stop()" style="display: none;">
+                Pause
+            </button>
+            <button id="saveBtn" type="button" class="btn btn-primary btn-lg mx-1"
+                    onclick="jobTimer.save()" style="display: none;">
+                Save
+            </button>
+            <button id="deleteBtn" type="button" class="btn btn-danger btn-lg mx-1"
+                    onclick="jobTimer.delete()"
+                    aria-expanded="false" aria-controls="jobStatusCollapse jobTimeCollapse">
+                Delete
+            </button>
+        </div>
+
+        <!-- Only show QR code scanner on mobile (Disable for now)
+        <div class="col d-md-none justify-content-center my-2 p-0">
+            <button id="scannerBtn" type="button" class="btn btn-primary btn-lg"
+                    onclick="toggleScanner()">
+                Start with QR code
+            </button>
+        </div>
+        -->
+    </div>
+</div>

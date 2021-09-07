@@ -36,7 +36,7 @@
     {
         <header>
             <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
-                <div class="container-fluid">
+                <div class="container">
                     <a class="navbar-brand" asp-controller="TimeLog" asp-action="MainIndex">ASC Time Tracker</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -77,8 +77,8 @@
         </header>
     }
 
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
+    <div class="container">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
@@ -104,6 +104,7 @@
             <script src="~/js/time/currTime.js"></script>
             <script src="~/js/time/logFilter.js"></script>
             <script src="~/js/time/timer.js"></script>
+            <script src="~/js/time/timerFunctions.js"></script>
 
             <script src="~/js/ui/jobColor.js"></script>
             <script src="~/js/ui/qrScanner.js"></script>

@@ -1,5 +1,5 @@
-﻿var jobTimer;
-var jobTimers;
+﻿var jobTimers = [];
+var currTimerId = 0;
 
 // Flag to keep timer running if form submitted another way (like Add Log Manually)
 var dontEndTimer = false;
@@ -10,19 +10,20 @@ function startTimer() {
     // which represents the column containing the action cards and timers.
     let uiFlag = $(".time-col").length > 0;
 
-    // Initialization
-    jobTimer = new JobTimer(1, 10, uiFlag);
+    // Initialization.
+    var storedTimers = JSON.parse(localStorage.getItem("timers"));
+    if (storedTimers != null) {
+        for (var timer of storedTimers.timers) {
+            var jobTimer = new JobTimer(1, 10, uiFlag);
+            jobTimers.add(jobTimer);
+            currTimerId++;
+            // TODO: UI work to generate timers?
 
-    var timers = JSON.parse(localStorage.getItem("timers"));
-    for (var timer of timers) {
-        var savedTime = parseInt(localStorage.getItem("savedTime"));
-        var paused = JSON.parse(localStorage.getItem("paused"));
-        if (savedTime) {
-            jobTimer.timeExpended = savedTime;
+            jobTimer.timeExpended = timer.savedTime;
             jobTimer.start();
 
-            // Start timer, but don't let time run.
-            if (paused) {
+            // Start timer, but don't let time run (to show previous saved time).
+            if (jobTimer.paused) {
                 jobTimer.stop();
             }
         }
@@ -57,3 +58,30 @@ $("#logoutButton").on("click", function () {
         jobTimer.reset();
     }
 });
+
+// Add new timer on click.
+$("#addTimerCard").on("click", function () {
+    $.ajax({
+        type: "GET",
+        url: "/TimeLog/_Timer",
+        data: {
+            timerId: currTimerId
+        },
+        beforeSend: function () {
+            // Display placeholder?
+        },
+        success: function (view) {
+            $("#timersCol").prepend(view);
+        }
+    });
+});
+
+// Call the corresponding timer action for the corresponding timer
+// on a timer function click.
+$(".timer-function-btn").on("click", function () {
+    var timerId = $(this).closest("#timerId");
+
+    if ($(this).hasClass("start-timer-btn")) {
+        jobTimers[timerId].start();
+    }
+})

@@ -5,7 +5,7 @@
  * @param {int}      interval Interval speed (in milliseconds)
  * @param {bool}     updateUi (Optional) Flag to change display (set if on right page)
  */
-function JobTimer(interval, updateUi) {
+function JobTimer(id, interval, updateUi) {
     var self = this; // Looks odd, but used as reference back to JobTimer and not anything else.
     var expected, timeout, startTime; // Values for ensuring we keep track of the correct time.
     this.timeExpended = 0; // Needed to save time when timer is paused
@@ -21,6 +21,8 @@ function JobTimer(interval, updateUi) {
      *                        with key-value pairs split with |.
      */
     this.start = function (values = "") {
+        $("#timeLogCreateNotesModal").modal("show"); // TODO:
+
         expected = Date.now() + this.interval;
         startTime = Date.now();
         localStorage.setItem("paused", "false");
@@ -54,8 +56,14 @@ function JobTimer(interval, updateUi) {
             //document.getElementById("scannerBtn").style.display = "none";
             document.getElementById("stopBtn").style.display = "block";
             document.getElementById("saveBtn").style.display = "block";
-            document.getElementById("resetBtn").style.display = "block";
+            document.getElementById("deleteBtn").style.display = "block";
         }
+    }
+
+    /**
+     * Start the timer, along with user-inputted notes.
+     */
+    this.startWithNotes = function () {
     }
 
     this.stop = function () {
@@ -70,7 +78,7 @@ function JobTimer(interval, updateUi) {
         }
     }
 
-    this.reset = function () {
+    this.delete = function () {
         clearTimeout(timeout);
         self.timeExpended = 0;
         localStorage.setItem("paused", "false");
@@ -91,7 +99,7 @@ function JobTimer(interval, updateUi) {
             //document.getElementById("scannerBtn").style.display = "inline-block";
             document.getElementById("stopBtn").style.display = "none";
             document.getElementById("saveBtn").style.display = "none";
-            document.getElementById("resetBtn").style.display = "none";
+            document.getElementById("deleteBtn").style.display = "none";
         }
     }
 
