@@ -60,7 +60,7 @@ $("#logoutButton").on("click", function () {
 });
 
 // Add new timer on click.
-$("#addTimerCard").on("click", function () {
+$("#addTimerBtn").on("click", function () {
     $.ajax({
         type: "GET",
         url: "/TimeLog/_Timer",
@@ -71,7 +71,7 @@ $("#addTimerCard").on("click", function () {
             // Display placeholder?
         },
         success: function (view) {
-            $("#timersCol").prepend(view);
+            $("#timersRow").prepend(view);
         }
     });
 });

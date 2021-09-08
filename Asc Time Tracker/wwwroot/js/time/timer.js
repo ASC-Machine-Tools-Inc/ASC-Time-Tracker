@@ -47,11 +47,6 @@ function JobTimer(id, interval, updateUi) {
         }
 
         if (updateUi) {
-            // Javascript is a pain sometimes. Sorry Bootstrap, but I still need jQuery
-            // every now and then to make things work.
-            $("#jobStatusCollapse").collapse("hide");
-            $("#jobTimeCollapse").collapse("show");
-
             document.getElementById("startBtn").style.display = "none";
             //document.getElementById("scannerBtn").style.display = "none";
             document.getElementById("stopBtn").style.display = "block";
@@ -91,9 +86,6 @@ function JobTimer(id, interval, updateUi) {
 
             // TODO: Convert into own function after adding more fields?
             $("#TimeLog_JobNum_Display").html("");
-
-            $("#jobStatusCollapse").collapse("show");
-            $("#jobTimeCollapse").collapse("hide");
 
             document.getElementById("startBtn").style.display = "block";
             //document.getElementById("scannerBtn").style.display = "inline-block";

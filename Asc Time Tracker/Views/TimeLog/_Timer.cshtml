@@ -1,13 +1,15 @@
-﻿<div class="card border-dark my-3">
-    <div class="card-body time-card text-center">
+﻿<div class="card time-card col-xs-4 border-dark shadow-sm">
+    <div class="card-body text-center p-2">
         <div class="col timer-header-col">
-            <button type="button" class="btn-close float-end"></button>
-            <div class="collapse multi-collapse show" id="jobStatusCollapse">
-                <h4>No log currently active</h4>
+            <div class="row mx-auto justify-content-end">
+                <button type="button" class="btn-close"></button>
             </div>
-            <strong id="TimeLog_JobNum_Display"></strong>
-            <div class="collapse multi-collapse" id="jobTimeCollapse">
-                <div id="jobTime" class="time-display">00:00:00</div>
+            <div class="row mx-auto mb-2">
+                <strong id="TimeLog_Notes_Display">TEST</strong>
+                <strong id="TimeLog_JobNum_Display"></strong>
+                <div id="jobTimeCollapse">
+                    <div id="jobTime" class="time-display">00:00:00</div>
+                </div>
             </div>
         </div>
 
@@ -17,7 +19,7 @@
                     class="btn btn-primary btn-lg mx-1
                     timer-function-btn start-timer-btn"
                     aria-expanded="true"
-                    aria-controls="jobStatusCollapse jobTimeCollapse">
+                    aria-controls="jobTimeCollapse">
                 Start <!-- TODO: make first button start with notes -->
             </button>
             <button id="stopBtn" type="button" class="btn btn-secondary btn-lg mx-1"
@@ -28,11 +30,12 @@
                     onclick="jobTimer.save()" style="display: none;">
                 Save
             </button>
+            <!--
             <button id="deleteBtn" type="button" class="btn btn-danger btn-lg mx-1"
                     onclick="jobTimer.delete()"
-                    aria-expanded="false" aria-controls="jobStatusCollapse jobTimeCollapse">
+                    aria-expanded="false" aria-controls="jobTimeCollapse">
                 Delete
-            </button>
+            </button> -->
         </div>
 
         <!-- Only show QR code scanner on mobile (Disable for now)

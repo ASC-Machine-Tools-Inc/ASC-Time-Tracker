@@ -1,54 +1,23 @@
-﻿@model IndexViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Logs";
 }
 
-<div class="row">
-    <!-- Time clock and options -->
-    <div class="col-md-3">
-        <!-- Link to action cards -->
-        <a id="actionCardAdd" class="card-parent" data-bs-toggle="modal" data-bs-target="#timeLogSubmitModal">
-            <div class="card action-card action-card-add">
-                <div class="card-body">
-                    <span class="action-card-title">Add Log Manually</span>
-                </div>
-            </div>
-        </a>
-        <!-- Time log list and stats (show on mobile) -->
-        <a id="actionCardLogs" class="card-parent d-block d-md-none" asp-action="IndexInfo">
-            <div class="card action-card action-card-view">
-                <div class="card-body">
-                    <span class="action-card-title">View Logs</span>
-                </div>
-            </div>
-        </a>
+<div class="col">
+    <div class="row mx-auto">
+        <div class="partial-header px-0 mb-3">
+            Timers
+            <button id="addTimerBtn" class="btn header-circle-btn ">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </div>
 
-        <div id="timersCol">
-            <partial name="_Timer" />
-
-            <!-- TODO: replace main timer above with just add? -->
-            <a class="card-parent">
-                <div id="addTimerCard" class="card time-card-add my-3">
-                    <div class="card-body time-card d-flex
-                     align-items-center justify-content-center">
-                        <h4>
-                            <i class="fas fa-plus"></i>
-                            Add New Timer
-                        </h4>
-                    </div>
-                </div>
-            </a>
+        <div id="timersRow">
         </div>
     </div>
 
-    <!-- Time log list and stats (show on desktop) -->
-    <div class="col-md-9 mt-4 mt-md-0 d-none d-md-block">
+    <div class="row mx-auto">
         <partial name="_IndexInfo" />
     </div>
-
-    <!-- Modals -->
-    <partial name="_IndexModals" />
 </div>
 
 @section Scripts

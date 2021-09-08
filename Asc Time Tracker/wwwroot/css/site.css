@@ -62,11 +62,51 @@ html, body {
     height: 100%;
 }
 
+/* Custom text styles. */
+.partial-header {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.header-circle-btn {
+    background: var(--bs-body-color);
+    height: 50px;
+    width: 50px;
+    margin: 0 0.25rem 1rem;
+    border-radius: 50%;
+}
+
+    .header-circle-btn i {
+        height: 20px;
+        width: 20px;
+        color: #fff;
+    }
+
+/* Sidebar styling. */
+.sidebar {
+    position: fixed;
+    z-index: 10;
+}
+
+@media only screen and (min-width: 576px) {
+    .sidebar {
+        height: 100vh !important;
+    }
+}
+
+.hover-click {
+    cursor: pointer;
+}
+
 .nav-link {
     color: #EFF0F0;
     display: inline-block;
     position: relative;
 }
+
+    .nav-link:hover {
+        color: #93A3A3;
+    }
 
     .nav-link::after {
         content: '';
@@ -104,13 +144,12 @@ html, body {
     border: 2px solid #343a40;
 }
 
-    .card.time-card-add {
-        border: 2px dashed #343a40;
-        opacity: 0.7;
-    }
-
 .time-card {
-    min-height: 140px;
+    border: 0;
+    border-radius: 5px;
+    margin: 0.25rem 0.5rem;
+    min-height: 170px;
+    min-width: 250px;
 }
 
 .timer-header-col {
@@ -150,22 +189,16 @@ html, body {
     transition: border linear 1s;
 }
 
-.action-card {
-    text-align: right;
+#timersRow {
+    height: 200px;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
-.action-card-add {
-    border-left: 6px solid #C16E70;
-}
-
-.action-card-view {
-    border-left: 6px solid #5B9BC2;
-}
-
-.action-card-title {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
+    #timersRow > .col-xs-4 {
+        display: inline-grid;
+        float: none;
+    }
 
 /* Modal styling */
 .modal-footer {
@@ -184,21 +217,6 @@ input[type=checkbox] {
 label.form-label {
     font-weight: 600;
 }
-
-/* Table styling */
-.container-table {
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
-thead {
-    background-color: #e8e8e8;
-}
-
-    thead tr:hover {
-        background-color: #d8d8d8;
-    }
 
 #notes-col {
     width: 40%;
@@ -402,6 +420,7 @@ tr:hover {
     margin: 5% 5%;
     border: 0;
     border-radius: 5px;
+    box-shadow: 0 10px 30px 0 #aca8a8;
     box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
     overflow: hidden;
 }
