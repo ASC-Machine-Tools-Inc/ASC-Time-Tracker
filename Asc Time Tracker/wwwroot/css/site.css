@@ -76,6 +76,10 @@ html, body {
     border-radius: 50%;
 }
 
+    .header-circle-btn:hover {
+        background: #4b4f55;
+    }
+
     .header-circle-btn i {
         height: 20px;
         width: 20px;
@@ -141,16 +145,23 @@ html, body {
 
 /* Card styling */
 .card {
-    border: 2px solid #343a40;
+    background: #fff;
+    background: rgba(255,255,255,0.8);
+    border: 0;
+    border-radius: 8px;
 }
 
 .time-card {
     border: 0;
-    border-radius: 5px;
-    margin: 0.25rem 0.5rem;
+    margin: 0.25rem 0;
+    padding: 0.25rem 0.25rem 1rem;
     min-height: 170px;
     min-width: 250px;
 }
+
+    .time-card + .time-card {
+        margin-left: 1rem;
+    }
 
 .timer-header-col {
     min-height: 50px;
@@ -226,9 +237,12 @@ tr:hover {
     background-color: #f8f8f8;
 }
 
+.main-log-card-header {
+    margin-bottom: 1rem;
+    padding: 1rem 1rem;
+}
+
 .main-log-card {
-    background: #fff;
-    background: rgba(255,255,255,0.8);
     padding: 0 12px;
 }
 

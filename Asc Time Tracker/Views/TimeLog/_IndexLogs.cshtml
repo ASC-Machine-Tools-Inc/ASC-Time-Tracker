@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<TimeLog>
 <!-- Loading text. -->
-<div id="logsLoadingMessage" class="text-center d-none">
+<div id="logsLoadingMessage" class="d-none">
     <small class="text-muted">
         Loading...
     </small>
@@ -10,11 +10,9 @@
     <!-- Filler text to show for no timelogs.-->
     @if (!Model.Any())
     {
-        <div class="text-center">
-            <small class="text-muted">
-                No time logs were found for this date range.
-            </small>
-        </div>
+        <small class="text-muted">
+            No time logs were found for this date range.
+        </small>
     }
 
     @foreach (var item in Model.Reverse())
