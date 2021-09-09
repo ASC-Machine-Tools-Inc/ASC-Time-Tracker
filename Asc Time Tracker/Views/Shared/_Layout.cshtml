@@ -26,6 +26,10 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 
+    <!-- Intro tour -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/intro.js/minified/introjs.min.css" />
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <script src="https://kit.fontawesome.com/d1b8b99eb8.js" crossorigin="anonymous"></script>
@@ -144,6 +148,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
 
+    <!-- Intro tour -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
     <!-- Don't run scripts if user isn't signed in-->
     @if (SignInManager.IsSignedIn(User))
     {
@@ -157,6 +164,7 @@
             <script src="~/js/time/timer.js"></script>
             <script src="~/js/time/timerFunctions.js"></script>
 
+            <script src="~/js/ui/introTour.js"></script>
             <script src="~/js/ui/jobColor.js"></script>
             <script src="~/js/ui/qrScanner.js"></script>
 

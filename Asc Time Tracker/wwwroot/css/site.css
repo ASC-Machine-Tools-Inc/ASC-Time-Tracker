@@ -153,9 +153,8 @@ html, body {
 
 /* Timer stuff */
 #timersRow {
-    height: 225px;
+    max-height: 425px;
     overflow-x: auto;
-    white-space: nowrap;
 }
 
     #timersRow > .col-xs-4 {
@@ -165,15 +164,12 @@ html, body {
 
 .timer-card {
     border: 0;
-    margin: 0.25rem 0;
+    margin: 0.25rem 0 0.5rem 1rem;
     padding: 0.25rem 0.25rem 1rem;
     height: 200px;
+    /* TODO: change width to 100% for mobile? */
     width: 250px;
 }
-
-    .timer-card + .timer-card {
-        margin-left: 1rem;
-    }
 
 .timer-card-add:hover {
     border: 2px solid #343a40;
