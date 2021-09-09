@@ -96,7 +96,6 @@
                             <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
                         </div>
                         <div class="col-6 mb-3">
-                            <!-- TODO: fill these -->
                             <label asp-for="TimeLog.Time" class="form-label"></label>
                             <div class="input-group d-inline-flex">
                                 <input id="timeHoursEdit" class="form-control" type="number" min="0"
@@ -155,16 +154,26 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="timeLogCreateNotesModalLabel">
-                        Add some notes for this timer?
+                        Add some information for this timer?
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <span>blah blah enter notes here</span>
+                    <form id="timerFieldsForm">
+                        <div class="col mb-3">
+                            <label for="timerNotes" class="form-label">Notes (optional)</label>
+                            <input id="timerNotes" type="text" class="form-control"
+                                   placeholder="Short task description"
+                                   aria-label="Notes" aria-describedby="notes-label">
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save</button>
+                    <button id="saveTimerBtn" type="submit" class="btn btn-primary"
+                            form="timerFieldsForm" data-bs-dismiss="modal">
+                        Start Timer
+                    </button>
                 </div>
             </div>
         </div>

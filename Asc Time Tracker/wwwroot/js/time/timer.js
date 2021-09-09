@@ -1,50 +1,33 @@
 ﻿/**
  * Timer for logging time spent on stuff.
  *
- * @param {int}      id       Number to identify this specific timer by.
- * @param {int}      interval Interval speed (in milliseconds)
- * @param {bool}     updateUi (Optional) Flag to change display (set if on right page)
+ * @param {int}     id       Number to identify this specific timer by.
+ * @param {int}     interval Interval speed (in milliseconds)
+ * @param {bool}    updateUi (Optional) Flag to change display (set if on right page)
+ * @param {string}  fields   (Optional) List of fields in the format key:value,
+ *                                      with key-value pairs split with |.
  */
-function JobTimer(id, interval, updateUi) {
+function JobTimer(id, interval, updateUi = false, fields = null) {
     var self = this; // Looks odd, but used as reference back to JobTimer and not anything else.
     var expected, timeout, startTime; // Values for ensuring we keep track of the correct time.
     this.timeExpended = 0; // Needed to save time when timer is paused
     this.interval = interval;
 
-    // Saved values if started with QR code
-    this.savedValues = {};
+    // Save the values for this timer's display.
+    this.savedFields = {};
+    if (fields) {
+        stringToFields();
+    }
 
     /**
-     * Start the timer, along with any values you want saved when submitting.
-     *
-     * @param {string} values (Optional) List of fields in the format key:value,
-     *                        with key-value pairs split with |.
+     * Start the timer.
      */
-    this.start = function (values = "") {
-        $("#timeLogCreateNotesModal").modal("show"); // TODO:
-
+    this.start = function () {
         expected = Date.now() + this.interval;
         startTime = Date.now();
         localStorage.setItem("paused", "false");
 
         step(); // Start timeout for updating time.
-
-        // Update with saved fields from QR code.
-        if (values) {
-            let splitValues = values.split("|");
-
-            for (let i = 0; i < splitValues.length; i++) {
-                let splitPairs = splitValues[i].split(":");
-                let pairKey = splitPairs[0];
-                let pairValue = splitPairs[1];
-
-                this.savedValues[pairKey] = pairValue;
-
-                if (updateUi) {
-                    $("#" + pairKey + "_Display").html("Job # " + pairValue);
-                }
-            }
-        }
 
         if (updateUi) {
             document.getElementById("startBtn").style.display = "none";
@@ -53,12 +36,6 @@ function JobTimer(id, interval, updateUi) {
             document.getElementById("saveBtn").style.display = "block";
             document.getElementById("deleteBtn").style.display = "block";
         }
-    }
-
-    /**
-     * Start the timer, along with user-inputted notes.
-     */
-    this.startWithNotes = function () {
     }
 
     this.stop = function () {
@@ -77,7 +54,7 @@ function JobTimer(id, interval, updateUi) {
         clearTimeout(timeout);
         self.timeExpended = 0;
         localStorage.setItem("paused", "false");
-        self.savedValues = {};
+        self.savedFields = {};
         localStorage.removeItem("savedTime");
 
         if (updateUi) {
@@ -105,9 +82,9 @@ function JobTimer(id, interval, updateUi) {
             $("#timeHours").val(hours);
             $("#timeMinutes").val(minutes);
 
-            if (self.savedValues) {
-                for (let field in self.savedValues) {
-                    $("#" + field).val(self.savedValues[field]);
+            if (self.savedFields) {
+                for (let field in self.savedFields) {
+                    $("#" + field).val(self.savedFields[field]);
                 }
             }
         }
@@ -117,7 +94,7 @@ function JobTimer(id, interval, updateUi) {
         return Date.now() - startTime + self.timeExpended;
     }
 
-    // Self-adjusting for drift time step.
+    // Time step that self-adjusts for drift.
     function step() {
         var drift = Date.now() - expected;
         if (drift > self.interval) {
@@ -151,5 +128,23 @@ function JobTimer(id, interval, updateUi) {
         let time = [hours, minutes, seconds].join(":");
 
         document.getElementById("jobTime").innerHTML = time;
+    }
+
+    // Converts a specially formatted string into saved fields for the timer.
+    // String looks like: TimeLog_{field}:{value}|TimeLog_{field}:{value}|...
+    function stringToFields() {
+        let splitValues = fields.split("|");
+
+        for (let i = 0; i < splitValues.length; i++) {
+            let splitPairs = splitValues[i].split(":");
+            let pairKey = splitPairs[0];
+            let pairValue = splitPairs[1];
+
+            self.savedFields[pairKey] = pairValue;
+
+            if (updateUi) {
+                $("#" + pairKey + "_Display").html(pairValue);
+            }
+        }
     }
 }

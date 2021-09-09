@@ -151,17 +151,43 @@ html, body {
     border-radius: 8px;
 }
 
-.time-card {
+/* Timer stuff */
+#timersRow {
+    height: 225px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+    #timersRow > .col-xs-4 {
+        display: inline-grid;
+        float: none;
+    }
+
+.timer-card {
     border: 0;
     margin: 0.25rem 0;
     padding: 0.25rem 0.25rem 1rem;
-    min-height: 170px;
-    min-width: 250px;
+    height: 200px;
+    width: 250px;
 }
 
-    .time-card + .time-card {
+    .timer-card + .timer-card {
         margin-left: 1rem;
     }
+
+.timer-card-add:hover {
+    border: 2px solid #343a40;
+    opacity: 1;
+    transition: border linear 1s;
+}
+
+.timer-field {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 225px;
+    display: block;
+}
 
 .timer-header-col {
     min-height: 50px;
@@ -193,23 +219,6 @@ html, body {
             top: -4px;
             background-color: white;
         }
-
-.time-card-add:hover {
-    border: 2px solid #343a40;
-    opacity: 1;
-    transition: border linear 1s;
-}
-
-#timersRow {
-    height: 200px;
-    overflow-x: auto;
-    white-space: nowrap;
-}
-
-    #timersRow > .col-xs-4 {
-        display: inline-grid;
-        float: none;
-    }
 
 /* Modal styling */
 .modal-footer {
@@ -300,19 +309,18 @@ tr:hover {
     }
 
 .scroll {
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
 }
 
 .stats-pie-card {
-    border: 2px solid #a9a9a9;
     padding: 1.5rem 0.5rem;
 }
 
 /* Time logs list is longer on desktop. */
 @media only screen and (min-width: 768px) {
     .scroll {
-        max-height: 700px;
+        max-height: 600px;
     }
 }
 

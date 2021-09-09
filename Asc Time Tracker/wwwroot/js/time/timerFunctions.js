@@ -5,27 +5,11 @@ var currTimerId = 0;
 var dontEndTimer = false;
 
 function startTimer() {
-    // Check if this page contains the timer to update.
-    // Hacky way: check that there's an instance of the class time-col,
-    // which represents the column containing the action cards and timers.
-    let uiFlag = $(".time-col").length > 0;
-
     // Initialization.
     var storedTimers = JSON.parse(localStorage.getItem("timers"));
     if (storedTimers != null) {
         for (var timer of storedTimers.timers) {
-            var jobTimer = new JobTimer(1, 10, uiFlag);
-            jobTimers.add(jobTimer);
-            currTimerId++;
-            // TODO: UI work to generate timers?
-
-            jobTimer.timeExpended = timer.savedTime;
-            jobTimer.start();
-
-            // Start timer, but don't let time run (to show previous saved time).
-            if (jobTimer.paused) {
-                jobTimer.stop();
-            }
+            addTimer();
         }
     }
 
@@ -34,6 +18,49 @@ function startTimer() {
         setDayPicker(new Date());
     }
 };
+
+// Adds a new timer.
+function addTimer(fields) {
+    // Check if this page contains the timer to update.
+    // Hacky way: check that the timer row exists to add to.
+    let updateUi = $("#timersRow").length > 0;
+
+    // Update the UI if we're on the right page.
+    var jobTimer;
+    if (updateUi) {
+        $.ajax({
+            type: "GET",
+            url: "/TimeLog/_Timer",
+            data: {
+                timerId: currTimerId
+            },
+            beforeSend: function () {
+                // Display placeholder?
+            },
+            success: function (view) {
+                $("#timersRow").prepend(view);
+
+                // Wait for timer to be added before updating fields.
+                jobTimer = new JobTimer(currTimerId, 10, updateUi, fields);
+            }
+        });
+    } else {
+        jobTimer = new JobTimer(currTimerId, 10, updateUi, fields);
+    }
+
+    jobTimers.push(jobTimer);
+    currTimerId++;
+
+    //jobTimer.timeExpended = timer.savedTime;
+    //jobTimer.start();
+
+    // If paused, start timer, but don't let time run
+    // (to show the previous saved time).
+    /*
+    if (jobTimer.paused) {
+        jobTimer.stop();
+    } */
+}
 
 // If saving current timer, end it on submission.
 // Shouldn't have to worry about validation - those fields are already populated.
@@ -59,21 +86,25 @@ $("#logoutButton").on("click", function () {
     }
 });
 
-// Add new timer on click.
+// Open modal for entering timer notes before creation.
 $("#addTimerBtn").on("click", function () {
-    $.ajax({
-        type: "GET",
-        url: "/TimeLog/_Timer",
-        data: {
-            timerId: currTimerId
-        },
-        beforeSend: function () {
-            // Display placeholder?
-        },
-        success: function (view) {
-            $("#timersRow").prepend(view);
-        }
+    $("#timeLogCreateNotesModal").modal("show");
+    // Wait for modal to open before focusing text field.
+    $("#timeLogCreateNotesModal").on("shown.bs.modal", function () {
+        $("#timerNotes").focus();
     });
+});
+
+// Add new timer on submit.
+$("#timerFieldsForm").on("submit", function (e) {
+    e.preventDefault();
+    $("#timeLogCreateNotesModal").modal("hide");
+
+    var notes = $("#timerNotes").val();
+    addTimer(`TimeLog_Notes:${notes}`);
+
+    // Clear input field.
+    $("#timerNotes").val("");
 });
 
 // Call the corresponding timer action for the corresponding timer

@@ -92,43 +92,49 @@
                 </form>
             }
 
-            <!-- TODO: implement filters later
-            <div class="row">
-            <!-- Select which fields to filter by.
-            <div class="input-group d-inline-flex align-items-center w-auto">
-            <label class="input-group-text" for="fieldOption">Filter by</label>
-            <select id="fieldOption" class="form-select me-2">
-                <option>Job number</option>
-                <option>Notes</option>
-                <option>Research and design</option>
-            </select>
+            <div class="row mt-2">
+                <!-- Select which fields to filter by. -->
+                <div class="input-group d-inline-flex align-items-center">
+                    <label class="input-group-text" for="fieldOption">Filter by</label>
+                    <select id="fieldOption" class="form-select">
+                        <option>Job number</option>
+                        <option>Notes</option>
+                        <option>Research and design</option>
+                    </select>
 
-            <!-- Search fields.
-            <input type="text"
-                   class="form-control job-number-picker">
-            <input type="text"
-                   class="form-control notes-picker">
-            <div class="form-check">
-                <input type="checkbox"
-                       class="form-check-input rd-picker ms-1" />
+                    <!-- Search fields. -->
+                    <input type="text"
+                           class="form-control job-number-picker">
+                    <input type="text"
+                           class="form-control notes-picker">
+                    <div class="form-check">
+                        <input type="checkbox"
+                               class="form-check-input rd-picker ms-1" />
+                    </div>
+                </div>
             </div>
-            </div>
-            </div>
-            -->
         </div>
     </div>
 </div>
 
-<div class="card main-log-card shadow">
-    <div class="card-body">
-        <div class="row">
-            <!-- Logs display -->
-            <div id="indexLogsView" class="col-lg-6 p-0 scroll">
-                @await Html.PartialAsync("_IndexLogs", Model.TimeLogs)
+<div class="col">
+    <div class="row">
+        <!-- Logs display -->
+        <div class="col-lg-6 p-0 ps-lg-0">
+            <div class="card main-log-card shadow py-2">
+                <div id="indexLogsView" class="card-body scroll">
+                    @await Html.PartialAsync("_IndexLogs", Model.TimeLogs)
+                </div>
             </div>
-            <!-- Stats display -->
-            <div id="indexStatsView" class="col-lg-6">
-                @await Html.PartialAsync("_IndexStats", Model.TimeLogs)
+        </div>
+
+        <!-- Stats display -->
+        <div class="col-lg-6 p-0 pe-lg-0 ps-lg-4
+             mt-3 mt-lg-0">
+            <div class="card main-log-card shadow py-2">
+                <div id="indexStatsView" class="card-body">
+                    @await Html.PartialAsync("_IndexStats", Model.TimeLogs)
+                </div>
             </div>
         </div>
     </div>

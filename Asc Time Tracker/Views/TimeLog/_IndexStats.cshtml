@@ -1,7 +1,13 @@
 ﻿@using ChartJSCore.Models
 @model IEnumerable<TimeLog>
 <!-- Filler text to show for no time logs.-->
-@if (Model.Any())
+@if (!Model.Any())
+{
+    <small class="text-muted">
+        No stats to display.
+    </small>
+}
+else
 {
     <div class="row justify-content-center">
         <h4 class="text-center mt-3 mt-lg-0">Stats for this time frame</h4>
