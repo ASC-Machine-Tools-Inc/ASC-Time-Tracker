@@ -46,7 +46,8 @@
                             <i class="fs-4 bi bi-arrow-left"></i>
                         </a> -->
 
-                        <a href="/" class="d-flex align-items-center pb-sm-3 mt-0 mt-sm-4 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <a href="/" class="nav-link d-flex align-items-center ps-0 pb-sm-2 mt-0 mt-sm-4
+                           mb-md-0 me-md-auto text-white text-decoration-none">
                             <i class="fas fa-clock fs-4 me-2"></i>
                             <span class="fs-5 d-none d-sm-inline">Time Tracker</span>
                         </a>
@@ -55,12 +56,6 @@
                         <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1
                         flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0
                         justify-content-center align-items-center align-items-sm-start">
-                            <li class="nav-item">
-                                <a href="/" class="nav-link px-sm-0 px-2">
-                                    <i class="fs-5 bi bi-house-fill"></i>
-                                    <span class="ms-1 d-none d-sm-inline">Home</span>
-                                </a>
-                            </li>
 
                             <li class="nav-item">
                                 <a class="nav-link d-block d-md-none px-sm-0 px-2"
@@ -90,16 +85,16 @@
                                 <div class="dropdown-menu dropdown-menu-dark shadow"
                                      aria-labelledby="navbarHelpDropdownLink">
                                     <!-- TODO: finish guide -->
-                                    <a class="dropdown-item" asp-controller="Home" asp-action="Guide">Replay Tour</a>
+                                    <a class="dropdown-item" onclick="startIntro()">Replay Tour</a>
                                     <a class="dropdown-item" asp-controller="Home" asp-action="About">About</a>
                                 </div>
                             </li>
                         </ul>
 
                         <!-- User info -->
-                        <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+                        <div class="dropdown nav-item py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
                             <a id="dropdownUserMenu" href="#" class="d-flex align-items-center
-                           text-white text-decoration-none dropdown-toggle"
+                           nav-link px-0 pb-sm-1 text-white text-decoration-none dropdown-toggle"
                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fs-4 bi bi-person-circle"></i>
                                 <span class="ms-2 me-1 d-none d-sm-inline">Account</span>

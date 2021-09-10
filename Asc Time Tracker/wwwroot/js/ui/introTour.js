@@ -29,7 +29,7 @@ function startIntro() {
         {
             title: "Logging out",
             element: document.getElementById("dropdownUserMenu"),
-            intro: "You can change your password or log out under the account menu."
+            intro: "You can change your password or log out under the <b>Account</b> menu."
         },
         {
             title: "Adding timers",
@@ -45,7 +45,7 @@ function startIntro() {
         {
             title: "The end",
             intro: "Thanks for checking out the time tracker! If you ever want to " +
-                "replay this tour, you can do it under the help menu."
+                "replay this tour, you can do it under the <b>Help</b> menu."
         }]
     }).start();
 }
