@@ -129,6 +129,9 @@ namespace Asc_Time_Tracker.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            // TODO: TESTING FAKE DELAY
+            await Task.Delay(5000);
+
             return RedirectToAction("MainIndex");
         }
 

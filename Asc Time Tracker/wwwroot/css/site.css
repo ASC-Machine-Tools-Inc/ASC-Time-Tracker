@@ -108,7 +108,7 @@ html, body {
     position: relative;
 }
 
-    .nav-link:hover {
+    .nav-link:focus, .nav-link:hover {
         color: #93A3A3;
     }
 

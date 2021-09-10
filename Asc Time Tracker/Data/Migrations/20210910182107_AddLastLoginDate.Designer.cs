@@ -4,14 +4,16 @@ using Asc_Time_Tracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Asc_Time_Tracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210910182107_AddLastLoginDate")]
+    partial class AddLastLoginDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,48 +57,48 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 1,
                             Date = new DateTime(2021, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25391",
-                            Notes = "Try to copy the CSS protocol, maybe it will copy the multi-byte protocol!",
+                            JobNum = "26816",
+                            Notes = "You can't reboot the bus without copying the multi-byte SMS bus!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 2,
                             Date = new DateTime(2021, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28376",
-                            Notes = "I'll compress the back-end SMS card, that should card the SMS card!",
+                            JobNum = "23799",
+                            Notes = "Use the online CSS transmitter, then you can bypass the online transmitter!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 3,
                             Date = new DateTime(2021, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26966",
-                            Notes = "I'll compress the virtual SSL alarm, that should alarm the SSL alarm!",
+                            JobNum = "29258",
+                            Notes = "Try to index the GB firewall, maybe it will index the multi-byte firewall!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 4,
                             Date = new DateTime(2021, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27918",
-                            Notes = "You can't calculate the transmitter without transmitting the auxiliary JSON transmitter!",
+                            JobNum = "29278",
+                            Notes = "You can't override the driver without programming the primary GB driver!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2021, 9, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26866",
-                            Notes = "Try to override the TCP bus, maybe it will override the 1080p bus!",
+                            JobNum = "24629",
+                            Notes = "You can't synthesize the microchip without transmitting the online PNG microchip!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -105,8 +107,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 6,
                             Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25222",
-                            Notes = "compressing the port won't do anything, we need to hack the optical FTP port!",
+                            JobNum = "28438",
+                            Notes = "Use the primary PCI port, then you can quantify the primary port!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -115,128 +117,128 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 7,
                             Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21445",
-                            Notes = "Use the wireless EXE interface, then you can hack the wireless interface!",
+                            JobNum = "23759",
+                            Notes = "I'll bypass the optical GB card, that should card the GB card!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 8,
                             Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20400",
-                            Notes = "Use the cross-platform ADP port, then you can hack the cross-platform port!",
+                            JobNum = "22302",
+                            Notes = "We need to transmit the mobile HTTP system!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 9,
                             Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29982",
-                            Notes = "We need to hack the back-end IB feed!",
+                            JobNum = "29610",
+                            Notes = "programming the hard drive won't do anything, we need to calculate the multi-byte CSS hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 10,
-                            Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "26152",
-                            Notes = "parsing the protocol won't do anything, we need to back up the cross-platform XML protocol!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "24560",
-                            Notes = "Use the optical SQL sensor, then you can parse the optical sensor!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Date = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "20104",
-                            Notes = "You can't hack the bandwidth without hacking the mobile THX bandwidth!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 13,
                             Date = new DateTime(2021, 9, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22257",
-                            Notes = "Use the haptic GB card, then you can navigate the haptic card!",
+                            JobNum = "29942",
+                            Notes = "copying the transmitter won't do anything, we need to bypass the wireless COM transmitter!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
-                            Id = 14,
+                            Id = 11,
                             Date = new DateTime(2021, 9, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29469",
-                            Notes = "Try to parse the AGP interface, maybe it will parse the 1080p interface!",
+                            JobNum = "20505",
+                            Notes = "You can't connect the capacitor without synthesizing the auxiliary THX capacitor!",
                             Rd = false,
                             Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Date = new DateTime(2021, 9, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "25854",
+                            Notes = "If we navigate the application, we can get to the PNG application through the optical PNG application!",
+                            Rd = false,
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "21095",
+                            Notes = "Use the neural EXE application, then you can back up the neural application!",
+                            Rd = false,
+                            Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "21101",
+                            Notes = "We need to back up the cross-platform PNG bandwidth!",
+                            Rd = false,
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 15,
-                            Date = new DateTime(2021, 9, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27134",
-                            Notes = "If we input the sensor, we can get to the XML sensor through the bluetooth XML sensor!",
+                            JobNum = "26770",
+                            Notes = "We need to synthesize the neural SMTP feed!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 16,
-                            Date = new DateTime(2021, 9, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25421",
-                            Notes = "quantifying the alarm won't do anything, we need to bypass the online COM alarm!",
+                            JobNum = "20505",
+                            Notes = "I'll synthesize the cross-platform EXE system, that should system the EXE system!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 17,
                             Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26327",
-                            Notes = "We need to calculate the mobile HDD feed!",
+                            JobNum = "24853",
+                            Notes = "If we calculate the feed, we can get to the AI feed through the primary AI feed!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 18,
-                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20680",
-                            Notes = "We need to generate the 1080p SDD monitor!",
+                            JobNum = "27504",
+                            Notes = "I'll back up the redundant PNG card, that should card the PNG card!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 19,
-                            Date = new DateTime(2021, 9, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24214",
-                            Notes = "Use the digital SCSI alarm, then you can input the digital alarm!",
+                            JobNum = "20723",
+                            Notes = "quantifying the panel won't do anything, we need to back up the neural SAS panel!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -245,38 +247,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 20,
                             Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21688",
-                            Notes = "Try to parse the TCP circuit, maybe it will parse the solid state circuit!",
+                            JobNum = "25637",
+                            Notes = "backing up the pixel won't do anything, we need to compress the haptic USB pixel!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 21,
-                            Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25135",
-                            Notes = "Try to generate the SMTP array, maybe it will generate the back-end array!",
+                            JobNum = "25792",
+                            Notes = "The COM protocol is down, compress the primary protocol so we can compress the COM protocol!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 22,
-                            Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27912",
-                            Notes = "The SCSI feed is down, synthesize the online feed so we can synthesize the SCSI feed!",
+                            JobNum = "29834",
+                            Notes = "If we navigate the circuit, we can get to the SAS circuit through the primary SAS circuit!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 23,
-                            Date = new DateTime(2021, 9, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26249",
-                            Notes = "You can't copy the interface without hacking the multi-byte SCSI interface!",
+                            JobNum = "23797",
+                            Notes = "I'll copy the primary SMTP monitor, that should monitor the SMTP monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -285,8 +287,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 24,
                             Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27218",
-                            Notes = "We need to quantify the neural TCP panel!",
+                            JobNum = "26398",
+                            Notes = "Use the cross-platform XSS alarm, then you can reboot the cross-platform alarm!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -295,128 +297,128 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 25,
                             Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24062",
-                            Notes = "Use the solid state SAS system, then you can calculate the solid state system!",
+                            JobNum = "24961",
+                            Notes = "I'll synthesize the cross-platform AGP matrix, that should matrix the AGP matrix!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 26,
-                            Date = new DateTime(2021, 9, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25923",
-                            Notes = "We need to back up the wireless PCI driver!",
+                            JobNum = "25171",
+                            Notes = "We need to hack the neural SDD circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 27,
                             Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20649",
-                            Notes = "You can't program the interface without overriding the 1080p TCP interface!",
+                            JobNum = "29352",
+                            Notes = "Use the wireless PNG panel, then you can generate the wireless panel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 28,
                             Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26613",
-                            Notes = "If we transmit the hard drive, we can get to the GB hard drive through the open-source GB hard drive!",
+                            JobNum = "25658",
+                            Notes = "I'll connect the solid state THX application, that should application the THX application!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 29,
                             Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27084",
-                            Notes = "We need to program the bluetooth RAM alarm!",
+                            JobNum = "26337",
+                            Notes = "I'll calculate the auxiliary TCP interface, that should interface the TCP interface!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 30,
-                            Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20396",
-                            Notes = "We need to generate the haptic SQL pixel!",
+                            JobNum = "28114",
+                            Notes = "I'll transmit the solid state SCSI port, that should port the SCSI port!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 31,
-                            Date = new DateTime(2021, 9, 4, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24510",
-                            Notes = "The XSS port is down, copy the online port so we can copy the XSS port!",
+                            JobNum = "27605",
+                            Notes = "navigating the driver won't do anything, we need to transmit the neural SMS driver!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 32,
                             Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26110",
-                            Notes = "If we navigate the alarm, we can get to the RSS alarm through the optical RSS alarm!",
+                            JobNum = "24520",
+                            Notes = "Use the neural SDD microchip, then you can reboot the neural microchip!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 33,
                             Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24659",
-                            Notes = "Use the bluetooth JBOD driver, then you can parse the bluetooth driver!",
+                            JobNum = "20945",
+                            Notes = "Use the neural ADP circuit, then you can back up the neural circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 34,
-                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24339",
-                            Notes = "Try to copy the RAM sensor, maybe it will copy the open-source sensor!",
+                            JobNum = "29319",
+                            Notes = "I'll parse the online ADP array, that should array the ADP array!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 35,
-                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23674",
-                            Notes = "If we synthesize the transmitter, we can get to the HDD transmitter through the wireless HDD transmitter!",
+                            JobNum = "29589",
+                            Notes = "The JSON circuit is down, back up the wireless circuit so we can back up the JSON circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 36,
-                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27847",
-                            Notes = "Use the redundant JSON pixel, then you can connect the redundant pixel!",
+                            JobNum = "20304",
+                            Notes = "We need to index the haptic PCI card!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 37,
-                            Date = new DateTime(2021, 9, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29389",
-                            Notes = "You can't bypass the sensor without programming the optical SSL sensor!",
+                            JobNum = "24010",
+                            Notes = "The XML bus is down, synthesize the bluetooth bus so we can synthesize the XML bus!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -425,138 +427,138 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 38,
                             Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26188",
-                            Notes = "I'll synthesize the online SMTP driver, that should driver the SMTP driver!",
+                            JobNum = "27551",
+                            Notes = "The TCP alarm is down, parse the optical alarm so we can parse the TCP alarm!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 39,
-                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25628",
-                            Notes = "We need to connect the virtual AGP program!",
+                            JobNum = "28039",
+                            Notes = "programming the program won't do anything, we need to transmit the mobile HTTP program!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 40,
-                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22302",
-                            Notes = "Try to synthesize the XML transmitter, maybe it will synthesize the redundant transmitter!",
+                            JobNum = "29859",
+                            Notes = "Try to hack the XSS monitor, maybe it will hack the cross-platform monitor!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 41,
-                            Date = new DateTime(2021, 9, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27673",
-                            Notes = "Use the bluetooth GB driver, then you can input the bluetooth driver!",
+                            JobNum = "25018",
+                            Notes = "If we transmit the monitor, we can get to the ADP monitor through the digital ADP monitor!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 42,
                             Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21219",
-                            Notes = "I'll transmit the cross-platform AI firewall, that should firewall the AI firewall!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 43,
-                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "26019",
-                            Notes = "If we transmit the microchip, we can get to the ADP microchip through the bluetooth ADP microchip!",
-                            Rd = false,
-                            Time = 10800.0
-                        },
-                        new
-                        {
-                            Id = 44,
-                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "22988",
-                            Notes = "backing up the alarm won't do anything, we need to generate the multi-byte PNG alarm!",
+                            JobNum = "28302",
+                            Notes = "You can't navigate the microchip without navigating the back-end SMTP microchip!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 45,
-                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 43,
+                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20283",
-                            Notes = "You can't bypass the capacitor without programming the wireless JBOD capacitor!",
+                            JobNum = "23689",
+                            Notes = "You can't navigate the program without transmitting the multi-byte IB program!",
+                            Rd = false,
+                            Time = 3600.0
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "28236",
+                            Notes = "If we program the card, we can get to the COM card through the open-source COM card!",
+                            Rd = false,
+                            Time = 3600.0
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "22757",
+                            Notes = "If we navigate the hard drive, we can get to the FTP hard drive through the back-end FTP hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 46,
-                            Date = new DateTime(2021, 9, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20339",
-                            Notes = "If we copy the card, we can get to the AGP card through the cross-platform AGP card!",
+                            JobNum = "22133",
+                            Notes = "If we index the driver, we can get to the SAS driver through the 1080p SAS driver!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 47,
                             Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27844",
-                            Notes = "You can't calculate the port without calculating the wireless PNG port!",
+                            JobNum = "29571",
+                            Notes = "You can't parse the feed without backing up the virtual XSS feed!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 48,
                             Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23879",
-                            Notes = "Try to transmit the TCP system, maybe it will transmit the 1080p system!",
+                            JobNum = "26657",
+                            Notes = "generating the firewall won't do anything, we need to navigate the optical ADP firewall!",
+                            Rd = false,
+                            Time = 3600.0
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "29892",
+                            Notes = "We need to hack the 1080p EXE application!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
-                            Id = 49,
-                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "26709",
-                            Notes = "quantifying the port won't do anything, we need to back up the virtual SDD port!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
                             Id = 50,
-                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24110",
-                            Notes = "If we back up the monitor, we can get to the COM monitor through the haptic COM monitor!",
+                            JobNum = "21542",
+                            Notes = "copying the feed won't do anything, we need to index the back-end AI feed!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 51,
-                            Date = new DateTime(2021, 8, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20358",
-                            Notes = "If we compress the microchip, we can get to the SDD microchip through the redundant SDD microchip!",
+                            JobNum = "26723",
+                            Notes = "The SMS card is down, navigate the back-end card so we can navigate the SMS card!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -565,8 +567,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 52,
                             Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25617",
-                            Notes = "You can't index the monitor without copying the back-end JSON monitor!",
+                            JobNum = "23579",
+                            Notes = "Use the neural SCSI card, then you can compress the neural card!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -575,48 +577,48 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 53,
                             Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21765",
-                            Notes = "We need to quantify the haptic GB monitor!",
+                            JobNum = "26200",
+                            Notes = "If we program the transmitter, we can get to the HTTP transmitter through the optical HTTP transmitter!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 54,
-                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21120",
-                            Notes = "programming the protocol won't do anything, we need to program the haptic JSON protocol!",
-                            Rd = false,
-                            Time = 7200.0
-                        },
-                        new
-                        {
-                            Id = 55,
-                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "29687",
-                            Notes = "copying the bandwidth won't do anything, we need to input the mobile PCI bandwidth!",
+                            JobNum = "25621",
+                            Notes = "I'll back up the neural ADP sensor, that should sensor the ADP sensor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
-                            Id = 56,
-                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 55,
+                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26221",
-                            Notes = "quantifying the pixel won't do anything, we need to override the primary FTP pixel!",
+                            JobNum = "25032",
+                            Notes = "Use the auxiliary TCP alarm, then you can calculate the auxiliary alarm!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 57,
-                            Date = new DateTime(2021, 8, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 56,
+                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27522",
-                            Notes = "We need to generate the neural HTTP bandwidth!",
+                            JobNum = "20903",
+                            Notes = "Try to parse the GB array, maybe it will parse the open-source array!",
+                            Rd = false,
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "20281",
+                            Notes = "indexing the matrix won't do anything, we need to calculate the back-end SDD matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -625,78 +627,78 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 58,
                             Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24401",
-                            Notes = "The EXE firewall is down, hack the cross-platform firewall so we can hack the EXE firewall!",
+                            JobNum = "22821",
+                            Notes = "Use the digital SDD matrix, then you can synthesize the digital matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 59,
-                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21416",
-                            Notes = "Use the optical RAM port, then you can transmit the optical port!",
-                            Rd = false,
-                            Time = 7200.0
-                        },
-                        new
-                        {
-                            Id = 60,
-                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "28904",
-                            Notes = "You can't transmit the sensor without generating the auxiliary CSS sensor!",
+                            JobNum = "27712",
+                            Notes = "Try to compress the HDD card, maybe it will compress the multi-byte card!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
-                            Id = 61,
-                            Date = new DateTime(2021, 8, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 60,
+                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28596",
-                            Notes = "Try to index the SDD firewall, maybe it will index the neural firewall!",
+                            JobNum = "22079",
+                            Notes = "Use the open-source JSON microchip, then you can copy the open-source microchip!",
                             Rd = false,
                             Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "22612",
+                            Notes = "Try to hack the TCP bus, maybe it will hack the open-source bus!",
+                            Rd = false,
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 62,
                             Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24264",
-                            Notes = "Try to calculate the XML transmitter, maybe it will calculate the haptic transmitter!",
+                            JobNum = "22586",
+                            Notes = "If we input the system, we can get to the GB system through the wireless GB system!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 63,
-                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22638",
-                            Notes = "backing up the program won't do anything, we need to generate the optical FTP program!",
+                            JobNum = "21697",
+                            Notes = "hacking the microchip won't do anything, we need to navigate the online XML microchip!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 64,
-                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23896",
-                            Notes = "Use the optical JSON application, then you can parse the optical application!",
+                            JobNum = "22354",
+                            Notes = "copying the array won't do anything, we need to back up the auxiliary RAM array!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 65,
-                            Date = new DateTime(2021, 8, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23882",
-                            Notes = "I'll index the auxiliary SCSI panel, that should panel the SCSI panel!",
+                            JobNum = "29023",
+                            Notes = "If we connect the card, we can get to the HTTP card through the optical HTTP card!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -705,38 +707,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 66,
                             Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25031",
-                            Notes = "We need to back up the multi-byte HDD microchip!",
+                            JobNum = "26200",
+                            Notes = "transmitting the panel won't do anything, we need to parse the solid state PNG panel!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 67,
-                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27224",
-                            Notes = "The SQL firewall is down, back up the mobile firewall so we can back up the SQL firewall!",
+                            JobNum = "21824",
+                            Notes = "You can't transmit the system without backing up the open-source AI system!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 68,
-                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27200",
-                            Notes = "Use the virtual SSL panel, then you can parse the virtual panel!",
+                            JobNum = "28328",
+                            Notes = "I'll transmit the digital AI firewall, that should firewall the AI firewall!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 69,
-                            Date = new DateTime(2021, 8, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24560",
-                            Notes = "I'll quantify the mobile RSS protocol, that should protocol the RSS protocol!",
+                            JobNum = "24352",
+                            Notes = "transmitting the program won't do anything, we need to bypass the wireless AI program!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -745,258 +747,258 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 70,
                             Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25754",
-                            Notes = "I'll synthesize the virtual AI sensor, that should sensor the AI sensor!",
+                            JobNum = "24065",
+                            Notes = "We need to transmit the bluetooth JBOD bandwidth!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 71,
-                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23791",
-                            Notes = "Try to override the HTTP microchip, maybe it will override the cross-platform microchip!",
+                            JobNum = "25251",
+                            Notes = "Try to calculate the SDD panel, maybe it will calculate the neural panel!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 72,
-                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20762",
-                            Notes = "If we reboot the card, we can get to the PNG card through the back-end PNG card!",
+                            JobNum = "27238",
+                            Notes = "indexing the transmitter won't do anything, we need to transmit the cross-platform JSON transmitter!",
+                            Rd = false,
+                            Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "27658",
+                            Notes = "We need to parse the wireless SAS array!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
-                            Id = 73,
-                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "22608",
-                            Notes = "Use the cross-platform COM card, then you can quantify the cross-platform card!",
-                            Rd = false,
-                            Time = 7200.0
-                        },
-                        new
-                        {
                             Id = 74,
-                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26866",
-                            Notes = "The SMTP array is down, synthesize the 1080p array so we can synthesize the SMTP array!",
+                            JobNum = "20299",
+                            Notes = "backing up the panel won't do anything, we need to reboot the haptic AGP panel!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 75,
-                            Date = new DateTime(2021, 8, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25212",
-                            Notes = "You can't transmit the protocol without parsing the multi-byte THX protocol!",
+                            JobNum = "24974",
+                            Notes = "transmitting the hard drive won't do anything, we need to override the multi-byte SCSI hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 76,
-                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21082",
-                            Notes = "The JSON pixel is down, connect the neural pixel so we can connect the JSON pixel!",
+                            JobNum = "22065",
+                            Notes = "Try to navigate the CSS monitor, maybe it will navigate the virtual monitor!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 77,
-                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24084",
-                            Notes = "The ADP bandwidth is down, navigate the auxiliary bandwidth so we can navigate the ADP bandwidth!",
+                            JobNum = "21986",
+                            Notes = "If we quantify the matrix, we can get to the USB matrix through the open-source USB matrix!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 78,
-                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26068",
-                            Notes = "backing up the matrix won't do anything, we need to connect the back-end RAM matrix!",
+                            JobNum = "20336",
+                            Notes = "You can't navigate the monitor without programming the multi-byte FTP monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 79,
-                            Date = new DateTime(2021, 8, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28406",
-                            Notes = "We need to transmit the primary RAM panel!",
+                            JobNum = "28468",
+                            Notes = "You can't program the array without calculating the bluetooth TCP array!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 80,
-                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28447",
-                            Notes = "I'll generate the 1080p SSL feed, that should feed the SSL feed!",
+                            JobNum = "29431",
+                            Notes = "Try to compress the SQL sensor, maybe it will compress the solid state sensor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 81,
-                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20285",
-                            Notes = "The SDD bandwidth is down, index the wireless bandwidth so we can index the SDD bandwidth!",
+                            JobNum = "20891",
+                            Notes = "If we calculate the panel, we can get to the TCP panel through the cross-platform TCP panel!",
+                            Rd = false,
+                            Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "24649",
+                            Notes = "Use the primary USB program, then you can calculate the primary program!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
-                            Id = 82,
-                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "29004",
-                            Notes = "If we program the panel, we can get to the CSS panel through the mobile CSS panel!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
                             Id = 83,
-                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29842",
-                            Notes = "Use the multi-byte EXE card, then you can override the multi-byte card!",
+                            JobNum = "23365",
+                            Notes = "The FTP firewall is down, program the open-source firewall so we can program the FTP firewall!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 84,
-                            Date = new DateTime(2021, 8, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28525",
-                            Notes = "Use the bluetooth ADP application, then you can parse the bluetooth application!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 85,
-                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "25635",
-                            Notes = "The JBOD array is down, navigate the neural array so we can navigate the JBOD array!",
+                            JobNum = "21145",
+                            Notes = "Try to quantify the SCSI interface, maybe it will quantify the back-end interface!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
-                            Id = 86,
-                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 85,
+                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29771",
-                            Notes = "connecting the firewall won't do anything, we need to back up the 1080p HTTP firewall!",
+                            JobNum = "24733",
+                            Notes = "Use the optical THX bandwidth, then you can index the optical bandwidth!",
+                            Rd = false,
+                            Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 86,
+                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "25320",
+                            Notes = "You can't parse the sensor without parsing the open-source SDD sensor!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 87,
-                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22835",
-                            Notes = "The RSS capacitor is down, transmit the auxiliary capacitor so we can transmit the RSS capacitor!",
+                            JobNum = "20189",
+                            Notes = "We need to parse the digital FTP interface!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 88,
-                            Date = new DateTime(2021, 8, 23, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25954",
-                            Notes = "Use the mobile FTP program, then you can quantify the mobile program!",
+                            JobNum = "24820",
+                            Notes = "Try to parse the RAM matrix, maybe it will parse the neural matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 89,
-                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23126",
-                            Notes = "Try to compress the HDD protocol, maybe it will compress the solid state protocol!",
+                            JobNum = "29810",
+                            Notes = "Use the 1080p FTP pixel, then you can quantify the 1080p pixel!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 90,
-                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22235",
-                            Notes = "I'll bypass the virtual COM pixel, that should pixel the COM pixel!",
+                            JobNum = "23369",
+                            Notes = "If we generate the pixel, we can get to the IB pixel through the multi-byte IB pixel!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 91,
-                            Date = new DateTime(2021, 8, 22, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26591",
-                            Notes = "The SDD panel is down, bypass the neural panel so we can bypass the SDD panel!",
+                            JobNum = "29422",
+                            Notes = "calculating the bus won't do anything, we need to hack the bluetooth HTTP bus!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 92,
-                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24563",
-                            Notes = "We need to program the auxiliary JBOD alarm!",
-                            Rd = false,
-                            Time = 10800.0
-                        },
-                        new
-                        {
-                            Id = 93,
-                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "22607",
-                            Notes = "We need to connect the online SCSI firewall!",
+                            JobNum = "21238",
+                            Notes = "Try to override the SMS monitor, maybe it will override the optical monitor!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 94,
-                            Date = new DateTime(2021, 8, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 93,
+                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28555",
-                            Notes = "If we input the application, we can get to the EXE application through the 1080p EXE application!",
+                            JobNum = "25708",
+                            Notes = "The FTP circuit is down, copy the haptic circuit so we can copy the FTP circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
+                        },
+                        new
+                        {
+                            Id = 94,
+                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "21987",
+                            Notes = "transmitting the circuit won't do anything, we need to input the bluetooth COM circuit!",
+                            Rd = false,
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 95,
                             Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21569",
-                            Notes = "You can't parse the alarm without connecting the mobile AGP alarm!",
+                            JobNum = "26573",
+                            Notes = "The PCI circuit is down, calculate the online circuit so we can calculate the PCI circuit!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1005,68 +1007,68 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 96,
                             Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26596",
-                            Notes = "The XSS protocol is down, program the optical protocol so we can program the XSS protocol!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 97,
-                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "21685",
-                            Notes = "I'll compress the digital JBOD protocol, that should protocol the JBOD protocol!",
+                            JobNum = "25495",
+                            Notes = "Try to navigate the ADP program, maybe it will navigate the wireless program!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 98,
-                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 97,
+                            Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21551",
-                            Notes = "Use the solid state SMS card, then you can hack the solid state card!",
+                            JobNum = "27741",
+                            Notes = "Try to compress the COM alarm, maybe it will compress the open-source alarm!",
+                            Rd = false,
+                            Time = 3600.0
+                        },
+                        new
+                        {
+                            Id = 98,
+                            Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "29551",
+                            Notes = "We need to copy the bluetooth SQL system!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 99,
-                            Date = new DateTime(2021, 8, 20, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21097",
-                            Notes = "transmitting the monitor won't do anything, we need to bypass the auxiliary TCP monitor!",
+                            JobNum = "29914",
+                            Notes = "If we back up the driver, we can get to the XSS driver through the mobile XSS driver!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 100,
                             Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25567",
-                            Notes = "Try to program the RSS bandwidth, maybe it will program the cross-platform bandwidth!",
+                            JobNum = "29825",
+                            Notes = "transmitting the protocol won't do anything, we need to connect the back-end JSON protocol!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 101,
-                            Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26063",
-                            Notes = "If we synthesize the transmitter, we can get to the HDD transmitter through the cross-platform HDD transmitter!",
+                            JobNum = "28017",
+                            Notes = "The SMS circuit is down, compress the neural circuit so we can compress the SMS circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 102,
-                            Date = new DateTime(2021, 8, 19, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29372",
-                            Notes = "I'll generate the neural AGP circuit, that should circuit the AGP circuit!",
+                            JobNum = "21775",
+                            Notes = "Use the primary JBOD transmitter, then you can navigate the primary transmitter!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -1075,8 +1077,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 103,
                             Date = new DateTime(2021, 8, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29776",
-                            Notes = "Try to back up the GB alarm, maybe it will back up the online alarm!",
+                            JobNum = "21662",
+                            Notes = "If we quantify the monitor, we can get to the SDD monitor through the solid state SDD monitor!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1085,38 +1087,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 104,
                             Date = new DateTime(2021, 8, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25283",
-                            Notes = "transmitting the monitor won't do anything, we need to calculate the solid state PCI monitor!",
+                            JobNum = "25448",
+                            Notes = "We need to parse the mobile SDD hard drive!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 105,
                             Date = new DateTime(2021, 8, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28408",
-                            Notes = "I'll quantify the digital SCSI pixel, that should pixel the SCSI pixel!",
+                            JobNum = "26650",
+                            Notes = "The SDD transmitter is down, copy the redundant transmitter so we can copy the SDD transmitter!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 106,
                             Date = new DateTime(2021, 8, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23343",
-                            Notes = "You can't connect the monitor without compressing the optical SCSI monitor!",
+                            JobNum = "29864",
+                            Notes = "We need to parse the haptic XML protocol!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 107,
                             Date = new DateTime(2021, 8, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28537",
-                            Notes = "I'll back up the solid state RSS bandwidth, that should bandwidth the RSS bandwidth!",
+                            JobNum = "29181",
+                            Notes = "You can't index the protocol without copying the cross-platform SCSI protocol!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -1125,18 +1127,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 108,
                             Date = new DateTime(2021, 8, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21716",
-                            Notes = "Try to generate the RAM pixel, maybe it will generate the back-end pixel!",
+                            JobNum = "27055",
+                            Notes = "We need to reboot the back-end XSS program!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 109,
                             Date = new DateTime(2021, 8, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26781",
-                            Notes = "The SAS program is down, input the neural program so we can input the SAS program!",
+                            JobNum = "28168",
+                            Notes = "We need to parse the digital RSS monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1145,18 +1147,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 110,
                             Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23390",
-                            Notes = "I'll parse the optical SQL microchip, that should microchip the SQL microchip!",
+                            JobNum = "21549",
+                            Notes = "Use the back-end AI hard drive, then you can program the back-end hard drive!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 111,
                             Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25026",
-                            Notes = "Use the wireless AGP panel, then you can back up the wireless panel!",
+                            JobNum = "24942",
+                            Notes = "synthesizing the matrix won't do anything, we need to copy the digital IB matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1165,18 +1167,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 112,
                             Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28314",
-                            Notes = "The XSS pixel is down, override the online pixel so we can override the XSS pixel!",
+                            JobNum = "26797",
+                            Notes = "parsing the capacitor won't do anything, we need to transmit the primary AGP capacitor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 113,
                             Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22801",
-                            Notes = "We need to quantify the open-source THX sensor!",
+                            JobNum = "23362",
+                            Notes = "We need to calculate the primary SAS driver!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1185,38 +1187,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 114,
                             Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29597",
-                            Notes = "Use the virtual ADP bandwidth, then you can transmit the virtual bandwidth!",
+                            JobNum = "22797",
+                            Notes = "connecting the firewall won't do anything, we need to copy the neural HTTP firewall!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 115,
-                            Date = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25516",
-                            Notes = "bypassing the array won't do anything, we need to connect the wireless CSS array!",
+                            JobNum = "22084",
+                            Notes = "If we calculate the port, we can get to the HDD port through the 1080p HDD port!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 116,
                             Date = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27396",
-                            Notes = "Use the virtual CSS monitor, then you can program the virtual monitor!",
+                            JobNum = "28134",
+                            Notes = "connecting the firewall won't do anything, we need to override the virtual HDD firewall!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 117,
                             Date = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23286",
-                            Notes = "Try to calculate the RAM transmitter, maybe it will calculate the mobile transmitter!",
+                            JobNum = "29569",
+                            Notes = "We need to parse the solid state AI transmitter!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -1225,78 +1227,78 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 118,
                             Date = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21985",
-                            Notes = "If we quantify the microchip, we can get to the THX microchip through the digital THX microchip!",
+                            JobNum = "24516",
+                            Notes = "copying the interface won't do anything, we need to reboot the multi-byte CSS interface!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 119,
-                            Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29515",
-                            Notes = "Use the neural HTTP program, then you can input the neural program!",
+                            JobNum = "24069",
+                            Notes = "I'll generate the redundant JBOD driver, that should driver the JBOD driver!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 120,
                             Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24557",
-                            Notes = "The IB system is down, parse the back-end system so we can parse the IB system!",
+                            JobNum = "20376",
+                            Notes = "If we index the feed, we can get to the SQL feed through the virtual SQL feed!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 121,
                             Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21628",
-                            Notes = "Try to index the HDD system, maybe it will index the multi-byte system!",
+                            JobNum = "25113",
+                            Notes = "Use the auxiliary SSL panel, then you can copy the auxiliary panel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 122,
                             Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24451",
-                            Notes = "I'll navigate the solid state CSS firewall, that should firewall the CSS firewall!",
+                            JobNum = "23702",
+                            Notes = "Use the virtual SMTP card, then you can calculate the virtual card!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 123,
-                            Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27388",
-                            Notes = "Use the bluetooth AI hard drive, then you can connect the bluetooth hard drive!",
+                            JobNum = "28788",
+                            Notes = "The HTTP feed is down, copy the open-source feed so we can copy the HTTP feed!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 124,
-                            Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 14, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25250",
-                            Notes = "Use the auxiliary GB hard drive, then you can navigate the auxiliary hard drive!",
+                            JobNum = "22619",
+                            Notes = "transmitting the feed won't do anything, we need to copy the digital USB feed!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 125,
                             Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25731",
-                            Notes = "The SQL port is down, program the mobile port so we can program the SQL port!",
+                            JobNum = "20532",
+                            Notes = "We need to override the multi-byte SQL firewall!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1305,48 +1307,48 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 126,
                             Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25665",
-                            Notes = "The RSS application is down, override the wireless application so we can override the RSS application!",
+                            JobNum = "27674",
+                            Notes = "I'll quantify the 1080p PCI program, that should program the PCI program!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 127,
                             Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21373",
-                            Notes = "If we parse the application, we can get to the RAM application through the digital RAM application!",
+                            JobNum = "28430",
+                            Notes = "I'll synthesize the primary ADP bus, that should bus the ADP bus!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 128,
-                            Date = new DateTime(2021, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 13, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24000",
-                            Notes = "The RAM feed is down, transmit the haptic feed so we can transmit the RAM feed!",
+                            JobNum = "25786",
+                            Notes = "The HTTP bus is down, parse the bluetooth bus so we can parse the HTTP bus!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 129,
                             Date = new DateTime(2021, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28667",
-                            Notes = "If we compress the card, we can get to the TCP card through the virtual TCP card!",
+                            JobNum = "20131",
+                            Notes = "Try to reboot the GB bandwidth, maybe it will reboot the bluetooth bandwidth!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 130,
                             Date = new DateTime(2021, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23013",
-                            Notes = "I'll hack the auxiliary AGP array, that should array the AGP array!",
+                            JobNum = "22754",
+                            Notes = "We need to transmit the haptic SMS microchip!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1355,48 +1357,48 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 131,
                             Date = new DateTime(2021, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20200",
-                            Notes = "You can't bypass the alarm without backing up the solid state FTP alarm!",
+                            JobNum = "28729",
+                            Notes = "The SMS capacitor is down, parse the back-end capacitor so we can parse the SMS capacitor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 132,
-                            Date = new DateTime(2021, 8, 12, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21501",
-                            Notes = "The COM pixel is down, index the bluetooth pixel so we can index the COM pixel!",
+                            JobNum = "28266",
+                            Notes = "quantifying the circuit won't do anything, we need to compress the neural GB circuit!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 133,
                             Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20177",
-                            Notes = "Try to connect the SAS interface, maybe it will connect the redundant interface!",
+                            JobNum = "24154",
+                            Notes = "We need to calculate the optical XML microchip!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 134,
                             Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26266",
-                            Notes = "hacking the system won't do anything, we need to compress the bluetooth AGP system!",
+                            JobNum = "29503",
+                            Notes = "Use the online RSS hard drive, then you can index the online hard drive!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 135,
                             Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28413",
-                            Notes = "Use the digital SDD protocol, then you can connect the digital protocol!",
+                            JobNum = "22381",
+                            Notes = "Use the open-source SCSI array, then you can generate the open-source array!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1405,18 +1407,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 136,
                             Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21881",
-                            Notes = "We need to index the 1080p SAS card!",
+                            JobNum = "20976",
+                            Notes = "If we override the hard drive, we can get to the AGP hard drive through the open-source AGP hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 137,
-                            Date = new DateTime(2021, 8, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20111",
-                            Notes = "If we bypass the feed, we can get to the THX feed through the online THX feed!",
+                            JobNum = "22233",
+                            Notes = "Use the primary COM circuit, then you can synthesize the primary circuit!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1425,48 +1427,48 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 138,
                             Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21301",
-                            Notes = "We need to connect the redundant SMTP array!",
+                            JobNum = "27690",
+                            Notes = "We need to quantify the open-source COM application!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 139,
                             Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21214",
-                            Notes = "connecting the interface won't do anything, we need to bypass the optical XSS interface!",
+                            JobNum = "27089",
+                            Notes = "If we synthesize the bandwidth, we can get to the SMS bandwidth through the haptic SMS bandwidth!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 140,
                             Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27516",
-                            Notes = "Use the optical SQL system, then you can quantify the optical system!",
+                            JobNum = "27292",
+                            Notes = "Try to bypass the HTTP sensor, maybe it will bypass the back-end sensor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 141,
                             Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20733",
-                            Notes = "I'll transmit the online AGP program, that should program the AGP program!",
+                            JobNum = "20900",
+                            Notes = "The HTTP pixel is down, calculate the neural pixel so we can calculate the HTTP pixel!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 142,
-                            Date = new DateTime(2021, 8, 10, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29657",
-                            Notes = "The SSL matrix is down, input the online matrix so we can input the SSL matrix!",
+                            JobNum = "22069",
+                            Notes = "If we quantify the circuit, we can get to the JBOD circuit through the mobile JBOD circuit!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1475,18 +1477,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 143,
                             Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27841",
-                            Notes = "I'll transmit the multi-byte AI driver, that should driver the AI driver!",
+                            JobNum = "21301",
+                            Notes = "Use the multi-byte JSON sensor, then you can parse the multi-byte sensor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 144,
                             Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26989",
-                            Notes = "calculating the hard drive won't do anything, we need to hack the 1080p USB hard drive!",
+                            JobNum = "21399",
+                            Notes = "We need to calculate the back-end AGP monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1495,8 +1497,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 145,
                             Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29208",
-                            Notes = "Use the cross-platform THX hard drive, then you can back up the cross-platform hard drive!",
+                            JobNum = "26854",
+                            Notes = "If we connect the circuit, we can get to the GB circuit through the back-end GB circuit!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1505,28 +1507,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 146,
                             Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20941",
-                            Notes = "Use the digital PCI hard drive, then you can index the digital hard drive!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 147,
-                            Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "25735",
-                            Notes = "Use the redundant TCP microchip, then you can hack the redundant microchip!",
+                            JobNum = "22363",
+                            Notes = "If we program the matrix, we can get to the SCSI matrix through the back-end SCSI matrix!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 148,
-                            Date = new DateTime(2021, 8, 9, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 147,
+                            Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22607",
-                            Notes = "I'll back up the mobile IB hard drive, that should hard drive the IB hard drive!",
+                            JobNum = "22367",
+                            Notes = "I'll input the mobile SCSI card, that should card the SCSI card!",
+                            Rd = false,
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 148,
+                            Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "25453",
+                            Notes = "The PCI card is down, override the neural card so we can override the PCI card!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1535,8 +1537,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 149,
                             Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20036",
-                            Notes = "Use the open-source JBOD circuit, then you can synthesize the open-source circuit!",
+                            JobNum = "23369",
+                            Notes = "We need to override the multi-byte COM hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1545,38 +1547,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 150,
                             Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23818",
-                            Notes = "copying the hard drive won't do anything, we need to quantify the wireless CSS hard drive!",
+                            JobNum = "20130",
+                            Notes = "I'll connect the virtual SDD port, that should port the SDD port!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 151,
                             Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20777",
-                            Notes = "You can't quantify the system without indexing the bluetooth XSS system!",
+                            JobNum = "26919",
+                            Notes = "You can't back up the alarm without indexing the primary EXE alarm!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 152,
-                            Date = new DateTime(2021, 8, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22872",
-                            Notes = "Use the neural HTTP capacitor, then you can back up the neural capacitor!",
+                            JobNum = "28462",
+                            Notes = "You can't quantify the circuit without calculating the solid state EXE circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 153,
                             Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28272",
-                            Notes = "Try to synthesize the GB monitor, maybe it will synthesize the multi-byte monitor!",
+                            JobNum = "23527",
+                            Notes = "If we navigate the driver, we can get to the EXE driver through the mobile EXE driver!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1585,18 +1587,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 154,
                             Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26316",
-                            Notes = "We need to quantify the primary RSS microchip!",
+                            JobNum = "25070",
+                            Notes = "parsing the array won't do anything, we need to copy the optical SDD array!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 155,
                             Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21335",
-                            Notes = "indexing the bandwidth won't do anything, we need to index the online RSS bandwidth!",
+                            JobNum = "29331",
+                            Notes = "I'll program the virtual SCSI bandwidth, that should bandwidth the SCSI bandwidth!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1605,118 +1607,118 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 156,
                             Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29183",
-                            Notes = "The AGP program is down, override the online program so we can override the AGP program!",
+                            JobNum = "20135",
+                            Notes = "Use the bluetooth USB bandwidth, then you can transmit the bluetooth bandwidth!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 157,
-                            Date = new DateTime(2021, 8, 7, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26951",
-                            Notes = "You can't generate the pixel without navigating the redundant EXE pixel!",
+                            JobNum = "28402",
+                            Notes = "The GB system is down, transmit the wireless system so we can transmit the GB system!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 158,
                             Date = new DateTime(2021, 8, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23060",
-                            Notes = "We need to input the auxiliary PCI monitor!",
+                            JobNum = "27242",
+                            Notes = "We need to back up the wireless ADP panel!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 159,
                             Date = new DateTime(2021, 8, 6, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20237",
-                            Notes = "We need to bypass the online SSL microchip!",
+                            JobNum = "20777",
+                            Notes = "Try to override the EXE port, maybe it will override the primary port!",
+                            Rd = false,
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Date = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "26372",
+                            Notes = "Use the digital EXE hard drive, then you can transmit the digital hard drive!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
-                            Id = 160,
-                            Date = new DateTime(2021, 8, 6, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "27059",
-                            Notes = "Use the 1080p HTTP feed, then you can parse the 1080p feed!",
-                            Rd = false,
-                            Time = 7200.0
-                        },
-                        new
-                        {
                             Id = 161,
-                            Date = new DateTime(2021, 8, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27991",
-                            Notes = "If we calculate the system, we can get to the HTTP system through the mobile HTTP system!",
+                            JobNum = "28635",
+                            Notes = "The HDD microchip is down, hack the redundant microchip so we can hack the HDD microchip!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 162,
                             Date = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26119",
-                            Notes = "Use the solid state XML panel, then you can override the solid state panel!",
+                            JobNum = "29686",
+                            Notes = "I'll program the online XML monitor, that should monitor the XML monitor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 163,
                             Date = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21165",
-                            Notes = "Try to transmit the PNG panel, maybe it will transmit the optical panel!",
+                            JobNum = "22197",
+                            Notes = "The SDD monitor is down, reboot the bluetooth monitor so we can reboot the SDD monitor!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 164,
                             Date = new DateTime(2021, 8, 5, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22297",
-                            Notes = "Use the 1080p XML card, then you can program the 1080p card!",
+                            JobNum = "20679",
+                            Notes = "Use the 1080p JBOD alarm, then you can quantify the 1080p alarm!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 165,
                             Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27974",
-                            Notes = "I'll override the primary USB card, that should card the USB card!",
+                            JobNum = "21914",
+                            Notes = "navigating the circuit won't do anything, we need to quantify the online COM circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 166,
                             Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23451",
-                            Notes = "You can't generate the port without indexing the optical AI port!",
+                            JobNum = "29935",
+                            Notes = "Use the multi-byte IB protocol, then you can program the multi-byte protocol!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 167,
                             Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20499",
-                            Notes = "Use the solid state PNG monitor, then you can override the solid state monitor!",
+                            JobNum = "22381",
+                            Notes = "Try to calculate the CSS matrix, maybe it will calculate the open-source matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1725,18 +1727,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 168,
                             Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24978",
-                            Notes = "compressing the feed won't do anything, we need to navigate the primary SAS feed!",
+                            JobNum = "20020",
+                            Notes = "Use the neural RAM port, then you can override the neural port!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 169,
-                            Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25438",
-                            Notes = "Try to override the JBOD firewall, maybe it will override the optical firewall!",
+                            JobNum = "23490",
+                            Notes = "Use the neural COM microchip, then you can quantify the neural microchip!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1745,8 +1747,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 170,
                             Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27090",
-                            Notes = "We need to synthesize the 1080p PCI firewall!",
+                            JobNum = "24051",
+                            Notes = "If we calculate the program, we can get to the ADP program through the mobile ADP program!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1755,68 +1757,68 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 171,
                             Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24652",
-                            Notes = "Use the digital CSS circuit, then you can synthesize the digital circuit!",
+                            JobNum = "25759",
+                            Notes = "The EXE hard drive is down, program the bluetooth hard drive so we can program the EXE hard drive!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 172,
                             Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29313",
-                            Notes = "Try to navigate the SAS driver, maybe it will navigate the haptic driver!",
+                            JobNum = "23216",
+                            Notes = "Try to generate the PNG feed, maybe it will generate the auxiliary feed!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 173,
                             Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22403",
-                            Notes = "I'll connect the 1080p RAM circuit, that should circuit the RAM circuit!",
+                            JobNum = "27154",
+                            Notes = "The SDD monitor is down, generate the auxiliary monitor so we can generate the SDD monitor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 174,
-                            Date = new DateTime(2021, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 3, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28095",
-                            Notes = "calculating the protocol won't do anything, we need to navigate the auxiliary THX protocol!",
+                            JobNum = "29972",
+                            Notes = "The COM circuit is down, copy the virtual circuit so we can copy the COM circuit!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 175,
                             Date = new DateTime(2021, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27703",
-                            Notes = "Try to reboot the XML port, maybe it will reboot the optical port!",
+                            JobNum = "24990",
+                            Notes = "The FTP bus is down, calculate the bluetooth bus so we can calculate the FTP bus!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 176,
                             Date = new DateTime(2021, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21495",
-                            Notes = "compressing the bus won't do anything, we need to generate the open-source ADP bus!",
+                            JobNum = "21489",
+                            Notes = "I'll index the mobile XML transmitter, that should transmitter the XML transmitter!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 177,
                             Date = new DateTime(2021, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22491",
-                            Notes = "If we program the matrix, we can get to the GB matrix through the solid state GB matrix!",
+                            JobNum = "29656",
+                            Notes = "I'll generate the multi-byte SMTP matrix, that should matrix the SMTP matrix!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1825,28 +1827,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 178,
                             Date = new DateTime(2021, 8, 2, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24416",
-                            Notes = "I'll index the mobile JBOD protocol, that should protocol the JBOD protocol!",
+                            JobNum = "20118",
+                            Notes = "We need to bypass the optical USB pixel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 179,
                             Date = new DateTime(2021, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23801",
-                            Notes = "You can't program the array without overriding the online SMTP array!",
+                            JobNum = "26392",
+                            Notes = "Use the wireless XSS panel, then you can synthesize the wireless panel!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 180,
                             Date = new DateTime(2021, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22458",
-                            Notes = "The IB interface is down, navigate the back-end interface so we can navigate the IB interface!",
+                            JobNum = "23773",
+                            Notes = "Try to override the ADP panel, maybe it will override the wireless panel!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -1855,8 +1857,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 181,
                             Date = new DateTime(2021, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25335",
-                            Notes = "generating the sensor won't do anything, we need to quantify the haptic THX sensor!",
+                            JobNum = "23949",
+                            Notes = "We need to override the solid state SSL circuit!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -1865,28 +1867,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 182,
                             Date = new DateTime(2021, 8, 1, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22816",
-                            Notes = "If we input the firewall, we can get to the THX firewall through the virtual THX firewall!",
+                            JobNum = "29148",
+                            Notes = "Use the open-source HTTP bandwidth, then you can back up the open-source bandwidth!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 183,
                             Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27060",
-                            Notes = "Use the bluetooth AI transmitter, then you can bypass the bluetooth transmitter!",
+                            JobNum = "22545",
+                            Notes = "I'll hack the multi-byte PNG panel, that should panel the PNG panel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 184,
                             Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23849",
-                            Notes = "You can't quantify the port without indexing the online SAS port!",
+                            JobNum = "25237",
+                            Notes = "You can't reboot the sensor without connecting the 1080p ADP sensor!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -1895,158 +1897,158 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 185,
                             Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22278",
-                            Notes = "You can't parse the alarm without navigating the primary COM alarm!",
+                            JobNum = "25794",
+                            Notes = "I'll navigate the cross-platform RSS port, that should port the RSS port!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 186,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26451",
-                            Notes = "You can't navigate the firewall without connecting the 1080p GB firewall!",
+                            JobNum = "23285",
+                            Notes = "The SMTP monitor is down, input the haptic monitor so we can input the SMTP monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 187,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29049",
-                            Notes = "Try to index the SQL interface, maybe it will index the haptic interface!",
+                            JobNum = "26635",
+                            Notes = "Use the optical SMS application, then you can quantify the optical application!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 188,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24556",
-                            Notes = "If we reboot the feed, we can get to the GB feed through the back-end GB feed!",
+                            JobNum = "27564",
+                            Notes = "quantifying the sensor won't do anything, we need to navigate the optical JBOD sensor!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 189,
                             Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26304",
-                            Notes = "We need to quantify the auxiliary RSS system!",
-                            Rd = false,
-                            Time = 3600.0
-                        },
-                        new
-                        {
-                            Id = 190,
-                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "24422",
-                            Notes = "I'll reboot the redundant AI bandwidth, that should bandwidth the AI bandwidth!",
-                            Rd = false,
-                            Time = 10800.0
-                        },
-                        new
-                        {
-                            Id = 191,
-                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "28739",
-                            Notes = "You can't navigate the bus without copying the mobile SMS bus!",
+                            JobNum = "23737",
+                            Notes = "If we synthesize the circuit, we can get to the EXE circuit through the virtual EXE circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 192,
-                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 190,
+                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21643",
-                            Notes = "If we generate the bus, we can get to the TCP bus through the optical TCP bus!",
+                            JobNum = "27936",
+                            Notes = "You can't index the firewall without parsing the 1080p SMTP firewall!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
+                        },
+                        new
+                        {
+                            Id = 191,
+                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "22630",
+                            Notes = "programming the bus won't do anything, we need to connect the 1080p SQL bus!",
+                            Rd = false,
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "25009",
+                            Notes = "You can't index the program without transmitting the auxiliary HDD program!",
+                            Rd = false,
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 193,
-                            Date = new DateTime(2021, 7, 30, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28072",
-                            Notes = "Use the redundant JBOD array, then you can bypass the redundant array!",
+                            JobNum = "23933",
+                            Notes = "Try to connect the PNG monitor, maybe it will connect the wireless monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 194,
-                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29172",
-                            Notes = "You can't hack the panel without hacking the solid state SAS panel!",
+                            JobNum = "21404",
+                            Notes = "If we input the panel, we can get to the SSL panel through the auxiliary SSL panel!",
                             Rd = false,
                             Time = 10800.0
                         },
                         new
                         {
                             Id = 195,
-                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20693",
-                            Notes = "I'll hack the wireless PCI pixel, that should pixel the PCI pixel!",
+                            JobNum = "28419",
+                            Notes = "If we bypass the circuit, we can get to the CSS circuit through the neural CSS circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 196,
-                            Date = new DateTime(2021, 7, 29, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27009",
-                            Notes = "I'll synthesize the digital PCI capacitor, that should capacitor the PCI capacitor!",
+                            JobNum = "28429",
+                            Notes = "I'll connect the digital HDD transmitter, that should transmitter the HDD transmitter!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 197,
                             Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23574",
-                            Notes = "You can't calculate the feed without synthesizing the virtual SAS feed!",
+                            JobNum = "22323",
+                            Notes = "navigating the microchip won't do anything, we need to program the back-end JSON microchip!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 198,
                             Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24873",
-                            Notes = "If we connect the system, we can get to the XSS system through the bluetooth XSS system!",
+                            JobNum = "22724",
+                            Notes = "Try to bypass the AGP port, maybe it will bypass the virtual port!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 199,
-                            Date = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23382",
-                            Notes = "We need to copy the auxiliary JSON firewall!",
+                            JobNum = "21188",
+                            Notes = "If we copy the capacitor, we can get to the FTP capacitor through the solid state FTP capacitor!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 200,
                             Date = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21636",
-                            Notes = "If we generate the array, we can get to the SQL array through the multi-byte SQL array!",
+                            JobNum = "21827",
+                            Notes = "You can't calculate the bus without parsing the back-end IB bus!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -2055,28 +2057,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 201,
                             Date = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22743",
-                            Notes = "The SAS array is down, connect the redundant array so we can connect the SAS array!",
+                            JobNum = "29507",
+                            Notes = "The THX bus is down, calculate the wireless bus so we can calculate the THX bus!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 202,
                             Date = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26200",
-                            Notes = "Try to generate the TCP pixel, maybe it will generate the primary pixel!",
+                            JobNum = "20758",
+                            Notes = "We need to transmit the mobile SCSI array!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 203,
-                            Date = new DateTime(2021, 7, 27, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24266",
-                            Notes = "overriding the bandwidth won't do anything, we need to override the back-end THX bandwidth!",
+                            JobNum = "25391",
+                            Notes = "Try to reboot the SMS monitor, maybe it will reboot the auxiliary monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2085,8 +2087,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 204,
                             Date = new DateTime(2021, 7, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24848",
-                            Notes = "Use the mobile ADP driver, then you can synthesize the mobile driver!",
+                            JobNum = "26046",
+                            Notes = "You can't generate the transmitter without calculating the mobile GB transmitter!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -2095,68 +2097,68 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 205,
                             Date = new DateTime(2021, 7, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20054",
-                            Notes = "If we calculate the hard drive, we can get to the THX hard drive through the optical THX hard drive!",
+                            JobNum = "29241",
+                            Notes = "We need to reboot the wireless SMS matrix!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 206,
                             Date = new DateTime(2021, 7, 26, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28855",
-                            Notes = "We need to program the redundant COM panel!",
+                            JobNum = "26227",
+                            Notes = "Try to generate the IB monitor, maybe it will generate the primary monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 207,
-                            Date = new DateTime(2021, 7, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21624",
-                            Notes = "We need to index the multi-byte FTP panel!",
+                            JobNum = "25434",
+                            Notes = "We need to index the redundant FTP feed!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 208,
                             Date = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22698",
-                            Notes = "You can't program the sensor without indexing the virtual RSS sensor!",
+                            JobNum = "28295",
+                            Notes = "If we compress the circuit, we can get to the PNG circuit through the mobile PNG circuit!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 209,
                             Date = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25325",
-                            Notes = "We need to reboot the digital PNG card!",
+                            JobNum = "20060",
+                            Notes = "We need to synthesize the back-end SQL firewall!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 210,
                             Date = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23694",
-                            Notes = "Use the neural PCI alarm, then you can synthesize the neural alarm!",
+                            JobNum = "29974",
+                            Notes = "The JBOD transmitter is down, hack the neural transmitter so we can hack the JBOD transmitter!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
                             Id = 211,
-                            Date = new DateTime(2021, 7, 25, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28347",
-                            Notes = "Use the redundant RSS hard drive, then you can back up the redundant hard drive!",
+                            JobNum = "27670",
+                            Notes = "I'll generate the optical FTP circuit, that should circuit the FTP circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2165,8 +2167,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 212,
                             Date = new DateTime(2021, 7, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21149",
-                            Notes = "We need to input the online TCP driver!",
+                            JobNum = "21444",
+                            Notes = "The IB driver is down, index the mobile driver so we can index the IB driver!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -2175,38 +2177,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 213,
                             Date = new DateTime(2021, 7, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25239",
-                            Notes = "Use the open-source FTP bus, then you can generate the open-source bus!",
+                            JobNum = "23991",
+                            Notes = "You can't back up the pixel without connecting the online USB pixel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 214,
                             Date = new DateTime(2021, 7, 24, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20629",
-                            Notes = "You can't transmit the monitor without parsing the back-end COM monitor!",
+                            JobNum = "22356",
+                            Notes = "Use the neural HTTP alarm, then you can synthesize the neural alarm!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 215,
-                            Date = new DateTime(2021, 7, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21976",
-                            Notes = "You can't transmit the program without indexing the open-source USB program!",
+                            JobNum = "26974",
+                            Notes = "copying the transmitter won't do anything, we need to input the virtual SDD transmitter!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 216,
                             Date = new DateTime(2021, 7, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "28410",
-                            Notes = "If we synthesize the hard drive, we can get to the EXE hard drive through the wireless EXE hard drive!",
+                            JobNum = "27109",
+                            Notes = "The JBOD application is down, navigate the haptic application so we can navigate the JBOD application!",
                             Rd = false,
                             Time = 10800.0
                         },
@@ -2215,28 +2217,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 217,
                             Date = new DateTime(2021, 7, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25786",
-                            Notes = "I'll connect the solid state XSS array, that should array the XSS array!",
+                            JobNum = "23486",
+                            Notes = "Use the solid state TCP interface, then you can bypass the solid state interface!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 218,
                             Date = new DateTime(2021, 7, 23, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21830",
-                            Notes = "You can't parse the application without indexing the 1080p SCSI application!",
+                            JobNum = "27946",
+                            Notes = "Try to input the USB application, maybe it will input the open-source application!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 219,
                             Date = new DateTime(2021, 7, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27618",
-                            Notes = "The TCP card is down, bypass the haptic card so we can bypass the TCP card!",
+                            JobNum = "23368",
+                            Notes = "We need to transmit the cross-platform GB pixel!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2245,38 +2247,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 220,
                             Date = new DateTime(2021, 7, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22990",
-                            Notes = "Use the 1080p HDD driver, then you can transmit the 1080p driver!",
+                            JobNum = "27845",
+                            Notes = "Try to transmit the XML port, maybe it will transmit the wireless port!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 221,
                             Date = new DateTime(2021, 7, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24706",
-                            Notes = "calculating the program won't do anything, we need to generate the neural THX program!",
+                            JobNum = "21207",
+                            Notes = "We need to back up the auxiliary PCI application!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 222,
                             Date = new DateTime(2021, 7, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25834",
-                            Notes = "If we reboot the hard drive, we can get to the USB hard drive through the neural USB hard drive!",
+                            JobNum = "26334",
+                            Notes = "I'll quantify the mobile CSS driver, that should driver the CSS driver!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 223,
                             Date = new DateTime(2021, 7, 22, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20963",
-                            Notes = "The RAM pixel is down, program the digital pixel so we can program the RAM pixel!",
+                            JobNum = "23828",
+                            Notes = "We need to reboot the bluetooth SDD microchip!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2285,18 +2287,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 224,
                             Date = new DateTime(2021, 7, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27767",
-                            Notes = "If we override the transmitter, we can get to the JBOD transmitter through the auxiliary JBOD transmitter!",
+                            JobNum = "24684",
+                            Notes = "You can't synthesize the panel without connecting the cross-platform HTTP panel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 225,
                             Date = new DateTime(2021, 7, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22954",
-                            Notes = "Try to parse the SAS card, maybe it will parse the open-source card!",
+                            JobNum = "24830",
+                            Notes = "You can't compress the matrix without calculating the cross-platform JSON matrix!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2305,28 +2307,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 226,
                             Date = new DateTime(2021, 7, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22358",
-                            Notes = "I'll input the solid state FTP firewall, that should firewall the FTP firewall!",
+                            JobNum = "20630",
+                            Notes = "The FTP card is down, back up the neural card so we can back up the FTP card!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 227,
                             Date = new DateTime(2021, 7, 21, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23851",
-                            Notes = "The SMTP array is down, back up the bluetooth array so we can back up the SMTP array!",
+                            JobNum = "29334",
+                            Notes = "If we quantify the bus, we can get to the TCP bus through the mobile TCP bus!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 228,
                             Date = new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26536",
-                            Notes = "We need to hack the online RAM pixel!",
+                            JobNum = "20409",
+                            Notes = "synthesizing the alarm won't do anything, we need to generate the primary SDD alarm!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2335,18 +2337,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 229,
                             Date = new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "25103",
-                            Notes = "programming the pixel won't do anything, we need to back up the auxiliary SCSI pixel!",
+                            JobNum = "28663",
+                            Notes = "If we override the monitor, we can get to the COM monitor through the virtual COM monitor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 230,
                             Date = new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20215",
-                            Notes = "generating the interface won't do anything, we need to index the neural XML interface!",
+                            JobNum = "28578",
+                            Notes = "You can't program the bus without copying the open-source SMTP bus!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2355,18 +2357,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 231,
                             Date = new DateTime(2021, 7, 20, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26662",
-                            Notes = "Try to compress the RSS hard drive, maybe it will compress the redundant hard drive!",
+                            JobNum = "24452",
+                            Notes = "The CSS sensor is down, synthesize the digital sensor so we can synthesize the CSS sensor!",
                             Rd = false,
-                            Time = 7200.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 232,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23663",
-                            Notes = "I'll reboot the bluetooth COM driver, that should driver the COM driver!",
+                            JobNum = "22981",
+                            Notes = "quantifying the monitor won't do anything, we need to override the 1080p HTTP monitor!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2375,8 +2377,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 233,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24212",
-                            Notes = "We need to synthesize the multi-byte SAS protocol!",
+                            JobNum = "24710",
+                            Notes = "I'll back up the digital CSS application, that should application the CSS application!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2385,8 +2387,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 234,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20592",
-                            Notes = "The SMS application is down, index the digital application so we can index the SMS application!",
+                            JobNum = "27592",
+                            Notes = "Use the virtual HDD pixel, then you can index the virtual pixel!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2395,38 +2397,38 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 235,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "26054",
-                            Notes = "I'll back up the 1080p RAM port, that should port the RAM port!",
+                            JobNum = "28374",
+                            Notes = "I'll calculate the multi-byte JSON pixel, that should pixel the JSON pixel!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 236,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23897",
-                            Notes = "I'll reboot the virtual HTTP matrix, that should matrix the HTTP matrix!",
+                            JobNum = "26453",
+                            Notes = "bypassing the hard drive won't do anything, we need to synthesize the back-end SMTP hard drive!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 237,
                             Date = new DateTime(2021, 7, 19, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22569",
-                            Notes = "Use the multi-byte PCI pixel, then you can back up the multi-byte pixel!",
+                            JobNum = "28065",
+                            Notes = "You can't quantify the matrix without navigating the bluetooth HTTP matrix!",
                             Rd = false,
-                            Time = 10800.0
+                            Time = 3600.0
                         },
                         new
                         {
                             Id = 238,
                             Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22799",
-                            Notes = "Use the optical AI feed, then you can transmit the optical feed!",
+                            JobNum = "24084",
+                            Notes = "hacking the transmitter won't do anything, we need to generate the optical RSS transmitter!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2435,8 +2437,8 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 239,
                             Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "22124",
-                            Notes = "You can't synthesize the bus without bypassing the redundant IB bus!",
+                            JobNum = "23326",
+                            Notes = "I'll compress the solid state SMS application, that should application the SMS application!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2445,18 +2447,18 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 240,
                             Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "21495",
-                            Notes = "We need to index the wireless SSL circuit!",
+                            JobNum = "21910",
+                            Notes = "Use the multi-byte IB application, then you can quantify the multi-byte application!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 241,
                             Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29292",
-                            Notes = "You can't parse the hard drive without generating the virtual HTTP hard drive!",
+                            JobNum = "28481",
+                            Notes = "If we back up the circuit, we can get to the SSL circuit through the redundant SSL circuit!",
                             Rd = false,
                             Time = 7200.0
                         },
@@ -2465,28 +2467,28 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 242,
                             Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "20441",
-                            Notes = "The XSS interface is down, synthesize the optical interface so we can synthesize the XSS interface!",
+                            JobNum = "28679",
+                            Notes = "If we synthesize the array, we can get to the SAS array through the bluetooth SAS array!",
                             Rd = false,
                             Time = 3600.0
                         },
                         new
                         {
                             Id = 243,
-                            Date = new DateTime(2021, 7, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24514",
-                            Notes = "We need to navigate the primary EXE firewall!",
+                            JobNum = "26244",
+                            Notes = "You can't hack the bandwidth without quantifying the multi-byte GB bandwidth!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 244,
                             Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24907",
-                            Notes = "Use the redundant IB sensor, then you can index the redundant sensor!",
+                            JobNum = "25094",
+                            Notes = "Use the primary IB pixel, then you can reboot the primary pixel!",
                             Rd = false,
                             Time = 3600.0
                         },
@@ -2495,60 +2497,60 @@ namespace Asc_Time_Tracker.Data.Migrations
                             Id = 245,
                             Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23002",
-                            Notes = "Use the digital SAS protocol, then you can input the digital protocol!",
+                            JobNum = "29447",
+                            Notes = "The COM hard drive is down, input the solid state hard drive so we can input the COM hard drive!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 246,
                             Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "27383",
-                            Notes = "We need to generate the online COM monitor!",
-                            Rd = false,
-                            Time = 10800.0
-                        },
-                        new
-                        {
-                            Id = 247,
-                            Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
-                            EmpId = "timeuser@ascmt.com",
-                            JobNum = "25973",
-                            Notes = "The XSS system is down, input the neural system so we can input the XSS system!",
+                            JobNum = "23859",
+                            Notes = "If we transmit the array, we can get to the HDD array through the virtual HDD array!",
                             Rd = false,
                             Time = 7200.0
                         },
                         new
                         {
-                            Id = 248,
-                            Date = new DateTime(2021, 7, 17, 0, 0, 0, 0, DateTimeKind.Local),
+                            Id = 247,
+                            Date = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "24118",
-                            Notes = "I'll navigate the redundant SMS matrix, that should matrix the SMS matrix!",
+                            JobNum = "23861",
+                            Notes = "We need to back up the multi-byte HDD bandwidth!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
+                        },
+                        new
+                        {
+                            Id = 248,
+                            Date = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            EmpId = "timeuser@ascmt.com",
+                            JobNum = "22671",
+                            Notes = "I'll calculate the cross-platform RSS transmitter, that should transmitter the RSS transmitter!",
+                            Rd = false,
+                            Time = 7200.0
                         },
                         new
                         {
                             Id = 249,
                             Date = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "29867",
-                            Notes = "Use the wireless JBOD system, then you can back up the wireless system!",
+                            JobNum = "28465",
+                            Notes = "The SCSI microchip is down, reboot the 1080p microchip so we can reboot the SCSI microchip!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 10800.0
                         },
                         new
                         {
                             Id = 250,
-                            Date = new DateTime(2021, 7, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 7, 15, 0, 0, 0, 0, DateTimeKind.Local),
                             EmpId = "timeuser@ascmt.com",
-                            JobNum = "23856",
-                            Notes = "If we input the driver, we can get to the XML driver through the multi-byte XML driver!",
+                            JobNum = "21888",
+                            Notes = "You can't navigate the interface without connecting the bluetooth HTTP interface!",
                             Rd = false,
-                            Time = 3600.0
+                            Time = 7200.0
                         });
                 });
 

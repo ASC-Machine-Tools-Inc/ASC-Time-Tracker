@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Asc_Time_Tracker.Data;
+﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
-using Bogus.DataSets;
 using ChartJSCore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Asc_Time_Tracker_Tests.Models
 {

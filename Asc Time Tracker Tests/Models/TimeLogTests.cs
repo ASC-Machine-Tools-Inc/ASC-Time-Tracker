@@ -1,5 +1,4 @@
-﻿using System;
-using Asc_Time_Tracker.Models;
+﻿using Asc_Time_Tracker.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Asc_Time_Tracker_Tests.Models

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Asc_Time_Tracker.Areas.Identity.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,13 +16,13 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<TimeTrackerUser> _userManager;
+        private readonly SignInManager<TimeTrackerUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager,
+        public LoginModel(SignInManager<TimeTrackerUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<TimeTrackerUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -82,6 +84,16 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    // Set last login date - if first login (on new update), show intro.
+                    TimeTrackerUser user = await _userManager.FindByNameAsync(Input.Email);
+                    if (user.LastLoginDate == null)
+                    {
+                        user.LastLoginDate = DateTime.Now;
+                        await _userManager.UpdateAsync(user);
+                        TempData["FirstLoginFlag"] = "true";
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

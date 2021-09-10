@@ -1,5 +1,13 @@
-﻿// TODO: run this only on first login, and only on main index, and not on mobile
-function startIntro() {
+﻿// Handles the tour for first-time desktop page viewers.
+function startTour() {
+    if ($("#playIntro").length === 0) {
+        localStorage.setItem("redirectToTour", "true");
+        window.location.replace("/");
+
+        // Don't start the intro if we're in the middle of redirecting.
+        return;
+    }
+
     introJs().setOptions({
         showProgress: true,
         disableInteraction: true,
@@ -50,7 +58,29 @@ function startIntro() {
     }).start();
 }
 
-// Don't run on mobile.
-if (document.documentElement.clientWidth >= 576) {
-    startIntro();
-}
+// Check on load if we're running the tour.
+$(document).ready(function () {
+    // Create the redirect flag if it doesn't exist.
+    var redirect = localStorage.getItem("redirectToTour");
+    if (redirect == null) {
+        localStorage.setItem("redirectToTour", "false");
+    }
+
+    // Changed window to main index after click, run the tour.
+    if (redirect === "true") {
+        // A trick to get around running code after a page redirect by
+        // setting a flag before redirecting.
+        localStorage.setItem("redirectToTour", "false");
+        startTour();
+    } else {
+        // Only run on the main index, and if the flag is set.
+        var runIntro = $("#playIntro").val();
+
+        if (!runIntro) return;
+
+        // Don't run on mobile.
+        if (document.documentElement.clientWidth < 576) return;
+
+        startTour();
+    }
+});

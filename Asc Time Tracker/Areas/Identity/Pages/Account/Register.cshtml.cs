@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Asc_Time_Tracker.Areas.Identity.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,15 +16,15 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<TimeTrackerUser> _signInManager;
+        private readonly UserManager<TimeTrackerUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<TimeTrackerUser> userManager,
+            SignInManager<TimeTrackerUser> signInManager,
             RoleManager<IdentityRole> roleManager,
             IConfiguration configuration,
             ILogger<RegisterModel> logger)
@@ -87,7 +88,7 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
                     return Page();
                 }
 
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new TimeTrackerUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -121,6 +122,9 @@ namespace Asc_Time_Tracker.Areas.Identity.Pages.Account
                     }
 
                     _logger.LogInformation("User created a new account with password.");
+
+                    // Play intro login script.
+                    TempData["FirstLoginFlag"] = "true";
 
                     await _signInManager.SignInAsync(user, false);
                     return LocalRedirect(returnUrl);

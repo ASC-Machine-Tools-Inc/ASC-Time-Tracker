@@ -24,6 +24,9 @@
 <!-- Modals -->
 <partial name="_IndexModals" />
 
+<!-- Hidden field for playing intro tour. -->
+<input id="playIntro" type="hidden" value=@TempData["FirstLoginFlag"] />
+
 @section Scripts
 {
     <!-- QR code scanner -->

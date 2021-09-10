@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@using Asc_Time_Tracker.Areas.Identity.Models
+@inject SignInManager<TimeTrackerUser> SignInManager
+@inject UserManager<TimeTrackerUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
