@@ -80,7 +80,7 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdownMenuLink" href="#"
+                                <a id="navbarHelpDropdownLink" href="#"
                                    class="nav-link dropdown-toggle px-sm-0 px-2"
                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fs-5 bi bi-info-lg"></i>
@@ -88,9 +88,9 @@
                                     <i class="bi bi-caret-down-fill small d-none d-sm-inline"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-dark shadow"
-                                     aria-labelledby="navbarDropdownMenuLink">
+                                     aria-labelledby="navbarHelpDropdownLink">
                                     <!-- TODO: finish guide -->
-                                    <a class="dropdown-item" asp-controller="Home" asp-action="Guide">User Guide</a>
+                                    <a class="dropdown-item" asp-controller="Home" asp-action="Guide">Replay Tour</a>
                                     <a class="dropdown-item" asp-controller="Home" asp-action="About">About</a>
                                 </div>
                             </li>
@@ -124,9 +124,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modals -->
-        <partial name="../TimeLog/_IndexModals" />
     }
     else
     {

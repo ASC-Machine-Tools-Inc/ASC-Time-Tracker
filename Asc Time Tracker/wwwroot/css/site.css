@@ -72,7 +72,7 @@ html, body {
     background: var(--bs-body-color);
     height: 50px;
     width: 50px;
-    margin: 0 0.25rem 1rem;
+    margin: 0 0 1rem;
     border-radius: 50%;
 }
 
@@ -130,6 +130,10 @@ html, body {
         transform-origin: bottom left;
     }
 
+    .nav-link.text-black::after {
+        background-color: black;
+    }
+
 .dropdown-item:active {
     color: black;
 }
@@ -141,6 +145,11 @@ html, body {
 .dropdown-toggle::after {
     margin-left: -.1em;
     border: 0;
+}
+
+#changePasswordDropdownItem {
+    text-decoration: none;
+    color: #dee2e6;
 }
 
 /* Card styling */
@@ -526,4 +535,9 @@ tr:hover {
 .login-card .account-options a {
     font-size: 1.25rem;
     color: #919aa3;
+}
+
+/* intro.js styling */
+.bootstrapTooltip .introjs-skipbutton {
+    text-decoration: none;
 }
