@@ -39,3 +39,24 @@ function toggleScanner() {
     scannerOn = !scannerOn;
 }
  */
+
+/**
+ * Takes a specially formatted string for a timer and updates the timer's card.
+ * String looks like: TimeLog_{field}:{value}|TimeLog_{field}:{value}|...
+ *
+ * @param {int}    id      The id for the job timer to update.
+ * @param {string} fields  The formatted string to convert into fields.
+ */
+stringToFields = function (id, fields) {
+    let splitValues = fields.split("|");
+
+    for (let i = 0; i < splitValues.length; i++) {
+        let splitPairs = splitValues[i].split(":");
+        let pairKey = splitPairs[0];
+        let pairValue = splitPairs[1];
+
+        this.savedFields[pairKey] = pairValue;
+
+        $("#timer_" + id).find("#" + pairKey + "_Display").html(pairValue);
+    }
+}

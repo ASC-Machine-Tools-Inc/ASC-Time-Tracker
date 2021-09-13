@@ -75,6 +75,7 @@ namespace Asc_Time_Tracker.Controllers
             timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
+            // Convert view data into model? For testing
             if (timeLogs.Any())
             {
                 // Grab statistics.

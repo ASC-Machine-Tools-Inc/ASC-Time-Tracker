@@ -2,7 +2,7 @@
 // Fixes the issue with scripts not running on IndexInfo's full view.
 function pageLoad() {
     startPickers();
-    startTimer();
+    startTimers();
 }
 
 // Call like normal for MainIndex.

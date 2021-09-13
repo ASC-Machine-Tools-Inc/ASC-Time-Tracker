@@ -1,150 +1,142 @@
-﻿/**
- * Timer for logging time spent on stuff.
- *
- * @param {int}     id       Number to identify this specific timer by.
- * @param {int}     interval Interval speed (in milliseconds)
- * @param {bool}    updateUi (Optional) Flag to change display (set if on right page)
- * @param {string}  fields   (Optional) List of fields in the format key:value,
- *                                      with key-value pairs split with |.
- */
-function JobTimer(id, interval, updateUi = false, fields = null) {
-    var self = this; // Looks odd, but used as reference back to JobTimer and not anything else.
-    var expected, timeout, startTime; // Values for ensuring we keep track of the correct time.
-    this.timeExpended = 0; // Needed to save time when timer is paused
-    this.interval = interval;
-
-    // Save the values for this timer's display.
-    this.savedFields = {};
-    if (fields) {
-        stringToFields();
-    }
-
+﻿class JobTimer {
     /**
-     * Start the timer.
+     * Timer for logging time spent on stuff.
+     *
+     * @param {int}     id         Number to identify this specific timer by.
+     * @param {int}     interval   Time step interval speed (in milliseconds).
+     * @param {bool}    updateUi   (Optional) Flag to change display (set if on right page).
      */
-    this.start = function () {
-        expected = Date.now() + this.interval;
-        startTime = Date.now();
-        localStorage.setItem("paused", "false");
+    constructor(id, interval, updateUi = false) {
+        this.id = id;
+        this.interval = interval;
+        this.updateUi = updateUi;
 
-        step(); // Start timeout for updating time.
+        this.startTime = null;
+        this.fields = {};
 
-        if (updateUi) {
-            document.getElementById("startBtn").style.display = "none";
-            //document.getElementById("scannerBtn").style.display = "none";
-            document.getElementById("stopBtn").style.display = "block";
-            document.getElementById("saveBtn").style.display = "block";
-            document.getElementById("deleteBtn").style.display = "block";
+        // Timeout for the time step.
+        this.stepTimeout = null;
+
+        // What the correct time should be, to check for drift.
+        this.expectedTime = 0;
+
+        // Needed to save time when timer is paused (>= expected time).
+        this.savedTime = 0;
+
+        this.paused = false;
+    }
+}
+
+/** Start the timer. */
+function startTimer(timer) {
+    timer.paused = false;
+    timer.startTime = timer.expectedTime = Date.now();
+
+    step(timer); // Start timeout for updating time.
+
+    if (timer.updateUi) {
+        document.getElementById("startBtn").style.display = "none";
+        //document.getElementById("scannerBtn").style.display = "none";
+        document.getElementById("stopBtn").style.display = "block";
+        document.getElementById("saveBtn").style.display = "block";
+        document.getElementById("deleteBtn").style.display = "block";
+    }
+}
+
+/** Pause the timer. */
+function stop(timer) {
+    timer.paused = true;
+    timer.savedTime = getTime(timer);
+
+    clearTimeout(timeout);
+
+    if (timer.updateUi) {
+        document.getElementById("startBtn").style.display = "block";
+        document.getElementById("stopBtn").style.display = "none";
+    }
+}
+
+/** Restart the timer back to 0. */
+function reset(timer) {
+    clearTimeout(timer.stepTimeout);
+    timer.savedTime = 0;
+
+    if (timer.updateUi) {
+        // Update time display to 0.
+        updateTime(timer);
+
+        // TODO: Convert into own function after adding more fields?
+        $("#TimeLog_JobNum_Display").html("");
+
+        document.getElementById("startBtn").style.display = "block";
+        //document.getElementById("scannerBtn").style.display = "inline-block";
+        document.getElementById("stopBtn").style.display = "none";
+        document.getElementById("saveBtn").style.display = "none";
+        document.getElementById("deleteBtn").style.display = "none";
+    }
+}
+
+/** Populate the modal fields for adding a log to the database. */
+function save(timer) {
+    let secs = Math.floor(getTime(timer) / 1000);
+    let hours = Math.floor(secs / 3600);
+    let minutes = Math.floor((secs % 3600) / 60);
+
+    if (timer.updateUi) {
+        $("#timeLogSubmitModal").modal("show");
+        $("#timeHours").val(hours);
+        $("#timeMinutes").val(minutes);
+
+        // Save fields to modal form fields.
+        for (let field in timer.fields) {
+            $("#" + field).val(timer.fields[field]);
         }
     }
+}
 
-    this.stop = function () {
-        self.timeExpended = this.getTime();
-        localStorage.setItem("paused", "true");
+/** Calculate the time for this timer. */
+function getTime(timer) {
+    return Date.now() - timer.startTime + timer.savedTime;
+}
 
-        clearTimeout(timeout);
+// Time step that adjusts for drift.
+function step(timer) {
+    let drift = Date.now() - timer.expectedTime;
 
-        if (updateUi) {
-            document.getElementById("startBtn").style.display = "block";
-            document.getElementById("stopBtn").style.display = "none";
-        }
+    /* Logging for console drift.
+    if (drift > this.interval) {
+        console.warn('The drift exceeded the interval.');
+    } */
+
+    // Update this timer in the array.
+    jobTimers.set(timer.id, timer);
+
+    if (timer.updateUi) {
+        updateTime(timer);
     }
 
-    this.delete = function () {
-        clearTimeout(timeout);
-        self.timeExpended = 0;
-        localStorage.setItem("paused", "false");
-        self.savedFields = {};
-        localStorage.removeItem("savedTime");
+    timer.expectedTime += timer.interval;
+    timer.timeout = setTimeout(step.bind(null, timer), Math.max(0, timer.interval - drift));
+}
 
-        if (updateUi) {
-            // Update time display to 0.
-            updateTime();
+/** Update the display for this timer. */
+function updateTime(timer) {
+    let elapsedTime = getTime(timer);
 
-            // TODO: Convert into own function after adding more fields?
-            $("#TimeLog_JobNum_Display").html("");
+    let secs = Math.floor(elapsedTime / 1000);
+    let hours = String(Math.floor(secs / 3600)).padStart(2, "0");
+    let minutes = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
+    let seconds = String(secs % 60).padStart(2, "0");
 
-            document.getElementById("startBtn").style.display = "block";
-            //document.getElementById("scannerBtn").style.display = "inline-block";
-            document.getElementById("stopBtn").style.display = "none";
-            document.getElementById("saveBtn").style.display = "none";
-            document.getElementById("deleteBtn").style.display = "none";
-        }
-    }
+    let time = [hours, minutes, seconds].join(":");
 
-    this.save = function () {
-        let secs = Math.floor(jobTimer.getTime() / 1000);
-        let hours = Math.floor(secs / 3600);
-        let minutes = Math.floor((secs % 3600) / 60);
+    $("#timer_" + timer.id).find(".time-display").html(time);
+}
 
-        if (updateUi) {
-            $("#timeLogSubmitModal").modal("show");
-            $("#timeHours").val(hours);
-            $("#timeMinutes").val(minutes);
+function setFields(timer, fields) {
+    for (let fieldKey in fields) {
+        this.fields[fieldKey] = fields[fieldKey];
 
-            if (self.savedFields) {
-                for (let field in self.savedFields) {
-                    $("#" + field).val(self.savedFields[field]);
-                }
-            }
-        }
-    }
-
-    this.getTime = function () {
-        return Date.now() - startTime + self.timeExpended;
-    }
-
-    // Time step that self-adjusts for drift.
-    function step() {
-        var drift = Date.now() - expected;
-        if (drift > self.interval) {
-            // console.warn('The drift exceeded the interval.');
-        }
-
-        saveTime();
-
-        if (updateUi) {
-            updateTime();
-        }
-
-        expected += self.interval;
-        timeout = setTimeout(step, Math.max(0, self.interval - drift));
-    }
-
-    function saveTime() {
-        // Store time in local storage.
-        localStorage.setItem("savedTime" + id, self.getTime());
-    }
-
-    // Update relevant html.
-    function updateTime() {
-        let elapsedTime = self.getTime();
-
-        let secs = Math.floor(elapsedTime / 1000);
-        let hours = String(Math.floor(secs / 3600)).padStart(2, "0");
-        let minutes = String(Math.floor((secs % 3600) / 60)).padStart(2, "0");
-        let seconds = String(secs % 60).padStart(2, "0");
-
-        let time = [hours, minutes, seconds].join(":");
-
-        document.getElementById("jobTime").innerHTML = time;
-    }
-
-    // Converts a specially formatted string into saved fields for the timer.
-    // String looks like: TimeLog_{field}:{value}|TimeLog_{field}:{value}|...
-    function stringToFields() {
-        let splitValues = fields.split("|");
-
-        for (let i = 0; i < splitValues.length; i++) {
-            let splitPairs = splitValues[i].split(":");
-            let pairKey = splitPairs[0];
-            let pairValue = splitPairs[1];
-
-            self.savedFields[pairKey] = pairValue;
-
-            if (updateUi) {
-                $("#" + pairKey + "_Display").html(pairValue);
-            }
-        }
+        $("#timer_" + timer.id).find("#" + fieldKey + "_Display").html(fields[fieldKey]);
     }
 }
