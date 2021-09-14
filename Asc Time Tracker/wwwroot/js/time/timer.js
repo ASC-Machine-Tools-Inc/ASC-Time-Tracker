@@ -11,60 +11,61 @@
         this.interval = interval;
         this.updateUi = updateUi;
 
+        // Save start time so we can get the time even while off the page.
         this.startTime = null;
+
+        // List of fields for the timer used in submitting.
         this.fields = {};
 
-        // Timeout for the time step.
-        this.stepTimeout = null;
+        // To keep track of when the timer's paused to not count towards total time.
+        this.totalPausedTime = 0;
+        this.pauseTime = null;
 
-        // What the correct time should be, to check for drift.
-        this.expectedTime = 0;
-
-        // Needed to save time when timer is paused (>= expected time).
-        this.savedTime = 0;
-
-        this.paused = false;
+        this.paused = true;
     }
 }
 
-/** Start the timer. */
-function startTimer(timer) {
-    timer.paused = false;
-    timer.startTime = timer.expectedTime = Date.now();
+/** Play/pause the timer. */
+function toggleTimer(timer) {
+    if (timer.paused) {  // Play timer.
+        if (!timer.startTime) {  // Set the start time if it's the first start.
+            timer.startTime = Date.now();
+        }
 
-    stepTimer(timer); // Start timeout for updating time.
+        if (timer.pauseDate) {  // If previously paused, ignore this time.
+            timer.totalPausedTime += Date.now() - timer.pauseDate;
+            timer.pauseDate = null;
+        }
 
-    if (timer.updateUi) {
-        $("#timer_" + timer.id).find(".start-timer-btn").hide();
-        /*
-        document.getElementById("startBtn").style.display = "none";
-        //document.getElementById("scannerBtn").style.display = "none";
-        document.getElementById("stopBtn").style.display = "block";
-        document.getElementById("saveBtn").style.display = "block";
-        document.getElementById("deleteBtn").style.display = "block"; */
+        if (timer.updateUi) {
+            let timerUi = $("#timer_" + timer.id);
+            timerUi.find(".reset-timer-btn").toggleClass("d-none d-inline-block");
+            timerUi.find(".save-timer-btn").toggleClass("d-none d-inline-block");
+
+            timerUi.find(".bi-play-fill").toggleClass("bi-play-fill bi-pause-fill");
+
+            //document.getElementById("scannerBtn").style.display = "none";
+        }
+    } else {  // Pause timer.
+        timer.pauseDate = Date.now();
+
+        if (timer.updateUi) {
+            $("#timer_" + timer.id).find(".bi-pause-fill").toggleClass("bi-pause-fill bi-play-fill");
+        }
     }
-}
 
-/** Pause the timer. */
-function stopTimer(timer) {
-    timer.paused = true;
-
-    clearTimeout(timer.stepTimeout);
-
-    if (timer.updateUi) {
-        document.getElementById("startBtn").style.display = "block";
-        document.getElementById("stopBtn").style.display = "none";
-    }
+    timer.paused = !timer.paused;
 }
 
 /** Restart the timer back to 0. */
 function resetTimer(timer) {
-    clearTimeout(timer.stepTimeout);
-    timer.savedTime = 0;
+    timer.startTime = null;
+    timer.totalPausedTime = 0;
+    timer.paused = true;
 
     if (timer.updateUi) {
         // Update time display to 0.
-        updateTime(timer);
+        updateTimeDisplay(timer);
 
         // TODO: Convert into own function after adding more fields?
         $("#TimeLog_JobNum_Display").html("");
@@ -95,39 +96,26 @@ function saveTimer(timer) {
     }
 }
 
-/* Utility method for removing a timer. */
-function deleteTimer(timer) {
-    clearTimeout(timer.stepTimeout);
-}
-
 /** Calculate the time for this timer. */
 function getTime(timer) {
-    return Date.now() - timer.startTime + timer.savedTime;
-}
+    let time = 0;
 
-// Time step that adjusts for drift.
-function stepTimer(timer) {
-    let drift = Date.now() - timer.expectedTime;
-
-    /* Logging for console drift.
-    if (drift > this.interval) {
-        console.warn('The drift exceeded the interval.');
-    } */
-
-    // Update this timer.
-    jobTimers.set(timer.id, timer);
-
-    if (timer.updateUi) {
-        updateTime(timer);
+    // If the timer was started, calculate the time.
+    if (timer.startTime) {
+        time += Date.now() - timer.startTime;
+        time -= timer.totalPausedTime;  // Ignore the paused time.
     }
 
-    timer.savedTime += timer.interval;
-    timer.expectedTime += timer.interval;
-    timer.stepTimeout = setTimeout(stepTimer.bind(null, timer), Math.max(0, timer.interval - drift));
+    // If currently paused, ignore all time passed since pausing.
+    if (timer.pausedDate) {
+        time -= Date.now() - timer.pausedDate;
+    }
+
+    return time;
 }
 
 /** Update the display for this timer. */
-function updateTime(timer) {
+function updateTimeDisplay(timer) {
     let elapsedTime = getTime(timer);
 
     let secs = Math.floor(elapsedTime / 1000);

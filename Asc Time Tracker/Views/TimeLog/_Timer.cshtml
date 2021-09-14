@@ -9,9 +9,10 @@
             <div class="row mx-auto justify-content-end">
                 <button type="button" class="btn-close timer-close"></button>
             </div>
-            <div class="row mx-auto mb-2">
+            <div class="row mx-auto my-2 justify-content-center">
                 <input id="TimeLog_Notes_Display"
-                       class="timer-field" />
+                       class="timer-field"
+                       placeholder="Description?" />
                 <strong id="TimeLog_JobNum_Display"></strong>
                 <div id="jobTimeCollapse">
                     <div id="timerCurrTime" class="time-display">
@@ -21,36 +22,25 @@
             </div>
         </div>
 
-        <div class="btn-toolbar justify-content-center">
+        <div class="btn-toolbar btn-group justify-content-center" role="group">
 
             <button type="button"
-                    class="btn btn-primary btn-lg mx-1
-                    timer-function-btn start-timer-btn"
-                    aria-expanded="true"
-                    aria-controls="jobTimeCollapse">
-                Start
+                    class="btn btn-outline-secondary timer-function-btn
+                    toggle-timer-btn">
+                <i class="bi bi-play-fill"></i>
+            </button>
+            <!-- TODO: add icon colors? -->
+            <button type="button"
+                    class="btn btn-outline-secondary timer-function-btn
+                    reset-timer-btn d-none">
+                <i class="bi bi-arrow-counterclockwise"></i>
             </button>
 
             <button type="button"
-                    class="btn btn-secondary btn-lg mx-1
-                    timer-function-btn stop-timer-btn"
-                    onclick="jobTimer.stop()" style="display: none;">
-                Pause
+                    class="btn btn-outline-primary imer-function-btn
+                    save-timer-btn d-none">
+                <i class="bi bi-save-fill"></i>
             </button>
-
-            <button type="button"
-                    class="btn btn-primary btn-lg mx-1
-                    timer-function-btn save-timer-btn"
-                    onclick="jobTimer.save()" style="display: none;">
-                Save
-            </button>
-
-            <!--
-            <button id="deleteBtn" type="button" class="btn btn-danger btn-lg mx-1"
-                    onclick="jobTimer.delete()"
-                    aria-expanded="false" aria-controls="jobTimeCollapse">
-                Delete
-            </button> -->
         </div>
 
         <!-- Only show QR code scanner on mobile (Disable for now)
