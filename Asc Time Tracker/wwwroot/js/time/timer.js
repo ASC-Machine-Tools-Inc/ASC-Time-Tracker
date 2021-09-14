@@ -32,23 +32,24 @@ function startTimer(timer) {
     timer.paused = false;
     timer.startTime = timer.expectedTime = Date.now();
 
-    step(timer); // Start timeout for updating time.
+    stepTimer(timer); // Start timeout for updating time.
 
     if (timer.updateUi) {
+        $("#timer_" + timer.id).find(".start-timer-btn").hide();
+        /*
         document.getElementById("startBtn").style.display = "none";
         //document.getElementById("scannerBtn").style.display = "none";
         document.getElementById("stopBtn").style.display = "block";
         document.getElementById("saveBtn").style.display = "block";
-        document.getElementById("deleteBtn").style.display = "block";
+        document.getElementById("deleteBtn").style.display = "block"; */
     }
 }
 
 /** Pause the timer. */
-function stop(timer) {
+function stopTimer(timer) {
     timer.paused = true;
-    timer.savedTime = getTime(timer);
 
-    clearTimeout(timeout);
+    clearTimeout(timer.stepTimeout);
 
     if (timer.updateUi) {
         document.getElementById("startBtn").style.display = "block";
@@ -57,7 +58,7 @@ function stop(timer) {
 }
 
 /** Restart the timer back to 0. */
-function reset(timer) {
+function resetTimer(timer) {
     clearTimeout(timer.stepTimeout);
     timer.savedTime = 0;
 
@@ -77,7 +78,7 @@ function reset(timer) {
 }
 
 /** Populate the modal fields for adding a log to the database. */
-function save(timer) {
+function saveTimer(timer) {
     let secs = Math.floor(getTime(timer) / 1000);
     let hours = Math.floor(secs / 3600);
     let minutes = Math.floor((secs % 3600) / 60);
@@ -94,13 +95,18 @@ function save(timer) {
     }
 }
 
+/* Utility method for removing a timer. */
+function deleteTimer(timer) {
+    clearTimeout(timer.stepTimeout);
+}
+
 /** Calculate the time for this timer. */
 function getTime(timer) {
     return Date.now() - timer.startTime + timer.savedTime;
 }
 
 // Time step that adjusts for drift.
-function step(timer) {
+function stepTimer(timer) {
     let drift = Date.now() - timer.expectedTime;
 
     /* Logging for console drift.
@@ -108,15 +114,16 @@ function step(timer) {
         console.warn('The drift exceeded the interval.');
     } */
 
-    // Update this timer in the array.
+    // Update this timer.
     jobTimers.set(timer.id, timer);
 
     if (timer.updateUi) {
         updateTime(timer);
     }
 
+    timer.savedTime += timer.interval;
     timer.expectedTime += timer.interval;
-    timer.timeout = setTimeout(step.bind(null, timer), Math.max(0, timer.interval - drift));
+    timer.stepTimeout = setTimeout(stepTimer.bind(null, timer), Math.max(0, timer.interval - drift));
 }
 
 /** Update the display for this timer. */
@@ -135,8 +142,8 @@ function updateTime(timer) {
 
 function setFields(timer, fields) {
     for (let fieldKey in fields) {
-        this.fields[fieldKey] = fields[fieldKey];
+        timer.fields[fieldKey] = fields[fieldKey];
 
-        $("#timer_" + timer.id).find("#" + fieldKey + "_Display").html(fields[fieldKey]);
+        $("#timer_" + timer.id).find("#" + fieldKey + "_Display").val(fields[fieldKey]);
     }
 }

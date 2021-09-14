@@ -9,11 +9,8 @@ function startTimers() {
     var storedTimers = localStorage["timers"];
     if (storedTimers != null) {
         storedTimers = new Map(JSON.parse(storedTimers));
-        console.log(storedTimers);
         for (var timer of storedTimers.values()) {
-            console.log(timer);
-            jobTimers.set(timer.id, timer);
-            startTimer(timer);
+            addTimer(timer);
         }
     }
 
@@ -29,13 +26,20 @@ function startTimers() {
 };
 
 // Adds a new timer, optionally with fields.
-function addTimer(fields = null) {
+function addTimer(timer = null) {
     // Check if this page contains the timer to update.
     // Hacky way: check that the timer row exists to add to.
     let updateUi = $("#timersRow").length > 0;
 
     var jobTimer = new JobTimer(currTimerId, 10, updateUi);
     jobTimers.set(currTimerId, jobTimer);
+
+    if (timer) {
+        jobTimer.startTime = timer.startTime;
+        jobTimer.fields = timer.fields;
+        jobTimer.savedTime = timer.savedTime;
+        jobTimer.paused = timer.paused;
+    }
 
     // Update the UI if we're on the right page.
     if (updateUi) {
@@ -49,39 +53,46 @@ function addTimer(fields = null) {
                 $("#timersRow").prepend(view);
 
                 // Update fields.
-                jobTimer.setFields(fields);
+                if (timer) {
+                    setFields(jobTimer, timer.fields);
+                }
+
+                startTimer(jobTimer);
+
+                // If paused, start timer, but don't let time run
+                // (to show the previous saved time).
+                if (timer.paused) {
+                    stopTimer(jobTimer);
+                }
             }
         });
+    } else {
+        // Don't need to wait for AJAX to finish, so we can update right away.
+        if (!timer.paused) {
+            startTimer(jobTimer);
+        }
     }
 
     currTimerId++;
-
-    //jobTimer.timeExpended = timer.savedTime;
-    //jobTimer.start();
-
-    // If paused, start timer, but don't let time run
-    // (to show the previous saved time).
-    /*
-    if (jobTimer.paused) {
-        jobTimer.stop();
-    } */
 }
 
 function saveTimers() {
     localStorage["timers"] = JSON.stringify(Array.from(jobTimers.entries()));
+    console.log(localStorage["timers"]);
 }
 
 // If saving current timer, end it on submission.
 // Shouldn't have to worry about validation - those fields are already populated.
-$("#timeLogFormSubmit").on("click", function (event) {
-    // TODO: see which timer to reset
-    // Reset now destroys timers -> change to delete?
-    if (dontEndTimer) {
-        dontEndTimer = false;
-    } else {
-        // TODO
-    }
-});
+$("#timeLogFormSubmit").on("click",
+    function (event) {
+        // TODO: see which timer to reset
+        // Reset now destroys timers -> change to delete?
+        if (dontEndTimer) {
+            dontEndTimer = false;
+        } else {
+            // TODO
+        }
+    });
 
 // Set flag that we're manually adding a log.
 $("#actionCardAdd").on("click", function () {
@@ -89,52 +100,42 @@ $("#actionCardAdd").on("click", function () {
 });
 
 // Destroy timers on logout.
-$("#logoutButton").on("click", function () {
-    for (let timer in jobTimers) {
-        reset(timer);
-    }
+$("#logoutButton").on("click",
+    function () {
+        for (let timer in jobTimers) {
+            reset(timer);
+        }
 
-    jobTimers = new Map();
-    saveTimers();
-});
-
-// Open modal for entering timer notes before creation.
-$("#addTimerBtn").on("click", function () {
-    $("#timeLogCreateNotesModal").modal("show");
-    // Wait for modal to open before focusing text field.
-    $("#timeLogCreateNotesModal").on("shown.bs.modal", function () {
-        $("#timerNotes").focus();
+        jobTimers = new Map();
+        saveTimers();
     });
-});
 
-// Add new timer on submit.
-$("#timerFieldsForm").on("submit", function (e) {
-    e.preventDefault();
-    $("#timeLogCreateNotesModal").modal("hide");
-
-    let fields = { "TimeLog_Notes": $("#timerNotes").val() };
-    addTimer(fields);
-
-    // Clear input field.
-    $("#timerNotes").val("");
-});
+// Add new timer.
+$("#addTimerBtn").on("click",
+    function () {
+        addTimer();
+    });
 
 // Call the corresponding timer action for the corresponding timer
 // on a timer function click.
-$(".timer-function-btn").on("click", function () {
-    var timerId = $(this).closest("#timerId").val();
+$(".timer-function-btn").on("click",
+    function () {
+        var timerId = $(this).closest("#timerId").val();
 
-    if ($(this).hasClass("start-timer-btn")) {
-        jobTimers.get(timerId).start();
-    } // TODO: other functions
-});
+        if ($(this).hasClass("start-timer-btn")) {
+            jobTimers.get(timerId).start();
+        } // TODO: other functions
+    });
 
-// Remove the corresponding timer
+// Remove the corresponding timer.
 $(document).on("click", ".timer-close", function () {
-    //var timerId = $(this).closest(".card-body").find(".timer-value").val();
-    //console.log(timerId);
+    // Clean up the timer, delete it from our map of timers, and save the changes.
+    var timerId = parseInt($(this).closest(".timer-card").find(".timer-value").val());
+    deleteTimer(jobTimers.get(timerId));
+    jobTimers.delete(timerId);
+    saveTimers();
 
     // Remove the timer card (four parent levels up - should
     // refactor if we ever change how _Timer.cshtml is structured.
-    $(this).parents().eq(3).remove();
+    $(this).closest(".timer-card").remove();
 });

@@ -10,8 +10,8 @@
                 <button type="button" class="btn-close timer-close"></button>
             </div>
             <div class="row mx-auto mb-2">
-                <span id="TimeLog_Notes_Display"
-                      class="timer-field"></span>
+                <input id="TimeLog_Notes_Display"
+                       class="timer-field" />
                 <strong id="TimeLog_JobNum_Display"></strong>
                 <div id="jobTimeCollapse">
                     <div id="timerCurrTime" class="time-display">
@@ -23,20 +23,24 @@
 
         <div class="btn-toolbar justify-content-center">
 
-            <button id="startBtn" type="button"
+            <button type="button"
                     class="btn btn-primary btn-lg mx-1
                     timer-function-btn start-timer-btn"
                     aria-expanded="true"
                     aria-controls="jobTimeCollapse">
-                Start <!-- TODO: make first button start with notes -->
+                Start
             </button>
 
-            <button id="stopBtn" type="button" class="btn btn-secondary btn-lg mx-1"
+            <button type="button"
+                    class="btn btn-secondary btn-lg mx-1
+                    timer-function-btn stop-timer-btn"
                     onclick="jobTimer.stop()" style="display: none;">
                 Pause
             </button>
 
-            <button id="saveBtn" type="button" class="btn btn-primary btn-lg mx-1"
+            <button type="button"
+                    class="btn btn-primary btn-lg mx-1
+                    timer-function-btn save-timer-btn"
                     onclick="jobTimer.save()" style="display: none;">
                 Save
             </button>

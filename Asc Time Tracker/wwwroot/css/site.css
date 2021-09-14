@@ -162,6 +162,7 @@ html, body {
 
 /* Timer stuff */
 #timersRow {
+    min-height: 212px;
     max-height: 425px;
     overflow-x: auto;
 }
