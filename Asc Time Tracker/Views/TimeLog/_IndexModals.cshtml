@@ -30,6 +30,10 @@
                     <form id="timeLogForm" asp-controller="TimeLog" asp-action="Create" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="TimeLog.EmpId" value="@User.Identity.Name" />
+
+                        <!-- Timer to delete (if there is one) -->
+                        <input id="timerToRemove" type="hidden" />
+
                         <div class="col-6 mb-3">
                             <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
                             <input asp-for="TimeLog.JobNum" class="form-control" />

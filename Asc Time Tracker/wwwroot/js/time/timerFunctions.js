@@ -5,8 +5,9 @@ var currTimerId = 0;
 var expectedTime = dateNowRounded(); // What the correct time should be, to check for drift.
 var stepInterval;
 
-// Flag to keep timer running if form submitted another way (like Add Log Manually)
-var dontEndTimer = false;
+// Flag to check if this page contains the timer to update.
+// Hacky way: check that the timer row exists to add to.
+var updateUi = $("#timersRow").length > 0;
 
 // ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
 // ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
@@ -24,9 +25,12 @@ function startTimers() {
     }
 
     // Start time loop to save timers.
-    stepTimers(jobTimers);
+    if (updateUi) {
+        stepTimers(jobTimers);
+    }
 
     // Update date picker if we're on the right page.
+    // TODO: move to start pickers and load from localstorage
     if ($(".day-picker").length > 0) {
         setDayPicker(new Date());
     }
@@ -42,10 +46,6 @@ function startTimers() {
  * @param {JobTimer} timer  (Optional) Saved timer to copy over fields from.
  */
 function addTimer(timer = null) {
-    // Check if this page contains the timer to update.
-    // Hacky way: check that the timer row exists to add to.
-    let updateUi = $("#timersRow").length > 0;
-
     var jobTimer = new JobTimer(currTimerId, TIME_STEP, updateUi);
     jobTimers.set(currTimerId, jobTimer);
 
@@ -97,24 +97,20 @@ function saveTimers() {
     localStorage["timers"] = JSON.stringify(Array.from(jobTimers.entries()));
 }
 
-/* Update timers. */
+/* Update timers on the UI. */
 function stepTimers(jobTimers) {
     let drift = dateNowRounded() - expectedTime;
 
     /* Logging for console drift.
     if (drift > TIME_STEP) {
-        console.warn('The drift exceeded the interval.');
+        cons
+        ole.warn('The drift exceeded the interval.');
     } */
 
     for (let timer of jobTimers.values()) {
         if (timer.paused) continue;
 
-        if (timer.updateUi) {
-            updateTimeDisplay(timer);
-        } else {
-            // Only update the time.
-            getTime(timer);
-        }
+        updateTimeDisplay(timer);
     }
 
     expectedTime += TIME_STEP;
@@ -124,23 +120,15 @@ function stepTimers(jobTimers) {
 // █▀▀ █ █ █▀▀ █▄ █ ▀█▀  █   ▀█▀ █▀▀ ▀█▀ █▀▀ █▄ █ █▀▀ █▀█ █▀▀
 // ██▄ ▀▄▀ ██▄ █ ▀█  █   █▄▄ ▄█▄ ▄██  █  ██▄ █ ▀█ ██▄ █▀▄ ▄██
 
-// If saving current timer, end it on submission.
-// Shouldn't have to worry about validation - those fields are already populated.
-$("#timeLogFormSubmit").on("click",
-    function (event) {
-        // TODO: see which timer to reset
-        // Reset now destroys timers -> change to delete?
-        if (dontEndTimer) {
-            dontEndTimer = false;
-        } else {
-            // TODO
+// If the creation form was populated from a timer, delete that timer on submission.
+$("#timeLogForm").on("submit",
+    function () {
+        let timerId = $("#timerToRemove").val();
+        if (timerId) {
+            removeTimer(parseInt(timerId));
+            $("#timerToRemove").val(null);
         }
     });
-
-// Set flag that we're manually adding a log.
-$("#actionCardAdd").on("click", function () {
-    dontEndTimer = true;
-});
 
 // Destroy timers on logout.
 $("#logoutButton").on("click",
@@ -163,12 +151,10 @@ $(document).on("click",
         if ($(this).hasClass("toggle-timer-btn")) {
             toggleTimer(jobTimers.get(timerId));
         } else if ($(this).hasClass("reset-timer-btn")) {
-            console.log("reset");
-            console.log(jobTimers.get(timerId));
             resetTimer(jobTimers.get(timerId));
-            console.log(jobTimers.get(timerId));
         } else if ($(this).hasClass("save-timer-btn")) {
             saveTimer(jobTimers.get(timerId));
+            $("#timerToRemove").val(timerId);
         }
     });
 
@@ -176,13 +162,7 @@ $(document).on("click",
 $(document).on("click",
     ".timer-close",
     function () {
-        let timerId = getTimerId(this);
-        jobTimers.delete(timerId);
-        saveTimers();
-
-        // Remove the timer card (four parent levels up - should
-        // refactor if we ever change how _Timer.cshtml is structured.
-        $(this).closest(".timer-card").remove();
+        removeTimer(getTimerId(this));
     });
 
 // Detect notes change and update stored field.
@@ -203,4 +183,19 @@ $(document).on(
 /** Finds the timer id for an element inside _Timer.cshtml. */
 function getTimerId(element) {
     return parseInt($(element).closest(".timer-card").find(".timer-value").val());
+}
+
+/** Removes a timer completely. */
+function removeTimer(timerId) {
+    console.log("Deleting " + timerId + " from jobtimers");
+    console.log(jobTimers);
+    jobTimers.delete(timerId);
+    console.log(jobTimers);
+    saveTimers();
+
+    // Remove the timer card (four parent levels up - should
+    // refactor if we ever change how _Timer.cshtml is structured.
+    if (updateUi) {
+        $("#timer_" + timerId).remove();
+    }
 }
