@@ -66,7 +66,7 @@ function addTimer(timer = null) {
                 timerId: currTimerId
             },
             success: function (view) {
-                $("#timersRow").prepend(view);
+                $("#timersRow").append(view);
 
                 // Update display.
                 if (timer) {
