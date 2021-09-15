@@ -20,7 +20,7 @@ function startTour() {
         {
             title: "The sidebar",
             element: document.querySelector(".sidebar"),
-            intro: "Over here are some general options."
+            intro: "Over here is your sidebar, where we'll run through the options."
         },
         {
             title: "Adding logs manually",
@@ -53,7 +53,8 @@ function startTour() {
         {
             title: "The end",
             intro: "Thanks for checking out the time tracker! If you ever want to " +
-                "replay this tour, you can do it under the <b>Help</b> menu."
+                "replay this tour, you can do it under the <b>Help</b> menu at <b>" +
+                "Replay Tour</b>."
         }]
     }).start();
 }

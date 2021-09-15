@@ -130,7 +130,7 @@ function updateTimeDisplay(timer) {
     $("#timer_" + timer.id).find(".time-display").html(time);
 }
 
-/* Set the fields and display for a timer to the given fields. */
+/** Set the fields and display for a timer to the given fields. */
 function setFields(timer, fields) {
     for (let fieldKey in fields) {
         timer.fields[fieldKey] = fields[fieldKey];
@@ -139,7 +139,7 @@ function setFields(timer, fields) {
     }
 }
 
-// Return the current time, rounded down to the nearest second.
+/** Return the current time, rounded down to the nearest second. */
 function dateNowRounded() {
     return Math.floor(Date.now() / 1000) * 1000;
 }

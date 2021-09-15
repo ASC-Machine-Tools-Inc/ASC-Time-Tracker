@@ -394,6 +394,7 @@ function updateStats() {
             }, SHOW_LOADING_MESSAGE_TIMEOUT);
         },
         success: function (view) {
+            console.log(view);
             clearTimeout(loadingTimeout);
             $("#indexStatsView").html(view);
             $("#pieChartNumSelect").val(pieFilter);

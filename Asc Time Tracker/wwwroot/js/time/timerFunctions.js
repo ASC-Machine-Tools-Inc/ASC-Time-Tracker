@@ -36,7 +36,11 @@ function startTimers() {
     setInterval(saveTimers, 1000);
 };
 
-// Adds a new timer, optionally with fields.
+/**
+ * Adds a new timer, optionally with fields.
+ *
+ * @param {JobTimer} timer  (Optional) Saved timer to copy over fields from.
+ */
 function addTimer(timer = null) {
     // Check if this page contains the timer to update.
     // Hacky way: check that the timer row exists to add to.
@@ -196,7 +200,7 @@ $(document).on(
 // █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
 // █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
 
-/* Finds the timer id for an element inside _Timer.cshtml */
+/** Finds the timer id for an element inside _Timer.cshtml. */
 function getTimerId(element) {
     return parseInt($(element).closest(".timer-card").find(".timer-value").val());
 }

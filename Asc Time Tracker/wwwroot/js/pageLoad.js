@@ -1,11 +1,5 @@
-﻿// Runs all the client-side scripts when ASP.Net posts back (server-side).
-// Fixes the issue with scripts not running on IndexInfo's full view.
-function pageLoad() {
+﻿// Load up saved localstorage data for our page.
+$(document).ready(function () {
     startPickers();
     startTimers();
-}
-
-// Call like normal for MainIndex.
-$(document).ready(function () {
-    pageLoad();
 });
