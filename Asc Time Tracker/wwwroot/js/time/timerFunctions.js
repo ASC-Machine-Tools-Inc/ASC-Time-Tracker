@@ -8,11 +8,16 @@ var stepInterval;
 // Flag to keep timer running if form submitted another way (like Add Log Manually)
 var dontEndTimer = false;
 
+// ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
+// ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
+
 function startTimers() {
     // Initialization - grab saved timers and recreate them.
     var storedTimers = localStorage["timers"];
     if (storedTimers != null) {
         storedTimers = new Map(JSON.parse(storedTimers));
+        // Sort timers by ids so older ones are added first.
+        storedTimers = new Map([...storedTimers.entries()].sort());
         for (let timer of storedTimers.values()) {
             addTimer(timer);
         }
@@ -42,7 +47,8 @@ function addTimer(timer = null) {
 
     if (timer) {
         jobTimer.startTime = timer.startTime;
-        jobTimer.savedTime = timer.savedTime;
+        jobTimer.totalPausedTime = timer.totalPausedTime;
+        jobTimer.pauseTime = timer.pauseTime;
 
         jobTimer.fields = timer.fields;
     }
@@ -61,13 +67,13 @@ function addTimer(timer = null) {
                 // Update display.
                 if (timer) {
                     setFields(jobTimer, timer.fields);
-
-                    if (timer.updateUi) {
-                        updateTimeDisplay(timer);
-                    }
+                    updateTimeDisplay(jobTimer);
 
                     // If timer was running before, keep it running.
-                    if (!timer.paused) {
+                    toggleTimer(jobTimer);
+
+                    // Toggle to update paused time.
+                    if (timer.paused) {
                         toggleTimer(jobTimer);
                     }
                 }
@@ -92,24 +98,27 @@ function stepTimers(jobTimers) {
     let drift = Date.now() - expectedTime;
 
     /* Logging for console drift.
-    if (drift > TIME_STEP {
+    if (drift > TIME_STEP) {
         console.warn('The drift exceeded the interval.');
     } */
 
     for (let timer of jobTimers.values()) {
         if (timer.paused) continue;
 
-        // Update this timer.
-        getTime(timer);
-
         if (timer.updateUi) {
             updateTimeDisplay(timer);
+        } else {
+            // Only update the time.
+            getTime(timer);
         }
     }
 
     expectedTime += TIME_STEP;
     stepInterval = setTimeout(stepTimers.bind(null, jobTimers), Math.max(0, TIME_STEP - drift));
 }
+
+// █▀▀ █ █ █▀▀ █▄ █ ▀█▀  █   ▀█▀ █▀▀ ▀█▀ █▀▀ █▄ █ █▀▀ █▀█ █▀▀
+// ██▄ ▀▄▀ ██▄ █ ▀█  █   █▄▄ ▄█▄ ▄██  █  ██▄ █ ▀█ ██▄ █▀▄ ▄██
 
 // If saving current timer, end it on submission.
 // Shouldn't have to worry about validation - those fields are already populated.
@@ -140,29 +149,30 @@ $("#logoutButton").on("click",
         saveTimers();
     });
 
-// Add new timer.
-$("#addTimerBtn").on("click",
-    function () {
-        addTimer();
-    });
-
 // Call the corresponding timer action for the corresponding timer
 // on a timer function click.
 $(document).on("click",
     ".timer-function-btn",
     function () {
-        var timerId = parseInt($(this).closest(".timer-card").find(".timer-value").val());
+        let timerId = getTimerId(this);
 
         if ($(this).hasClass("toggle-timer-btn")) {
             toggleTimer(jobTimers.get(timerId));
-        } // TODO: other functions
+        } else if ($(this).hasClass("reset-timer-btn")) {
+            console.log("reset");
+            console.log(jobTimers.get(timerId));
+            resetTimer(jobTimers.get(timerId));
+            console.log(jobTimers.get(timerId));
+        } else if ($(this).hasClass("save-timer-btn")) {
+            saveTimer(jobTimers.get(timerId));
+        }
     });
 
 // Remove the corresponding timer.
 $(document).on("click",
     ".timer-close",
     function () {
-        var timerId = parseInt($(this).closest(".timer-card").find(".timer-value").val());
+        let timerId = getTimerId(this);
         jobTimers.delete(timerId);
         saveTimers();
 
@@ -172,4 +182,21 @@ $(document).on("click",
     });
 
 // Detect notes change and update stored field.
-// $(document).on()
+$(document).on(
+    "input",
+    ".timer-field",
+    function () {
+        let timerId = getTimerId(this);
+
+        // Might have to add more fields here later.
+        let timer = jobTimers.get(timerId);
+        timer.fields["TimeLog_Notes"] = $(this).val();
+    });
+
+// █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
+// █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
+
+/* Finds the timer id for an element inside _Timer.cshtml */
+function getTimerId(element) {
+    return parseInt($(element).closest(".timer-card").find(".timer-value").val());
+}

@@ -32,25 +32,25 @@ function toggleTimer(timer) {
             timer.startTime = Date.now();
         }
 
-        if (timer.pauseDate) {  // If previously paused, ignore this time.
-            timer.totalPausedTime += Date.now() - timer.pauseDate;
-            timer.pauseDate = null;
+        if (timer.pauseTime) {  // If previously paused, ignore this time.
+            timer.totalPausedTime += Date.now() - timer.pauseTime;
+            timer.pauseTime = null;
         }
 
         if (timer.updateUi) {
-            let timerUi = $("#timer_" + timer.id);
-            timerUi.find(".reset-timer-btn").toggleClass("d-none d-inline-block");
-            timerUi.find(".save-timer-btn").toggleClass("d-none d-inline-block");
-
-            timerUi.find(".bi-play-fill").toggleClass("bi-play-fill bi-pause-fill");
+            $("#timer_" + timer.id)
+                .find(".bi-play-fill")
+                .toggleClass("bi-play-fill bi-pause-fill");
 
             //document.getElementById("scannerBtn").style.display = "none";
         }
     } else {  // Pause timer.
-        timer.pauseDate = Date.now();
+        timer.pauseTime = Date.now();
 
         if (timer.updateUi) {
-            $("#timer_" + timer.id).find(".bi-pause-fill").toggleClass("bi-pause-fill bi-play-fill");
+            $("#timer_" + timer.id)
+                .find(".bi-pause-fill")
+                .toggleClass("bi-pause-fill bi-play-fill");
         }
     }
 
@@ -59,22 +59,23 @@ function toggleTimer(timer) {
 
 /** Restart the timer back to 0. */
 function resetTimer(timer) {
-    timer.startTime = null;
-    timer.totalPausedTime = 0;
-    timer.paused = true;
+    timer = new JobTimer(timer.id, timer.interval, timer.updateUi);
+    jobTimers.set(timer.id, timer);
 
     if (timer.updateUi) {
         // Update time display to 0.
         updateTimeDisplay(timer);
 
         // TODO: Convert into own function after adding more fields?
+        $("#TimeLog_Notes_Display").val("");
         $("#TimeLog_JobNum_Display").html("");
 
-        document.getElementById("startBtn").style.display = "block";
+        // Swap back to paused if it was playing.
+        $("#timer_" + timer.id)
+            .find(".bi-pause-fill")
+            .toggleClass("bi-pause-fill bi-play-fill");
+
         //document.getElementById("scannerBtn").style.display = "inline-block";
-        document.getElementById("stopBtn").style.display = "none";
-        document.getElementById("saveBtn").style.display = "none";
-        document.getElementById("deleteBtn").style.display = "none";
     }
 }
 
@@ -102,13 +103,14 @@ function getTime(timer) {
 
     // If the timer was started, calculate the time.
     if (timer.startTime) {
-        time += Date.now() - timer.startTime;
-        time -= timer.totalPausedTime;  // Ignore the paused time.
-    }
+        // If currently paused, ignore all time passed since pausing.
+        if (timer.pauseTime) {
+            time += timer.pauseTime - timer.startTime;
+        } else {
+            time += Date.now() - timer.startTime;
+        }
 
-    // If currently paused, ignore all time passed since pausing.
-    if (timer.pausedDate) {
-        time -= Date.now() - timer.pausedDate;
+        time -= timer.totalPausedTime;  // Ignore the paused time.
     }
 
     return time;
@@ -128,6 +130,7 @@ function updateTimeDisplay(timer) {
     $("#timer_" + timer.id).find(".time-display").html(time);
 }
 
+/* Set the fields and display for a timer to the given fields. */
 function setFields(timer, fields) {
     for (let fieldKey in fields) {
         timer.fields[fieldKey] = fields[fieldKey];
