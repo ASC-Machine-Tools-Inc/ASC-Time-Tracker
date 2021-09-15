@@ -2,7 +2,7 @@
 
 var jobTimers = new Map();
 var currTimerId = 0;
-var expectedTime = Date.now(); // What the correct time should be, to check for drift.
+var expectedTime = dateNowRounded(); // What the correct time should be, to check for drift.
 var stepInterval;
 
 // Flag to keep timer running if form submitted another way (like Add Log Manually)
@@ -95,7 +95,7 @@ function saveTimers() {
 
 /* Update timers. */
 function stepTimers(jobTimers) {
-    let drift = Date.now() - expectedTime;
+    let drift = dateNowRounded() - expectedTime;
 
     /* Logging for console drift.
     if (drift > TIME_STEP) {

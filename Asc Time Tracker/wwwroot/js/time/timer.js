@@ -29,11 +29,11 @@
 function toggleTimer(timer) {
     if (timer.paused) {  // Play timer.
         if (!timer.startTime) {  // Set the start time if it's the first start.
-            timer.startTime = Date.now();
+            timer.startTime = dateNowRounded();
         }
 
         if (timer.pauseTime) {  // If previously paused, ignore this time.
-            timer.totalPausedTime += Date.now() - timer.pauseTime;
+            timer.totalPausedTime += dateNowRounded() - timer.pauseTime;
             timer.pauseTime = null;
         }
 
@@ -45,7 +45,7 @@ function toggleTimer(timer) {
             //document.getElementById("scannerBtn").style.display = "none";
         }
     } else {  // Pause timer.
-        timer.pauseTime = Date.now();
+        timer.pauseTime = dateNowRounded();
 
         if (timer.updateUi) {
             $("#timer_" + timer.id)
@@ -107,7 +107,7 @@ function getTime(timer) {
         if (timer.pauseTime) {
             time += timer.pauseTime - timer.startTime;
         } else {
-            time += Date.now() - timer.startTime;
+            time += dateNowRounded() - timer.startTime;
         }
 
         time -= timer.totalPausedTime;  // Ignore the paused time.
@@ -137,4 +137,9 @@ function setFields(timer, fields) {
 
         $("#timer_" + timer.id).find("#" + fieldKey + "_Display").val(fields[fieldKey]);
     }
+}
+
+// Return the current time, rounded down to the nearest second.
+function dateNowRounded() {
+    return Math.floor(Date.now() / 1000) * 1000;
 }
