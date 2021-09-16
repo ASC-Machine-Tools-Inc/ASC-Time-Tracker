@@ -1,8 +1,10 @@
-﻿<div id="timer_@ViewData["TimerId"]"
+﻿@model Timer
+
+<div id="timer_@Model.Id"
      class="card timer-card col-xs-4 border-dark shadow">
 
     <!-- Hidden timer id -->
-    <input class="timer-value" type="hidden" value="@ViewData["TimerId"]" />
+    <input class="timer-value" type="hidden" value="@Model.Id" />
 
     <div class="card-body text-center p-2">
         <div class="col timer-header-col">

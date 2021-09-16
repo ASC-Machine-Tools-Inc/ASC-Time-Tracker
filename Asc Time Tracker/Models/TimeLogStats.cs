@@ -39,7 +39,7 @@ namespace Asc_Time_Tracker.Models
         /// <summary>
         /// Bar chart for hours spent on different jobs through the week.
         /// </summary>
-        public Chart WeekBarChart { get; set; }
+        // public Chart WeekBarChart { get; set; }
 
         public TimeLogStats(IQueryable<TimeLog> timeLogs, int pieCount)
         {
@@ -52,11 +52,6 @@ namespace Asc_Time_Tracker.Models
         /// </summary>
         public static Chart GenerateTopXPieChart(IQueryable<TimeLog> timeLogs, int limit)
         {
-            if (!timeLogs.Any())
-            {
-                return null;
-            }
-
             // Sort time logs by top (given number) by the most time spent on them.
             timeLogs = IndexViewModel.TakeTopXTimeLogs(timeLogs, limit);
 
@@ -99,13 +94,9 @@ namespace Asc_Time_Tracker.Models
             return chart;
         }
 
+        /* Add when chartjscore gets updated
         public static Chart GenerateWeekBarChart(IQueryable<TimeLog> timeLogs)
         {
-            if (!timeLogs.Any())
-            {
-                return null;
-            }
-
             // Filter time logs to this week.
             timeLogs = IndexViewModel.TakeTopXTimeLogs(timeLogs, 1000);
 
@@ -120,7 +111,6 @@ namespace Asc_Time_Tracker.Models
                 Labels = new List<string>() { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" }
             };
 
-            /*
             BarDataset dataset = new()
             {
                 Label = "# of Hours",
@@ -144,7 +134,7 @@ namespace Asc_Time_Tracker.Models
                     ChartColor.FromRgb(255, 159, 64)
                 },
                 BorderWidth = new List<int>() { 1 }
-            }; */
+            };
 
             foreach (TimeLog timeLog in timeLogs)
             {
@@ -231,7 +221,7 @@ namespace Asc_Time_Tracker.Models
             };
 
             return chart;
-        }
+        } */
 
         /// <summary>
         /// Populate the stats for this model from the timelogs.

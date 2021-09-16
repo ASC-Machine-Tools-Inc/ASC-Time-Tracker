@@ -82,11 +82,10 @@ namespace Asc_Time_Tracker.Controllers
 
         // GET: Timer partial view
         [ActionName("_Timer")]
-        public async Task<IActionResult> Timer(int timerId)
+        public IActionResult Timer(int timerId)
         {
-            IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            ViewData["TimerId"] = timerId;
-            return PartialView(await timeLogs.ToListAsync());
+            Timer timer = new(timerId);
+            return PartialView(timer);
         }
 
         // POST: TimeLog/Create

@@ -54,13 +54,18 @@ namespace Asc_Time_Tracker.Models
         /// <summary>
         /// Return the RGB hex string for identifying a specific job number.
         /// </summary>
-        /// <param name="jobNum">The job number to convert.</param>
+        /// <param name="jobNum">
+        /// The job number to convert.
+        /// </param>
+        /// <param name="fallback">
+        /// Optional color to return if job number is null/empty. White by default.
+        /// </param>
         /// <returns>An RGB hex string.</returns>
-        public static string JobNumToRgb(string jobNum)
+        public static string JobNumToRgb(string jobNum, string fallback = "#FFFFFF")
         {
             if (string.IsNullOrEmpty(jobNum))
             {
-                return "#FFFFFF";
+                return fallback;
             }
 
             // Convert to hsl to match javascript formula in jobColor.js.
@@ -75,11 +80,13 @@ namespace Asc_Time_Tracker.Models
                 hash &= hash; // Convert to 32bit integer.
             }
             double h = hash % 360;
+
+            /* Forgot why I added this. May re-add? Seems fine for now.
             // Adjust color if negative.
             if (h < 0)
             {
                 h = 360 + h;
-            }
+            } */
 
             // Convert hsl to rgb.
             l /= 100;

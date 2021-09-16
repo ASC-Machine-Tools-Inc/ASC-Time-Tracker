@@ -7,26 +7,25 @@ namespace Asc_Time_Tracker_Tests.Models
     public class TimeLogTests
     {
         [TestMethod]
-        public void JobNumToRgbTest()
+        [DataRow("TEST JOB NUM", "TEST JOB NUM")]
+        [DataRow("Super duper long string! I7I`&N/{Dl^Ao}2x9)$*h", "Super duper long string! I7I`&N/{Dl^Ao}2x9)$*h")]
+        [DataRow("s", "s")]
+        public void JobNumToRgbTest(string jobNum1, string jobNum2)
         {
-            // Arrange
-            string jobNumA1 = "TEST JOB NUM";
-            string jobNumA2 = "TEST JOB NUM";
-            string jobNumB = "TEST JOB NUM 2";
-            string jobNumEmpty = "";
+            // Testing for consistent results - should return same color for same input.
+            Assert.AreEqual(
+                TimeLog.JobNumToRgb(jobNum1),
+                TimeLog.JobNumToRgb(jobNum2));
+        }
 
-            // Act
-            string rgbA1 = TimeLog.JobNumToRgb(jobNumA1);
-            string rgbA2 = TimeLog.JobNumToRgb(jobNumA2);
-            string rgbB = TimeLog.JobNumToRgb(jobNumB);
-            string rgbNull = TimeLog.JobNumToRgb(null);
-            string rgbEmpty = TimeLog.JobNumToRgb(jobNumEmpty);
-
-            // Assert
-            Assert.AreEqual(rgbA1, rgbA2);
-            Assert.AreNotEqual(rgbA1, rgbB);
-            Assert.AreEqual(rgbNull, "#FFFFFF");
-            Assert.AreEqual(rgbEmpty, "#FFFFFF");
+        [TestMethod]
+        [DataRow(null, "#FFFFFF")]
+        [DataRow("", "#FFFFFF")]
+        [DataRow(null, "#CCC", "#CCC")]
+        [DataRow("", "#000", "#000")]
+        public void JobNumToRgbNullOrEmptyTest(string jobNum, string color, string fallback = "#FFFFFF")
+        {
+            Assert.AreEqual(TimeLog.JobNumToRgb(jobNum, fallback), color);
         }
 
         [TestMethod]

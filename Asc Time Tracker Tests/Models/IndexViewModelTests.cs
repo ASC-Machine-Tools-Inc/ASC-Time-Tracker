@@ -1,6 +1,5 @@
 ﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
-using ChartJSCore.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace Asc_Time_Tracker_Tests.Models
         {
             // Arrange
             IQueryable<TimeLog> timeLogs = ApplicationDbContext.SeedTimeLogs(250).AsQueryable();
-            IndexViewModel model = new IndexViewModel(timeLogs);
+            IndexViewModel model = new(timeLogs);
 
             // Act
             TimeLog timeLog = model.TimeLogs.First();
@@ -105,26 +104,5 @@ namespace Asc_Time_Tracker_Tests.Models
             // Count can actually be less than 250 due to grouping of job numbers.
             Assert.IsTrue(filteredTimeLogsGreaterThanCount.Count() <= 250);
         }
-
-        [TestMethod]
-        public void GenerateTopXPieChartTest()
-        {
-            // Arrange
-            IQueryable<TimeLog> timeLogs = ApplicationDbContext.SeedTimeLogs(250).AsQueryable();
-
-            // Act
-            Chart pieChart = IndexViewModel.GenerateTopXPieChart(timeLogs, 10);
-
-            // Assert
-            Assert.AreEqual(pieChart.Data.Datasets[0].Data.Count, 10);
-        }
-
-        /*
-        [TestMethod]
-        public void GenerateWeekBarChartTest()
-        {
-            throw new NotImplementedException();
-        }
-        */
     }
 }
