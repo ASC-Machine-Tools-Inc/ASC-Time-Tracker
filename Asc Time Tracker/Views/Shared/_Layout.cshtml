@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Asc_Time_Tracker.Areas.Identity.Models
+@using Microsoft.AspNetCore.Http
 @inject SignInManager<TimeTrackerUser> SignInManager
 @inject UserManager<TimeTrackerUser> UserManager
 
@@ -120,9 +121,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Modals -->
-        <partial name="../TimeLog/_IndexModals" />
     }
     else
     {
