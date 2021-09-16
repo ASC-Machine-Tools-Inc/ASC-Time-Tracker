@@ -120,6 +120,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Modals -->
+        <partial name="../TimeLog/_IndexModals" />
     }
     else
     {
@@ -141,19 +144,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.0/chart.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>
 
+    <!-- Intro tour -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+
     <!-- Don't run scripts if user isn't signed in-->
     @if (SignInManager.IsSignedIn(User))
     {
         <!-- Use scripts in development so we can see the results of changes without rebuilding. -->
         <environment include="Development">
+            <script src="~/js/logs/logFilter.js"></script>
+            <script src="~/js/logs/logListeners.js"></script>
+            <script src="~/js/logs/logUpdates.js"></script>
+
             <script src="~/js/submit/createTimeLog.js"></script>
             <script src="~/js/submit/deleteTimeLog.js"></script>
             <script src="~/js/submit/editTimeLog.js"></script>
 
-            <script src="~/js/time/currTime.js"></script>
-            <script src="~/js/time/logFilter.js"></script>
-            <script src="~/js/time/timer.js"></script>
-            <script src="~/js/time/timerFunctions.js"></script>
+            <script src="~/js/timer/currTime.js"></script>
+            <script src="~/js/timer/timer.js"></script>
+            <script src="~/js/timer/timerFunctions.js"></script>
 
             <script src="~/js/ui/introTour.js"></script>
             <script src="~/js/ui/jobColor.js"></script>

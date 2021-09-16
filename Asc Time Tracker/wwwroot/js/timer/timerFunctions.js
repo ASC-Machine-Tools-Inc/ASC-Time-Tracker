@@ -29,12 +29,6 @@ function startTimers() {
         stepTimers(jobTimers);
     }
 
-    // Update date picker if we're on the right page.
-    // TODO: move to start pickers and load from localstorage
-    if ($(".day-picker").length > 0) {
-        setDayPicker(new Date());
-    }
-
     // TODO: performance: only need to save timers on page change or minimization
     // use page visibility API for minimization, and beforeUnload for navigation
     setInterval(saveTimers, 1000);

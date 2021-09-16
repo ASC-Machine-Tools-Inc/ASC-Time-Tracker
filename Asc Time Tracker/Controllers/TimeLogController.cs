@@ -29,8 +29,8 @@ namespace Asc_Time_Tracker.Controllers
         {
             // Send along the time logs for today and the current user by default.
             IQueryable<TimeLog> timeLogs = _context.TimeLog;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, User.Identity.Name);
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, DateTime.Today.AddDays(1));
+            //timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, User.Identity.Name);
+            //timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, DateTime.Today.AddDays(1));
             IndexViewModel.TimeLogs = timeLogs;
 
             return View(IndexViewModel);
