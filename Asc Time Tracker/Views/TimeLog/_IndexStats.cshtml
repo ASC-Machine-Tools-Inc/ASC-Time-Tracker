@@ -1,7 +1,7 @@
 ﻿@using ChartJSCore.Models
-@model IEnumerable<TimeLog>
+@model TimeLogStats
 <!-- Filler text to show for no time logs.-->
-@if (!Model.Any())
+@if (!Model.TimeLogs.Any())
 {
     <small class="text-muted">
         No stats to display.
@@ -18,10 +18,10 @@ else
                         Total time spent:
                     </th>
                     <td class="text-end">
-                        @ViewData["TotalTimeSpent"]
+                        @Model.TotalTimeSpent
                     </td>
                 </tr>
-                @if (ViewData["TopJobNum"] != null)
+                @if (Model.TopJobNum != null)
                 {
                     <tr>
                         <td>
@@ -29,19 +29,19 @@ else
                         </td>
                         <td class="text-end">
                             <span class="placeholder log-color-top"
-                                  style="color: @ViewData["TopJobNumColor"]">
+                                  style="color: @Model.TopJobNumColor">
                                 &nbsp;&nbsp;&nbsp;
                             </span>
                             <span>
-                                @ViewData["TopJobNum"]
-                                (@ViewData["TopTime"])
+                                @Model.TopJobNum
+                                (@Model.TopTime)
                             </span>
                         </td>
                     </tr>
                 }
             </table>
         </div>
-        @if (ViewData["TopJobNum"] != null)
+        @if (Model.TopJobNum != null)
         {
             <div class="col-md-12 mt-3 mb-5 text-center justify-content-center">
                 <div class="card stats-pie-card">
@@ -74,11 +74,10 @@ else
 @{
     // Workaround for getting scripts in partial view - if controller returns
     // a valid chart in the ViewData, we draw it.
-    Chart timeSpentChart = (Chart)ViewData["TimeSpentChart"];
-    if (timeSpentChart != null)
+    if (Model.TimeSpentPieChart != null)
     {
         <script>
-                @Html.Raw(timeSpentChart.CreateChartCode("timeSpentChart"))
+                @Html.Raw(Model.TimeSpentPieChart.CreateChartCode("timeSpentChart"))
         </script>
     }
 

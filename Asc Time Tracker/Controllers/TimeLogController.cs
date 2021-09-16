@@ -65,7 +65,7 @@ namespace Asc_Time_Tracker.Controllers
 
         // GET: IndexStats partial view
         [ActionName("_IndexStats")]
-        public async Task<IActionResult> IndexStats(
+        public IActionResult IndexStats(
             DateTime? startDate,
             DateTime? endDate,
             string empId,
@@ -75,33 +75,14 @@ namespace Asc_Time_Tracker.Controllers
             timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
-            // Convert view data into model? For testing
-            if (timeLogs.Any())
-            {
-                // Grab statistics.
-                ViewData["TotalTimeSpent"] = TimeLog.SecondsToHoursAndMinutesString(
-                    timeLogs.Sum(t => t.Time));
+            TimeLogStats stats = new(timeLogs, pieCount);
 
-                IQueryable<TimeLog> topTimeLogs = IndexViewModel.TakeTopXTimeLogs(timeLogs, 1);
-                if (topTimeLogs.Any())
-                {
-                    TimeLog topTimeLog = topTimeLogs.First();
-                    ViewData["TopJobNum"] = topTimeLog.JobNum;
-                    ViewData["TopJobNumColor"] = TimeLog.JobNumToRgb(topTimeLog.JobNum);
-                    ViewData["TopTime"] = TimeLog.SecondsToHoursAndMinutesString(topTimeLog.Time);
-                }
-
-                // Draw charts.
-                ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopXPieChart(timeLogs, pieCount);
-                ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart(timeLogs);
-            }
-
-            return PartialView(await timeLogs.ToListAsync());
+            return PartialView(stats);
         }
 
         // GET: Timer partial view
         [ActionName("_Timer")]
-        public async Task<IActionResult> IndexStats(int timerId)
+        public async Task<IActionResult> Timer(int timerId)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
             ViewData["TimerId"] = timerId;

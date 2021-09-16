@@ -187,10 +187,7 @@ function getTimerId(element) {
 
 /** Removes a timer completely. */
 function removeTimer(timerId) {
-    console.log("Deleting " + timerId + " from jobtimers");
-    console.log(jobTimers);
     jobTimers.delete(timerId);
-    console.log(jobTimers);
     saveTimers();
 
     // Remove the timer card (four parent levels up - should
