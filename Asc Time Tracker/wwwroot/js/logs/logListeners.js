@@ -4,26 +4,19 @@
 // Event handlers for shifting the current date.
 $(".date-prev").on("click", function () {
     var prev = new Date(startDate.getTime());
-
-    // Set the first range picker if we're using those.
     prev.setDate(prev.getDate() - 1);
 
+    // Set the first range picker if we're using those.
     if (datePickers["current"] === datePickers["range"]) {
         setRangeStartPicker(prev);
-        return;
-    } else {
+    } else {  // Otherwise, just shift the date a unit back.
         shiftDate(prev);
     }
 });
 
 $(".date-next").on("click", function () {
     var next = new Date(endDate.getTime());
-
-    // Don't add one if we're using the dayPicker,
-    // since its endDate is already one ahead..
-    if (datePickers["current"] !== datePickers["day"]) {
-        next.setDate(next.getDate() + 1);
-    }
+    next.setDate(next.getDate() + 1);
 
     // Set the second range picker if we're using those.
     if (datePickers["current"] === datePickers["range"]) {
@@ -84,3 +77,9 @@ $("#empIdFilterForm").submit(function (e) {
     saveFilterData();
     updatePage();
 });
+
+// Clear filter data on logout.
+$("#logoutButton").on("click",
+    function () {
+        localStorage.removeItem("filterData");
+    });

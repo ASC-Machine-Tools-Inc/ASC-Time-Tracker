@@ -125,6 +125,10 @@ $("#timeLogForm").on("submit",
     });
 
 // Destroy timers on logout.
+/* Might be unnecessary - I added this to fix the issue of logging in and seeing
+   someone else's timers, but this seems unlikely to happen as in a corp setting,
+   everyone already has their own computer/device. Keeping the code here in case
+   I want to reimplement this functionality.
 $("#logoutButton").on("click",
     function () {
         for (let timer in jobTimers) {
@@ -134,6 +138,7 @@ $("#logoutButton").on("click",
         jobTimers = new Map();
         saveTimers();
     });
+    */
 
 // Call the corresponding timer action for the corresponding timer
 // on a timer function click.

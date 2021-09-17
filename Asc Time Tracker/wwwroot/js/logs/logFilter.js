@@ -11,8 +11,7 @@ var savedFilter;
 
 var savedEmpId;
 
-// Set default filter.
-var pieFilter = 5;
+var pieFilter;
 
 // ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
 // ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
@@ -114,12 +113,7 @@ function loadSavedFilterData() {
         savedDate = new Date(filterData.savedDate);
 
         // Update the employee id.
-        if (filterData.savedEmpId == null) {
-            // Use user id as default one.
-            savedEmpId = $("#empIdFilter").val();
-        } else {
-            savedEmpId = filterData.savedEmpId;
-        }
+        savedEmpId = filterData.savedEmpId;
 
         // Update the filters.
         pieFilter = parseInt(filterData.pieFilter);
@@ -127,6 +121,17 @@ function loadSavedFilterData() {
         // Update the time frame and page.
         setCurrentPicker(filterData.currentPicker);
         $("#dateOption").val(filterData.currentPicker);
+    } else {
+        // Use default values.
+        savedDate = new Date();
+
+        // Use user id as default one.
+        savedEmpId = $("#empIdFilter").val();
+
+        // Default pie filter count.
+        pieFilter = 5;
+
+        setCurrentPicker("Day");
     }
 
     // TODO: update UI
@@ -194,9 +199,16 @@ function setCurrentPicker(picker) {
             // because it's broken I apologize.
             startDate = new Date(0);
             endDate = new Date(100000000000000);
+            saveFilterData();
             updatePage();
             break;
         case "Custom range":
+            // Reset start and end date to more reasonable dates if the last picker was "All".
+            if (datePickers["current"] === datePickers["all"]) {
+                startDate = new Date();
+                endDate = new Date();
+            }
+
             if (startDate) setRangeStartPicker(startDate);
             if (endDate) setRangeEndPicker(endDate);
             datePickers["current"] = datePickers["range"];
@@ -215,9 +227,9 @@ function setCurrentPicker(picker) {
 }
 
 function setDayPicker(date) {
-    startDate = date;
-    // Advance day by 1 to next day's midnight to grab any logs during the day.
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    // Set end date to the end of that day.
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 
     datePickers["day"].datepicker("update", date);
 
@@ -232,7 +244,8 @@ function setDayPicker(date) {
 
 function setWeekPicker(date) {
     startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
+    // Set end date to the end of that week.
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6, 23, 59, 59, 999);
 
     // Set selected day to the start of the week for styling.
     datePickers["week"].datepicker("update", startDate);
@@ -240,17 +253,11 @@ function setWeekPicker(date) {
     // Store saved date if we switch filtering.
     savedDate = date;
 
-    // Display end date as one day less so it doesn't look like it's running into next week.
-    let displayEndDate = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate() - date.getDay() + 6);
-
     // Show the display as the corresponding week.
     datePickers["week"].val(
         dateToString(startDate) +
         " - " +
-        dateToString(displayEndDate));
+        dateToString(endDate));
 
     // Update the partial views.
     saveFilterData();
@@ -258,9 +265,9 @@ function setWeekPicker(date) {
 }
 
 function setMonthPicker(date) {
-    // Set day to 1 so we don't get results from last day of first month!
     startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    // Set end date to the end of that month.
+    endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
 
     datePickers["month"].datepicker("update", date);
 
@@ -279,7 +286,7 @@ function setMonthPicker(date) {
 }
 
 function setRangeStartPicker(date) {
-    startDate = date;
+    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     datePickers["rangeStart"].datepicker("update", date);
 
@@ -290,7 +297,7 @@ function setRangeStartPicker(date) {
 }
 
 function setRangeEndPicker(date) {
-    endDate = date;
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 
     datePickers["rangeEnd"].datepicker("update", date);
 
