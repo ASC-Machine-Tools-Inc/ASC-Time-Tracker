@@ -66,18 +66,6 @@ $("body").on("change", "#pieChartNumSelect", function () {
     updateStats();
 });
 
-$("#empIdFilterForm").submit(function (e) {
-    e.preventDefault();
-
-    savedEmpId = $("#empIdFilter").val();
-
-    // Append the email to the employee id if it doesn't have one.
-    if (savedEmpId.substr(-10) !== "@ascmt.com") savedEmpId += "@ascmt.com";
-
-    saveFilterData();
-    updatePage();
-});
-
 // Clear filter data on logout.
 $("#logoutButton").on("click",
     function () {
