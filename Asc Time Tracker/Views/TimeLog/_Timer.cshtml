@@ -1,0 +1,57 @@
+﻿@model Timer
+
+<div id="timer_@Model.Id"
+     class="card timer-card col-xs-4 border-dark shadow">
+
+    <!-- Hidden timer id -->
+    <input class="timer-value" type="hidden" value="@Model.Id" />
+
+    <div class="card-body text-center p-2">
+        <div class="col timer-header-col">
+            <div class="row mx-auto justify-content-end">
+                <button type="button" class="btn-close timer-close"></button>
+            </div>
+            <div class="row mx-auto my-2 justify-content-center">
+                <input id="TimeLog_Notes_Display"
+                       class="timer-field"
+                       placeholder="Enter a description?" />
+                <strong id="TimeLog_JobNum_Display"></strong>
+                <div id="jobTimeCollapse">
+                    <div id="timerCurrTime" class="time-display">
+                        00:00:00
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-toolbar btn-group justify-content-center" role="group">
+
+            <button type="button"
+                    class="btn btn-outline-secondary timer-function-btn
+                    toggle-timer-btn">
+                <i class="bi bi-play-fill"></i>
+            </button>
+            <!-- TODO: add icon colors? -->
+            <button type="button"
+                    class="btn btn-outline-danger timer-function-btn
+                    reset-timer-btn">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </button>
+
+            <button type="button"
+                    class="btn btn-outline-primary timer-function-btn
+                    save-timer-btn">
+                <i class="bi bi-save-fill"></i>
+            </button>
+        </div>
+
+        <!-- Only show QR code scanner on mobile (Disable for now)
+        <div class="col d-md-none justify-content-center my-2 p-0">
+            <button id="scannerBtn" type="button" class="btn btn-primary btn-lg"
+                    onclick="toggleScanner()">
+                Start with QR code
+            </button>
+        </div>
+        -->
+    </div>
+</div>

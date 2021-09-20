@@ -28,9 +28,10 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult MainIndex()
         {
             // Send along the time logs for today and the current user by default.
-            IndexViewModel.TimeLogs = _context.TimeLog;
-            IndexViewModel.FilterTimeLogsByEmpId(User.Identity.Name);
-            IndexViewModel.FilterTimeLogsByDate(DateTime.Today, DateTime.Today.AddDays(1));
+            IQueryable<TimeLog> timeLogs = _context.TimeLog;
+            //timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, User.Identity.Name);
+            //timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, DateTime.Today.AddDays(1));
+            IndexViewModel.TimeLogs = timeLogs;
 
             return View(IndexViewModel);
         }
@@ -42,56 +43,49 @@ namespace Asc_Time_Tracker.Controllers
         }
 
         // GET: IndexInfo partial view
+        [ActionName("_IndexInfo")]
         public IActionResult IndexInfoPartial()
         {
             return PartialView(IndexViewModel);
         }
 
         // GET: IndexLogs partial view
+        [ActionName("_IndexLogs")]
         public async Task<IActionResult> IndexLogs(
             DateTime? startDate,
             DateTime? endDate,
             string empId)
         {
-            IndexViewModel.TimeLogs = _context.TimeLog;
-            IndexViewModel.FilterTimeLogsByEmpId(empId);
-            IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
-            return PartialView(await IndexViewModel.TimeLogs.ToListAsync());
+            IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
+            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
+            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+
+            return PartialView(await timeLogs.ToListAsync());
         }
 
         // GET: IndexStats partial view
-        public async Task<IActionResult> IndexStats(
+        [ActionName("_IndexStats")]
+        public IActionResult IndexStats(
             DateTime? startDate,
             DateTime? endDate,
             string empId,
             int pieCount)
         {
-            IndexViewModel.TimeLogs = _context.TimeLog;
-            IndexViewModel.FilterTimeLogsByEmpId(empId);
-            IndexViewModel.FilterTimeLogsByDate(startDate, endDate);
+            IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
+            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
+            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
-            if (IndexViewModel.TimeLogs.Any())
-            {
-                // Grab statistics.
-                // Move to model?
-                ViewData["TotalTimeSpent"] = TimeLog.SecondsToHoursAndMinutesString(
-                    IndexViewModel.TimeLogs.Sum(t => t.Time));
+            TimeLogStats stats = new(timeLogs, pieCount);
 
-                IQueryable<TimeLog> topTimeLogs = IndexViewModel.TakeTopXTimeLogs(1);
-                if (topTimeLogs.Any())
-                {
-                    TimeLog topTimeLog = topTimeLogs.First();
-                    ViewData["TopJobNum"] = topTimeLog.JobNum;
-                    ViewData["TopJobNumColor"] = TimeLog.JobNumToRgb(topTimeLog.JobNum);
-                    ViewData["TopTime"] = TimeLog.SecondsToHoursAndMinutesString(topTimeLog.Time);
-                }
+            return PartialView(stats);
+        }
 
-                // Draw charts.
-                ViewData["TimeSpentChart"] = IndexViewModel.GenerateTopXPieChart(pieCount);
-                ViewData["WeekBarChart"] = IndexViewModel.GenerateWeekBarChart();
-            }
-
-            return PartialView(await IndexViewModel.TimeLogs.ToListAsync());
+        // GET: Timer partial view
+        [ActionName("_Timer")]
+        public IActionResult Timer(int timerId)
+        {
+            Timer timer = new(timerId);
+            return PartialView(timer);
         }
 
         // POST: TimeLog/Create

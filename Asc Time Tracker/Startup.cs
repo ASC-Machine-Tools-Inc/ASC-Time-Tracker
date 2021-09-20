@@ -1,3 +1,4 @@
+using Asc_Time_Tracker.Areas.Identity.Models;
 using Asc_Time_Tracker.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -40,7 +41,7 @@ namespace Asc_Time_Tracker
                         Configuration.GetConnectionString("ProdConnection")));
             }
 
-            services.AddDefaultIdentity<IdentityUser>(options =>
+            services.AddDefaultIdentity<TimeTrackerUser>(options =>
                     {
                         // Disable confirmation.
                         options.SignIn.RequireConfirmedAccount = false;

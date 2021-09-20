@@ -1,4 +1,5 @@
-﻿using Asc_Time_Tracker.Models;
+﻿using Asc_Time_Tracker.Areas.Identity.Models;
+using Asc_Time_Tracker.Models;
 using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Asc_Time_Tracker.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<TimeTrackerUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -21,8 +22,14 @@ namespace Asc_Time_Tracker.Data
         {
             base.OnModelCreating(builder);
 
+            List<TimeLog> timeLogs = SeedTimeLogs(250);
+
+            builder.Entity<TimeLog>().HasData(timeLogs);
+        }
+
+        public static List<TimeLog> SeedTimeLogs(int logsToAdd)
+        {
             Random rnd = new();
-            const int logsToAdd = 250;
 
             // Amount of hours to generate logs for up to daily.
             const int dailyHoursLimit = 8;
@@ -63,7 +70,7 @@ namespace Asc_Time_Tracker.Data
                 }
             }
 
-            builder.Entity<TimeLog>().HasData(timeLogs);
+            return timeLogs;
         }
     }
 }

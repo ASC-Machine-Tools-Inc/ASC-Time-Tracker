@@ -1,24 +1,4 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-/* Provide sufficient contrast against white background */
-a {
-    color: #0366d6;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-/* Sticky footer styles
+﻿/* Sticky footer styles
 -------------------------------------------------- */
 html {
     font-size: 14px;
@@ -62,11 +42,77 @@ html, body {
     height: 100%;
 }
 
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+    a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+    }
+
+/* Removes Bootstrap's default outlining around buttons on click. */
+.btn:focus {
+    box-shadow: none !important;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Custom text styles. */
+.partial-header {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+.header-circle-btn {
+    background: var(--bs-body-color);
+    height: 50px;
+    width: 50px;
+    margin: 0 0 1rem;
+    border-radius: 50%;
+}
+
+    .header-circle-btn:hover {
+        background: #4b4f55;
+    }
+
+    .header-circle-btn i {
+        height: 20px;
+        width: 20px;
+        color: #fff;
+    }
+
+/* Sidebar styling. */
+.sidebar {
+    position: fixed;
+    z-index: 10;
+}
+
+@media only screen and (min-width: 576px) {
+    .sidebar {
+        height: 100vh !important;
+    }
+}
+
+.hover-click {
+    cursor: pointer;
+}
+
 .nav-link {
     color: #EFF0F0;
     display: inline-block;
     position: relative;
 }
+
+    .nav-link:focus, .nav-link:hover {
+        color: #93A3A3;
+    }
 
     .nav-link::after {
         content: '';
@@ -86,6 +132,10 @@ html, body {
         transform-origin: bottom left;
     }
 
+    .nav-link.text-black::after {
+        background-color: black;
+    }
+
 .dropdown-item:active {
     color: black;
 }
@@ -99,16 +149,65 @@ html, body {
     border: 0;
 }
 
+#changePasswordDropdownItem {
+    text-decoration: none;
+    color: #dee2e6;
+}
+
 /* Card styling */
 .card {
+    background: #fff;
+    background: rgba(255,255,255,0.8);
+    border: 0;
+    border-radius: 8px;
+}
+
+/* Timer stuff */
+#timersRow {
+    min-height: 212px;
+    max-height: 425px;
+    overflow-x: auto;
+}
+
+    #timersRow > .col-xs-4 {
+        display: inline-grid;
+        float: none;
+    }
+
+.timer-card {
+    border: 0;
+    margin: 0.25rem 0 0.5rem 1rem;
+    padding: 0.25rem 0.25rem;
+    height: 200px;
+    /* TODO: change width to 100% for mobile? */
+    width: 250px;
+}
+
+.timer-card-add:hover {
     border: 2px solid #343a40;
+    opacity: 1;
+    transition: border linear 1s;
 }
 
-.time-card {
-    min-height: 140px;
+.timer-field {
+    max-width: 200px;
+    margin-bottom: 0.25rem;
+    display: block;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #ddd;
+    transition: border 200ms ease-out;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
 }
 
-.time-col {
+    .timer-field:focus {
+        border-color: #000;
+    }
+
+.timer-header-col {
     min-height: 50px;
 }
 
@@ -123,6 +222,10 @@ html, body {
     text-decoration: none;
 }
 
+    .card-parent + .card-parent {
+        margin-top: 0.5rem;
+    }
+
     .card-parent:hover {
         color: #212529;
         text-decoration: none;
@@ -130,28 +233,10 @@ html, body {
 
         .card-parent:hover .card {
             transition: all 0.3s ease-out;
-            box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.25);
+            box-shadow: 0 4px 8px rgba(38, 38, 38, 0.25);
             top: -4px;
             background-color: white;
         }
-
-.action-card {
-    text-align: right;
-    margin: 0.5rem 0;
-}
-
-.action-card-add {
-    border-left: 6px solid #C16E70;
-}
-
-.action-card-view {
-    border-left: 6px solid #5B9BC2;
-}
-
-.action-card-title {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
 
 /* Modal styling */
 .modal-footer {
@@ -171,27 +256,17 @@ label.form-label {
     font-weight: 600;
 }
 
-/* Table styling */
-.container-table {
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 5px;
-}
-
-thead {
-    background-color: #e8e8e8;
-}
-
-    thead tr:hover {
-        background-color: #d8d8d8;
-    }
-
 #notes-col {
     width: 40%;
 }
 
 tr:hover {
     background-color: #f8f8f8;
+}
+
+.main-log-card-header {
+    margin-bottom: 1rem;
+    padding: 1rem 1rem;
 }
 
 .main-log-card {
@@ -252,14 +327,18 @@ tr:hover {
     }
 
 .scroll {
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
+}
+
+.stats-pie-card {
+    padding: 1.5rem 0.5rem;
 }
 
 /* Time logs list is longer on desktop. */
 @media only screen and (min-width: 768px) {
     .scroll {
-        max-height: 700px;
+        max-height: 600px;
     }
 }
 
@@ -381,6 +460,7 @@ tr:hover {
     margin: 5% 5%;
     border: 0;
     border-radius: 5px;
+    box-shadow: 0 10px 30px 0 #aca8a8;
     box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43);
     overflow: hidden;
 }
@@ -468,4 +548,13 @@ tr:hover {
 .login-card .account-options a {
     font-size: 1.25rem;
     color: #919aa3;
+}
+
+/* intro.js styling */
+.bootstrapTooltip .introjs-skipbutton {
+    text-decoration: none;
+}
+
+.bootstrapTooltip.introjs-tooltip {
+    min-width: 300px;
 }

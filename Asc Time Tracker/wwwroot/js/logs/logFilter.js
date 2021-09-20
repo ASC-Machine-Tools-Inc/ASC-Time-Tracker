@@ -1,8 +1,9 @@
 ﻿/* Handles all the filtering for the index, updating the view
  * with ajax.
  */
-
 var datePickers = {};
+var currentPicker;  // For localstorage.
+
 var fieldPickers = {};
 
 var startDate, endDate, savedDate;
@@ -10,8 +11,7 @@ var savedFilter;
 
 var savedEmpId;
 
-// Set default filter.
-var pieFilter = 5;
+var pieFilter;
 
 // ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
 // ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
@@ -20,8 +20,7 @@ function startPickers() {
     startDatePickers();
     startFieldPickers();
 
-    // Use user id as default one.
-    if (savedEmpId == null) savedEmpId = $("#empIdFilter").val();
+    loadSavedFilterData();
 }
 
 function startDatePickers() {
@@ -31,14 +30,13 @@ function startDatePickers() {
         autoclose: true,
         forceParse: false,
         todayBtn: "linked",
-        container: "#dayContainer",
+        container: "#dayContainer"
     }).on("changeDate", function (e) {
         setDayPicker(e.date);
     });
 
     // Prep the datepicker for weeks.
     datePickers["week"] = $(".week-picker");
-    datePickers["week"].hide();
     datePickers["week"].datepicker({
         autoclose: true,
         forceParse: false,
@@ -50,7 +48,6 @@ function startDatePickers() {
 
     // Prep the datepicker for months.
     datePickers["month"] = $(".month-picker");
-    datePickers["month"].hide();
     datePickers["month"].datepicker({
         autoclose: true,
         forceParse: false,
@@ -67,7 +64,6 @@ function startDatePickers() {
 
     // Prep the custom range picker.
     datePickers["range"] = $("#dateRangePicker");
-    datePickers["range"].hide();
     datePickers["rangeStart"] = $(".range-picker-start");
     datePickers["rangeEnd"] = $(".ranger-picker-end");
     datePickers["rangeStart"].datepicker({
@@ -86,9 +82,6 @@ function startDatePickers() {
     }).on("changeDate", function (e) {
         setRangeEndPicker(e.date);
     });
-
-    // Initialize.
-    datePickers["current"] = datePickers["day"];
 };
 
 // TODO: add field filters
@@ -108,49 +101,83 @@ function startFieldPickers() {
     fieldPickers["current"] = fieldPickers["jobNum"];
 }
 
-// █▀▀ █ █ █▀▀ █▄ █ ▀█▀  █   ▀█▀ █▀▀ ▀█▀ █▀▀ █▄ █ █▀▀ █▀█ █▀▀
-// ██▄ ▀▄▀ ██▄ █ ▀█  █   █▄▄ ▄█▄ ▄██  █  ██▄ █ ▀█ ██▄ █▀▄ ▄██
+/** Grab saved filter info from local storage. */
+function loadSavedFilterData() {
+    let filterData = localStorage["filterData"];
+    if (filterData != null) {
+        filterData = JSON.parse(filterData);
 
-// Event handlers for shifting the current date.
-$(".date-prev").on("click", function () {
-    var prev = new Date(startDate.getTime());
+        // Update the saved dates.
+        startDate = new Date(filterData.startDate);
+        endDate = new Date(filterData.endDate);
+        savedDate = new Date(filterData.savedDate);
 
-    // Set the first range picker if we're using those.
-    prev.setDate(prev.getDate() - 1);
+        // Update the employee id.
+        savedEmpId = filterData.savedEmpId;
+        $("#empIdFilter").val(savedEmpId);
 
-    if (datePickers["current"] === datePickers["range"]) {
-        setRangeStartPicker(prev);
-        return;
+        // Update the filters.
+        pieFilter = parseInt(filterData.pieFilter);
+
+        // Update the time frame and page.
+        setCurrentPicker(filterData.currentPicker);
+        $("#dateOption").val(filterData.currentPicker);
     } else {
-        shiftDate(prev);
-    }
-});
+        // Use default values.
+        savedDate = new Date();
 
-$(".date-next").on("click", function () {
-    var next = new Date(endDate.getTime());
+        // Use user id as default one.
+        savedEmpId = $("#empIdFilter").val();
 
-    // Set the second range picker if we're using those.
-    if (datePickers["current"] === datePickers["range"]) {
-        setRangeEndPicker(next);
-        return;
-    }
+        // Default pie filter count.
+        pieFilter = 5;
 
-    // Don't add one if we're using the dayPicker,
-    // since its endDate is already one ahead..
-    if (datePickers["current"] !== datePickers["day"]) {
-        next.setDate(next.getDate() + 1);
+        setCurrentPicker("Day");
     }
 
-    shiftDate(next);
-});
+    // TODO: update UI
+}
 
-// Update the date when we switch the filter.
-$("#dateOption").on("change", function () {
+/** Save current filters to local storage for retrieval. */
+function saveFilterData() {
+    let filterData = {
+        "currentPicker": currentPicker,
+        "startDate": startDate,
+        "endDate": endDate,
+        "savedDate": savedDate,
+        "savedEmpId": savedEmpId,
+        "pieFilter": pieFilter
+    };
+
+    localStorage["filterData"] = JSON.stringify(filterData);
+}
+
+// █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
+// █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
+
+// Called by the prev and next buttons to change the date.
+function shiftDate(date) {
+    if (datePickers["current"] === datePickers["day"]) {
+        setDayPicker(date);
+    } else if (datePickers["current"] === datePickers["week"]) {
+        setWeekPicker(date);
+    } else if (datePickers["current"] === datePickers["month"]) {
+        setMonthPicker(date);
+    }
+}
+
+/** Update the current picker. */
+function setCurrentPicker(picker) {
     // Show the arrows to switch if choosing a time frame.
     $(".date-prev").show();
     $(".date-next").show();
 
-    switch (this.value) {
+    if (picker == null) {
+        picker = "Day";
+    }
+
+    currentPicker = picker;
+    switch (picker) {
         case "Day":
             if (savedDate) setDayPicker(savedDate);
             datePickers["current"] = datePickers["day"];
@@ -173,9 +200,18 @@ $("#dateOption").on("change", function () {
             // because it's broken I apologize.
             startDate = new Date(0);
             endDate = new Date(100000000000000);
+            saveFilterData();
             updatePage();
             break;
         case "Custom range":
+            // Reset start and end date to more reasonable dates if the last picker was "All".
+            if (datePickers["current"] === datePickers["all"]) {
+                startDate = new Date();
+                endDate = new Date();
+            }
+
+            if (startDate) setRangeStartPicker(startDate);
+            if (endDate) setRangeEndPicker(endDate);
             datePickers["current"] = datePickers["range"];
             break;
     }
@@ -189,71 +225,12 @@ $("#dateOption").on("change", function () {
             datePickers[option].hide();
         }
     }
-});
-
-// Update the filter when we switch the field.
-$("#fieldOption").on("change", function () {
-    switch (this.value) {
-        case "Job number":
-            // if (savedFilter) doThing;
-            fieldPickers["current"] = fieldPickers["jobNum"];
-            break;
-        case "Notes":
-            // if (savedFilter) doThing;
-            fieldPickers["current"] = fieldPickers["notes"];
-            break;
-        case "Research and design":
-            // if (savedFilter) doThing;
-            fieldPickers["current"] = fieldPickers["rd"];
-            break;
-    }
-
-    // Toggle visibility of field pickers.
-    let fieldOptions = ["jobNum", "notes", "rd"];
-    for (let option of fieldOptions) {
-        if (fieldPickers["current"] === fieldPickers[option]) {
-            fieldPickers[option].show();
-        } else {
-            fieldPickers[option].hide();
-        }
-    }
-});
-
-// Update number of jobs shown for pie chart when dropdown changed.
-$("body").on("change", "#pieChartNumSelect", function () {
-    pieFilter = $("#pieChartNumSelect").val();
-    updateStats();
-});
-
-$("#empIdFilterForm").submit(function (e) {
-    e.preventDefault();
-
-    savedEmpId = $("#empIdFilter").val();
-
-    // Append the email to the employee id if it doesn't have one.
-    if (savedEmpId.substr(-9) !== "@ascmt.com") savedEmpId += "@ascmt.com";
-
-    updatePage();
-});
-
-// █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
-// █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
-
-// Called by the prev and next buttons to change the date.
-function shiftDate(date) {
-    if (datePickers["current"] === datePickers["day"]) {
-        setDayPicker(date);
-    } else if (datePickers["current"] === datePickers["week"]) {
-        setWeekPicker(date);
-    } else if (datePickers["current"] === datePickers["month"]) {
-        setMonthPicker(date);
-    }
 }
 
 function setDayPicker(date) {
-    startDate = date;
-    // Advance day by 1 to next day's midnight to grab any logs during the day.
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    // Set end date to the end of that day.
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 
     datePickers["day"].datepicker("update", date);
 
@@ -262,12 +239,14 @@ function setDayPicker(date) {
     datePickers["day"].val(dateToString(date));
 
     // Update the partial views.
+    saveFilterData();
     updatePage();
 }
 
 function setWeekPicker(date) {
     startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
+    // Set end date to the end of that week.
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6, 23, 59, 59, 999);
 
     // Set selected day to the start of the week for styling.
     datePickers["week"].datepicker("update", startDate);
@@ -275,26 +254,21 @@ function setWeekPicker(date) {
     // Store saved date if we switch filtering.
     savedDate = date;
 
-    // Display end date as one day less so it doesn't look like it's running into next week.
-    let displayEndDate = new Date(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate() - date.getDay() + 6);
-
     // Show the display as the corresponding week.
     datePickers["week"].val(
         dateToString(startDate) +
         " - " +
-        dateToString(displayEndDate));
+        dateToString(endDate));
 
     // Update the partial views.
+    saveFilterData();
     updatePage();
 }
 
 function setMonthPicker(date) {
-    // Set day to 1 so we don't get results from last day of first month!
     startDate = new Date(date.getFullYear(), date.getMonth(), 1);
-    endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+    // Set end date to the end of that month.
+    endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59, 999);
 
     datePickers["month"].datepicker("update", date);
 
@@ -308,70 +282,33 @@ function setMonthPicker(date) {
         date.getFullYear());
 
     // Update the partial views.
+    saveFilterData();
     updatePage();
 }
 
 function setRangeStartPicker(date) {
-    startDate = date;
+    startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
     datePickers["rangeStart"].datepicker("update", date);
 
     datePickers["rangeStart"].val(dateToString(date));
 
+    saveFilterData();
     updatePage();
 }
 
 function setRangeEndPicker(date) {
-    // Advance day by 1 to next day's midnight to grab any logs during the day.
-    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
+    endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
 
     datePickers["rangeEnd"].datepicker("update", date);
 
     datePickers["rangeEnd"].val(dateToString(date));
 
+    saveFilterData();
     updatePage();
 }
 
 // Return the date in a nice readable format.
 function dateToString(date) {
     return (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
-}
-
-// ▄▀▄ ▀█▀ ▄▀▄ ▀▄▀
-// █▀█ ▄█  █▀█ █ █
-
-// Refresh the partial views for Index.
-function updatePage() {
-    // Don't send requests with null dates.
-    if (!startDate || !endDate) return;
-
-    updateLogs();
-    updateStats();
-}
-
-function updateLogs() {
-    $.ajax({
-        type: "GET",
-        url: "/TimeLog/IndexLogs?startDate=" + startDate.toJSON() +
-            "&endDate=" + endDate.toJSON() +
-            "&empId=" + savedEmpId,
-        success: function (view) {
-            $("#indexLogsView").html(view);
-            colorJobs();
-        }
-    });
-}
-
-function updateStats() {
-    $.ajax({
-        type: "GET",
-        url: "/TimeLog/IndexStats?startDate=" + startDate.toJSON() +
-            "&endDate=" + endDate.toJSON() +
-            "&empId=" + savedEmpId +
-            "&pieCount=" + pieFilter,
-        success: function (view) {
-            $("#indexStatsView").html(view);
-            $("#pieChartNumSelect").val(pieFilter);
-        }
-    });
 }

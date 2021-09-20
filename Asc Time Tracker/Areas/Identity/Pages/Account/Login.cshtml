@@ -10,7 +10,7 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-lg-5 d-none d-md-block">
-                    <img src="~/login_bg.jpg" alt="login" class="login-card-img">
+                    <img src="~/img/login_bg.jpg" alt="login" class="login-card-img">
                 </div>
                 <div class="col-lg-7">
                     <div class="card-body">
@@ -22,6 +22,8 @@
 
                         <form id="account" method="post">
                             <div class="col-12 col-md-6">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+
                                 <div class="mb-2">
                                     <label asp-for="Input.Email" class="form-label"></label>
                                     <div class="row m-auto">
@@ -62,8 +64,8 @@
         </div>
 
         <!-- Update notification alert -->
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Update, 8/20/2021 (v1.0.0):</strong> Time tracker launched with basic functionality.
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <strong>Update, 9/20/2021 (v1.1.0):</strong> Time tracker site redesigned, now supporting multiple timers.
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
             <hr />
@@ -72,19 +74,18 @@
                     Features:
                     <ul>
                         <li>
-                            Users can start timers when they start working on jogs,
-                            and save them when they're done, only needing to enter
-                            the job number and any additional notes.
+                            Users can now start multiple independent timers.
                         </li>
                         <li>
-                            Users can also add logs manually without using the timer.
+                            A cleaner new design for the site to support the new timers.
                         </li>
                         <li>
-                            A logs and stats view shows logs for a certain time
-                            frame, with color coded marks corresponding to job
-                            numbers.
+                            More account functions added, along with a new site tour.
                         </li>
                     </ul>
+                </li>
+                <li>
+                    Various bug fixes.
                 </li>
             </ul>
         </div>
