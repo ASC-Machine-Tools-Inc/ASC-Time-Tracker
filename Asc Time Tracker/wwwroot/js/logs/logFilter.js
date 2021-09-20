@@ -114,6 +114,7 @@ function loadSavedFilterData() {
 
         // Update the employee id.
         savedEmpId = filterData.savedEmpId;
+        $("#empIdFilter").val(savedEmpId);
 
         // Update the filters.
         pieFilter = parseInt(filterData.pieFilter);
