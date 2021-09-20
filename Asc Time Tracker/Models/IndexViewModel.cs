@@ -1,8 +1,5 @@
-using ChartJSCore.Helpers;
-using ChartJSCore.Models;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace Asc_Time_Tracker.Models
@@ -22,18 +19,20 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones with the given
         /// employee id (usually their email).
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByEmpId(IQueryable<TimeLog> timeLogs,
-                                                         string empId)
+        public static IQueryable<TimeLog> FilterTimeLogsByEmpIds(
+            IQueryable<TimeLog> timeLogs,
+            IEnumerable<string> empIds)
         {
-            return timeLogs.Where(t => t.EmpId.Equals(empId));
+            return timeLogs.Where(t => empIds.Contains(t.EmpId));
         }
 
         /// <summary>
         /// Take an IQueryable of TimeLogs and return the ones within the given time frame.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByDate(IQueryable<TimeLog> timeLogs,
-                                                        DateTime? startDate,
-                                                        DateTime? endDate)
+        public static IQueryable<TimeLog> FilterTimeLogsByDate(
+            IQueryable<TimeLog> timeLogs,
+            DateTime? startDate,
+            DateTime? endDate)
         {
             if (startDate == null || endDate == null)
             {

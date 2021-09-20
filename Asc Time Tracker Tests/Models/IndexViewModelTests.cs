@@ -49,9 +49,9 @@ namespace Asc_Time_Tracker_Tests.Models
             IQueryable<TimeLog> timeLogs = timeLogsList.AsQueryable();
 
             // Act
-            IQueryable<TimeLog> filteredTimeLogs1 = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "timeuser@ascmt.com");
-            IQueryable<TimeLog> filteredTimeLogs2 = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "TEST USER ID");
-            IQueryable<TimeLog> emptyTimeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "NONEXISTENT EMP ID");
+            IQueryable<TimeLog> filteredTimeLogs1 = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "timeuser@ascmt.com" });
+            IQueryable<TimeLog> filteredTimeLogs2 = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "TEST USER ID" });
+            IQueryable<TimeLog> emptyTimeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "NONEXISTENT EMP ID" });
 
             // Assert
             Assert.AreEqual(filteredTimeLogs1.Count(), 250);

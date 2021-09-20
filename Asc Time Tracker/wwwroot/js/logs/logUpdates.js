@@ -21,7 +21,7 @@ function updateLogs() {
         data: {
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empId: savedEmpId
+            empId: savedEmpIds
         },
         beforeSend: function () {
             // Display loading message if it takes a while.
@@ -47,7 +47,7 @@ function updateStats() {
         data: {
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empId: savedEmpId,
+            empId: savedEmpIds,
             pieCount: pieFilter
         },
         beforeSend: function () {
@@ -62,4 +62,58 @@ function updateStats() {
             $("#pieChartNumSelect").val(pieFilter);
         }
     });
+}
+
+// █   █▀█ █▀▀ ▄▀▄ █     █▀▀ ▀█▀ █▀█ █▀█ ▄▀▄ █▀▀ █▀▀
+// █▄▄ █▄█ █▄▄ █▀█ █▄▄   ▄██  █  █▄█ █▀▄ █▀█ █▄█ ██▄
+
+/** Grab saved filter info from local storage. */
+function loadSavedFilterData() {
+    let filterData = localStorage["filterData"];
+    if (filterData != null) {
+        filterData = JSON.parse(filterData);
+
+        // Update the saved dates.
+        startDate = new Date(filterData.startDate);
+        endDate = new Date(filterData.endDate);
+        savedDate = new Date(filterData.savedDate);
+
+        // Update the employee id.
+        savedEmpIds = new Set(filterData.savedEmpIds);
+        console.log("ids:" + savedEmpIds);
+
+        // Update the filters.
+        pieFilter = parseInt(filterData.pieFilter);
+
+        // Update the time frame and page.
+        setCurrentPicker(filterData.currentPicker);
+        $("#dateOption").val(filterData.currentPicker);
+    } else {
+        // Use default values.
+        savedDate = new Date();
+
+        // Use user id as default one.
+        savedEmpIds.add($("#empIdFilter").val());
+
+        // Default pie filter count.
+        pieFilter = 5;
+
+        setCurrentPicker("Day");
+    }
+
+    // TODO: load in filter data.
+}
+
+/** Save current filters to local storage for retrieval. */
+function saveFilterData() {
+    let filterData = {
+        "currentPicker": currentPicker,
+        "startDate": startDate,
+        "endDate": endDate,
+        "savedDate": savedDate,
+        "savedEmpIds": savedEmpIds,
+        "pieFilter": pieFilter
+    };
+
+    localStorage["filterData"] = JSON.stringify(filterData);
 }

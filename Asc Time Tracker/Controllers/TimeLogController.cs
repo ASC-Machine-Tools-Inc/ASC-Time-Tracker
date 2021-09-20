@@ -3,6 +3,7 @@ using Asc_Time_Tracker.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -54,10 +55,10 @@ namespace Asc_Time_Tracker.Controllers
         public async Task<IActionResult> IndexLogs(
             DateTime? startDate,
             DateTime? endDate,
-            string empId)
+            List<string> empIds)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
+            timeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, empIds);
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
             return PartialView(await timeLogs.ToListAsync());
@@ -68,11 +69,11 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult IndexStats(
             DateTime? startDate,
             DateTime? endDate,
-            string empId,
+            List<string> empIds,
             int pieCount)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
+            timeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, empIds);
             timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
 
             TimeLogStats stats = new(timeLogs, pieCount);
