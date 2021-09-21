@@ -14,12 +14,6 @@ var pieFilter;
 // ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
 // ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
 
-function startPickers() {
-    startDatePickers();
-
-    loadSavedFilterData();
-}
-
 function startDatePickers() {
     // Prep the datepicker for days.
     datePickers["day"] = $(".day-picker");

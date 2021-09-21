@@ -1,4 +1,13 @@
-﻿// ▄▀▄ ▀█▀ ▄▀▄ ▀▄▀
+﻿// ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
+// ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
+
+function startPickers() {
+    startDatePickers();
+
+    loadSavedFilterData();
+}
+
+// ▄▀▄ ▀█▀ ▄▀▄ ▀▄▀
 // █▀█ ▄█  █▀█ █ █
 
 const SHOW_LOADING_MESSAGE_TIMEOUT = 3000;
@@ -21,8 +30,9 @@ function updateLogs() {
         data: {
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empId: savedEmpIds
+            empIds: empIdsFieldToSet()
         },
+        traditional: true,  // Needed to send employee IDs
         beforeSend: function () {
             // Display loading message if it takes a while.
             loadingTimeout = setTimeout(function () {
@@ -47,9 +57,10 @@ function updateStats() {
         data: {
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empId: savedEmpIds,
+            empIds: empIdsFieldToSet(),
             pieCount: pieFilter
         },
+        traditional: true,  // Needed to send employee IDs
         beforeSend: function () {
             // Hide until load if it takes a while.
             loadingTimeout = setTimeout(function () {
@@ -79,8 +90,8 @@ function loadSavedFilterData() {
         savedDate = new Date(filterData.savedDate);
 
         // Update the employee id.
-        savedEmpIds = new Set(filterData.savedEmpIds);
-        console.log("ids:" + savedEmpIds);
+        savedEmpIds = new Set(JSON.parse(filterData.savedEmpIds));
+        $("#empIdFilter").val(empIdsFieldToSet());
 
         // Update the filters.
         pieFilter = parseInt(filterData.pieFilter);
@@ -93,12 +104,15 @@ function loadSavedFilterData() {
         savedDate = new Date();
 
         // Use user id as default one.
+        savedEmpIds = new Set();
         savedEmpIds.add($("#empIdFilter").val());
 
         // Default pie filter count.
         pieFilter = 5;
 
         setCurrentPicker("Day");
+
+        saveFilterData();
     }
 
     // TODO: load in filter data.
@@ -111,7 +125,7 @@ function saveFilterData() {
         "startDate": startDate,
         "endDate": endDate,
         "savedDate": savedDate,
-        "savedEmpIds": savedEmpIds,
+        "savedEmpIds": JSON.stringify([...savedEmpIds]),  // Stringify set converted to array.
         "pieFilter": pieFilter
     };
 
