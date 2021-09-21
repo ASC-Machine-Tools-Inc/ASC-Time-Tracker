@@ -288,6 +288,7 @@ tr:hover {
     border-radius: 25px;
     margin: 0 4px 2px 0;
     opacity: 1;
+    cursor: default;
 }
 
 /* Copy of log color, but color set from controller instead */
@@ -295,6 +296,7 @@ tr:hover {
     border-radius: 25px;
     margin: 0 4px 2px 0;
     opacity: 1;
+    cursor: default;
 }
 
 .a-sort {

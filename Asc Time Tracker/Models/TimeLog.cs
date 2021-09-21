@@ -82,11 +82,12 @@ namespace Asc_Time_Tracker.Models
             double h = hash % 360;
 
             /* Forgot why I added this. May re-add? Seems fine for now.
-            // Adjust color if negative.
+            // Update: I remembered why. 29680.000 broke it - fixed it with this.
+            // Adjust color if negative. */
             if (h < 0)
             {
                 h = 360 + h;
-            } */
+            }
 
             // Convert hsl to rgb.
             l /= 100;
