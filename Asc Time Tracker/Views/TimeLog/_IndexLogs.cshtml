@@ -50,11 +50,12 @@
                             </strong>
                         </div>
                         <div class="col-4 text-nowrap text-truncate text-end">
-                            @{
+                            @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                            {
                                 // Remove @ascmt.com from the employee id.
                                 string formattedEmpId = item.EmpId.Remove(item.EmpId.Length - 10);
+                                @Html.DisplayFor(modelItem => formattedEmpId)
                             }
-                            @Html.DisplayFor(modelItem => formattedEmpId)
                         </div>
                     </div>
                 </div>

@@ -284,15 +284,7 @@ tr:hover {
     font-weight: 600;
 }
 
-.log-color {
-    border-radius: 25px;
-    margin: 0 4px 2px 0;
-    opacity: 1;
-    cursor: default;
-}
-
-/* Copy of log color, but color set from controller instead */
-.log-color-top {
+.log-color, .log-color-top {
     border-radius: 25px;
     margin: 0 4px 2px 0;
     opacity: 1;
@@ -454,6 +446,14 @@ tr:hover {
 
 #weekContainer .datepicker table tr td.day.focused, .datepicker table tr td.day:hover {
     background: #c8c8c8 !important;
+}
+
+button.date-next {
+    margin-left: 5px !important;
+}
+
+.date-prev:hover, .date-next:hover {
+    background: lightgrey;
 }
 
 /* Login card styling*/
