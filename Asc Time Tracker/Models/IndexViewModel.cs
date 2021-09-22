@@ -23,6 +23,11 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog> timeLogs,
             IEnumerable<string> empIds)
         {
+            if (empIds.Contains("all"))
+            {
+                return timeLogs;
+            }
+
             return timeLogs.Where(t => empIds.Contains(t.EmpId));
         }
 
