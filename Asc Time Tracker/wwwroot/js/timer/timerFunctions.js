@@ -59,7 +59,16 @@ function addTimer(timer = null) {
             data: {
                 timerId: currTimerId
             },
+            beforeSend: function () {
+                // Show loading symbol.
+                $("#timerAddIcon").hide();
+                $("#timerLoadSpinner").show();
+            },
             success: function (view) {
+                // Remove loading symbol.
+                $("#timerAddIcon").show();
+                $("#timerLoadSpinner").hide();
+
                 $("#timersRow").append(view);
 
                 // Update display.

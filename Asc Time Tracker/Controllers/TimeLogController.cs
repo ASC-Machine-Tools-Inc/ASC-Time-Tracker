@@ -83,9 +83,13 @@ namespace Asc_Time_Tracker.Controllers
 
         // GET: Timer partial view
         [ActionName("_Timer")]
-        public IActionResult Timer(int timerId)
+        public async Task<IActionResult> Timer(int timerId)
         {
             Timer timer = new(timerId);
+
+            //TODO: remove async task from method name too
+            await Task.Delay(5000);
+
             return PartialView(timer);
         }
 

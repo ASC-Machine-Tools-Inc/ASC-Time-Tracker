@@ -9,7 +9,12 @@
             <button id="addTimerBtn"
                     class="btn header-circle-btn"
                     onclick="addTimer()">
-                <i class="bi bi-plus-lg"></i>
+                <i id="timerAddIcon" class="bi bi-plus-lg"></i>
+                <div id="timerLoadSpinner"
+                     class="spinner-border text-light"
+                     role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </button>
         </div>
 
