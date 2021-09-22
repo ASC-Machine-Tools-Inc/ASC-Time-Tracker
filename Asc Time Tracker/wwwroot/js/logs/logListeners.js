@@ -66,8 +66,19 @@ $("body").on("change", "#pieChartNumSelect", function () {
     updateStats();
 });
 
-// Clear filter data on logout.
+// Get a fresh start for our filters when we log in.
 $("#logoutButton").on("click",
     function () {
         localStorage.removeItem("filterData");
     });
+
+// Process applying extra filters.
+$("#logFilters").submit(function (e) {
+    e.preventDefault();
+    savedEmpIds = new Set();  // Reset saved ids.
+
+    empIdsSetToField($("#empIdFilter").val());
+
+    saveFilterData();
+    updatePage();
+});

@@ -5,20 +5,6 @@
 
 // TODO: load in filter data.
 
-// █▀▀ █ █ █▀▀ █▄ █ ▀█▀  █   ▀█▀ █▀▀ ▀█▀ █▀▀ █▄ █ █▀▀ █▀█ █▀▀
-// ██▄ ▀▄▀ ██▄ █ ▀█  █   █▄▄ ▄█▄ ▄██  █  ██▄ █ ▀█ ██▄ █▀▄ ▄██
-
-// Process applying filters.
-$("#logFilters").submit(function (e) {
-    e.preventDefault();
-    savedEmpIds = new Set();  // Reset saved ids.
-
-    empIdsSetToField($("#empIdFilter").val());
-
-    saveFilterData();
-    updatePage();
-});
-
 // █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
 // █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
 
