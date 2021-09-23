@@ -53,6 +53,9 @@ function addTimer(timer = null) {
 
     // Update the UI if we're on the right page.
     if (updateUi) {
+        let SHOW_LOADING_TIMER_TIMEOUT = 200;
+        let loadingTimeout;
+
         $.ajax({
             type: "GET",
             url: "/TimeLog/_Timer",
@@ -60,12 +63,15 @@ function addTimer(timer = null) {
                 timerId: currTimerId
             },
             beforeSend: function () {
-                // Show loading symbol.
-                $("#timerAddIcon").hide();
-                $("#timerLoadSpinner").show();
+                // Show loading symbol after timeout.
+                loadingTimeout = setTimeout(function () {
+                    $("#timerAddIcon").hide();
+                    $("#timerLoadSpinner").show();
+                }, SHOW_LOADING_TIMER_TIMEOUT);
             },
             success: function (view) {
                 // Remove loading symbol.
+                clearTimeout(loadingTimeout);
                 $("#timerAddIcon").show();
                 $("#timerLoadSpinner").hide();
 

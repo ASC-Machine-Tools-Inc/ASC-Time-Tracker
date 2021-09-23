@@ -17,6 +17,10 @@ namespace Asc_Time_Tracker.Models
         [Required]
         public string EmpId { get; set; }
 
+        [Display(Name = "Category")]
+        [Required]
+        public string Category { get; set; }
+
         /// <summary>
         /// The job number that was worked on for this log.
         /// </summary>
