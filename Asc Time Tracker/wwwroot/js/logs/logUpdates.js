@@ -28,9 +28,13 @@ function updateLogs() {
         type: "GET",
         url: "/TimeLog/_IndexLogs",
         data: {
+            empIds: empIdsFieldToSet(),
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empIds: empIdsFieldToSet()
+            category: savedCategory,
+            jobNum: savedJobNum,
+            notes: savedNotes,
+            rd: savedRd
         },
         traditional: true,  // Needed to send employee IDs
         beforeSend: function () {
@@ -55,9 +59,9 @@ function updateStats() {
         type: "GET",
         url: "/TimeLog/_IndexStats",
         data: {
+            empIds: empIdsFieldToSet(),
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
-            empIds: empIdsFieldToSet(),
             pieCount: pieFilter
         },
         traditional: true,  // Needed to send employee IDs
@@ -94,6 +98,18 @@ function loadSavedFilterData() {
         $("#empIdFilter").val(empIdsFieldToSet());
 
         // Update the filters.
+        savedCategory = filterData.savedCategory;
+        $("#categoriesFilter").val(savedCategory);
+
+        savedJobNum = filterData.savedJobNum;
+        $("#jobNumFilter").val(savedJobNum);
+
+        savedNotes = filterData.savedNotes;
+        $("#notesFilter").val(savedNotes);
+
+        savedRd = (filterData.savedRd === "true");
+        $("#researchCheck").prop("checked", savedRd);
+
         pieFilter = parseInt(filterData.pieFilter);
 
         // Update the time frame and page.
@@ -126,7 +142,11 @@ function saveFilterData() {
         "endDate": endDate,
         "savedDate": savedDate,
         "savedEmpIds": JSON.stringify([...savedEmpIds]),  // Stringify set converted to array.
-        "pieFilter": pieFilter
+        "pieFilter": pieFilter,
+        "savedCategory": savedCategory,
+        "savedJobNum": savedJobNum,
+        "savedNotes": savedNotes,
+        "savedRd": savedRd
     };
 
     localStorage["filterData"] = JSON.stringify(filterData);

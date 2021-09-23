@@ -80,13 +80,32 @@ namespace Asc_Time_Tracker_Tests.Models
                 IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, null);
 
             // Assert
-            // Range per day: 2 - 8 logs possible
-            Assert.IsTrue(filteredTimeLogsDay.Count() >= 2 && filteredTimeLogsDay.Count() <= 16);
-            Assert.IsTrue(filteredTimeLogsWeek.Count() >= 14 && filteredTimeLogsWeek.Count() <= 56);
-            Assert.IsTrue(filteredTimeLogsMonth.Count() >= 62 && filteredTimeLogsMonth.Count() <= 248);
+            Assert.AreEqual(filteredTimeLogsDay.Count(), 5);
+            Assert.AreEqual(filteredTimeLogsWeek.Count(), 37);
+            Assert.AreEqual(filteredTimeLogsMonth.Count(), 149);
             Assert.AreEqual(filteredTimeLogsAll.Count(), 250);
             Assert.AreEqual(filteredTimeLogsNone.Count(), 0);
             Assert.AreEqual(filteredTimeLogsNull.Count(), 0);
+        }
+
+        [TestMethod]
+        public void FilterTimeLogsByJobNumber()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+        }
+
+        [TestMethod]
+        public void FilterTimeLogsByNotes()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
         }
 
         [TestMethod]
@@ -102,7 +121,7 @@ namespace Asc_Time_Tracker_Tests.Models
             // Assert
             Assert.AreEqual(filteredTimeLogsTopThree.Count(), 3);
             // Count can actually be less than 250 due to grouping of job numbers.
-            Assert.IsTrue(filteredTimeLogsGreaterThanCount.Count() <= 250);
+            Assert.AreEqual(filteredTimeLogsGreaterThanCount.Count(), 243);
         }
     }
 }

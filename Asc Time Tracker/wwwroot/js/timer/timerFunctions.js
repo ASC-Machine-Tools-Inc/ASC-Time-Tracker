@@ -53,7 +53,7 @@ function addTimer(timer = null) {
 
     // Update the UI if we're on the right page.
     if (updateUi) {
-        let SHOW_LOADING_TIMER_TIMEOUT = 200;
+        let showLoadingTimerTimeout = 200;
         let loadingTimeout;
 
         $.ajax({
@@ -67,7 +67,7 @@ function addTimer(timer = null) {
                 loadingTimeout = setTimeout(function () {
                     $("#timerAddIcon").hide();
                     $("#timerLoadSpinner").show();
-                }, SHOW_LOADING_TIMER_TIMEOUT);
+                }, showLoadingTimerTimeout);
             },
             success: function (view) {
                 // Remove loading symbol.

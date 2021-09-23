@@ -17,6 +17,9 @@ namespace Asc_Time_Tracker.Models
         [Required]
         public string EmpId { get; set; }
 
+        /// <summary>
+        /// The category that this log falls under.
+        /// </summary>
         [Display(Name = "Category")]
         [Required]
         public string Category { get; set; }

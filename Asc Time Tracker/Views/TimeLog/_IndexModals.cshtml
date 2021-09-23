@@ -35,15 +35,25 @@
                         <input id="timerToRemove" type="hidden" />
 
                         <div class="col-6 mb-3">
+                            <label asp-for="TimeLog.Category" class="form-label"></label>
+                            <select asp-for="TimeLog.Category" asp-items="@Model.Categories"
+                                    class="form-select" aria-label="Select log category">
+                            </select>
+                            <span asp-validation-for="TimeLog.Category" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-6 mb-3">
                             <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
                             <input asp-for="TimeLog.JobNum" class="form-control" />
                             <span asp-validation-for="TimeLog.JobNum" class="text-danger"></span>
                         </div>
+
                         <div class="col-6 mb-3">
                             <label asp-for="TimeLog.Date" class="form-label"></label>
                             <input asp-for="TimeLog.Date" class="form-control" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             <span asp-validation-for="TimeLog.Date" class="text-danger"></span>
                         </div>
+
                         <div class="col-6 mb-3">
                             <label asp-for="TimeLog.Time" class="form-label"></label>
                             <div class="input-group d-inline-flex">
@@ -55,12 +65,14 @@
                             </div>
                             <span asp-validation-for="TimeLog.Time" class="text-danger"></span>
                         </div>
+
                         <div class="col mb-3">
                             <label asp-for="TimeLog.Notes" class="form-label">Notes (optional)</label>
                             <input asp-for="TimeLog.Notes" class="form-control"
                                    placeholder="A short description of what you've been working on?" />
                             <span asp-validation-for="TimeLog.Notes" class="text-danger"></span>
                         </div>
+
                         <div class="form-check">
                             <input asp-for="TimeLog.Rd" class="form-check-input" type="checkbox" />
                             <label asp-for="TimeLog.Rd" class="form-check-label">
@@ -102,6 +114,24 @@
                         <input type="hidden" id="TimeLogEditId" asp-for="TimeLog.Id" />
                         <input type="hidden" id="TimeLogEditEmpId" asp-for="TimeLog.EmpId" />
                         <input type="hidden" id="TimeLogEditTime" asp-for="TimeLog.Time" />
+
+                        <div class="col-6 mb-3">
+                            <label asp-for="TimeLog.Category" class="form-label"></label>
+                            <select id="TimeLog_Category" name="TimeLog.Category"
+                                    class="form-select" aria-label="Default select example">
+                                <option value="Other">
+                                    Other
+                                </option>
+                                <option value="Software Development">
+                                    Software Development
+                                </option>
+                                <option value="Meeting">
+                                    Meeting
+                                </option>
+                            </select>
+                            <span asp-validation-for="TimeLog.Category" class="text-danger"></span>
+                        </div>
+
                         <div class="col-6 mb-3">
                             <label asp-for="TimeLog.JobNum" class="form-label">Job Number (optional)</label>
                             <input id="TimeLogEditJobNum" asp-for="TimeLog.JobNum" class="form-control" />

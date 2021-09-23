@@ -1,9 +1,4 @@
-﻿var savedEmpIds;
-
-// ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
-// ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
-
-// TODO: load in filter data.
+﻿var savedEmpIds, savedCategory, savedJobNum, savedNotes, savedRd;
 
 // █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
 // █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██

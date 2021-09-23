@@ -79,6 +79,14 @@ $("#logFilters").submit(function (e) {
 
     empIdsSetToField($("#empIdFilter").val());
 
+    savedCategory = $("#categoriesFilter").val();
+
+    savedJobNum = $("#jobNumFilter").val();
+
+    savedNotes = $("#notesFilter").val();
+
+    savedRd = $("#researchCheck").is(":checked");
+
     saveFilterData();
     updatePage();
 });

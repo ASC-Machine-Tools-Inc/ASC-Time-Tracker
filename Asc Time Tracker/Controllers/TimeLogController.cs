@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -28,11 +29,16 @@ namespace Asc_Time_Tracker.Controllers
         // GET: MainIndex
         public IActionResult MainIndex()
         {
-            // Send along the time logs for today and the current user by default.
-            IQueryable<TimeLog> timeLogs = _context.TimeLog;
-            //timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, User.Identity.Name);
-            //timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, DateTime.Today.AddDays(1));
-            IndexViewModel.TimeLogs = timeLogs;
+            IndexViewModel.TimeLogs = _context.TimeLog;
+
+            // Create the list of categories to display.
+            var categories = new List<string>
+            {
+                "Other",
+                "Software Development",
+                "Meeting"
+            };
+            IndexViewModel.Categories = new SelectList(categories);
 
             return View(IndexViewModel);
         }
@@ -53,13 +59,18 @@ namespace Asc_Time_Tracker.Controllers
         // GET: IndexLogs partial view
         [ActionName("_IndexLogs")]
         public async Task<IActionResult> IndexLogs(
+            List<string> empIds,
             DateTime? startDate,
             DateTime? endDate,
-            List<string> empIds)
+            string category,
+            string jobNum,
+            string notes,
+            bool rd)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, empIds);
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+            timeLogs = IndexViewModel.FilterTimeLogs(
+                timeLogs, empIds, startDate, endDate,
+                category, jobNum, notes, rd);
 
             return PartialView(await timeLogs.ToListAsync());
         }
@@ -119,7 +130,7 @@ namespace Asc_Time_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,EmpId,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
+        public async Task<IActionResult> Edit([Bind("Id,EmpId,Category,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
         {
             if (ModelState.IsValid)
             {

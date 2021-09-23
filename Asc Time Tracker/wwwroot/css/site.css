@@ -285,9 +285,28 @@ tr:hover {
     margin-top: 0.5rem;
 }
 
-.log-main {
-    font-size: 1.2rem;
+.log-primary {
     font-weight: 600;
+}
+
+.log-secondary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #444;
+}
+
+    .log-secondary .log-job {
+        font-weight: 700;
+    }
+
+.log-ancillary {
+    white-space: nowrap;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
+    color: #666;
 }
 
 .log-color, .log-color-top {

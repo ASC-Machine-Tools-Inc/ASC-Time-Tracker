@@ -74,6 +74,7 @@
             <div id="filters" class="collapse">
                 <form id="logFilters" class="row gy-3 gx-4 mt-4 align-items-center">
                     <hr class="my-2" />
+
                     <div class="col-12">
                         <div class="input-group">
                             <span class="input-group-text">User ID</span>
@@ -87,24 +88,39 @@
                             Examples: <i>all</i>, <i>user</i>, or <i>"user1, user2"</i>
                         </div>
                     </div>
-                    <div class="col-6">
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-text">Category</span>
+                            <select id="categoriesFilter"
+                                    asp-items="@Model.Categories"
+                                    class="form-select"
+                                    aria-label="Select log category to filter for">
+                                <option>All</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4">
                         <div class="input-group">
                             <span class="input-group-text">Job number</span>
-                            <input type="text"
+                            <input id="jobNumFilter" type="text"
                                    class="form-control job-number-picker">
                         </div>
                     </div>
-                    <div class="col-6">
+
+                    <div class="col-12 col-md-6 col-lg-4">
                         <div class="input-group">
                             <span class="input-group-text">Notes</span>
-                            <input type="text"
+                            <input id="notesFilter" type="text"
                                    class="form-control notes-picker">
                         </div>
                     </div>
-                    <div class="col-6">
+
+                    <div class="col-12 col-md-6">
                         <div class="form-check">
                             <label class="form-check-label" for="researchCheck">
-                                Research and design
+                                Research and design (leave unchecked for all)
                             </label>
                             <input class="form-check-input" type="checkbox" value="" id="researchCheck">
                         </div>
