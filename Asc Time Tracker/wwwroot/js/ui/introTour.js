@@ -46,9 +46,16 @@ function startTour() {
         },
         {
             title: "Filtering logs",
-            element: document.getElementById("mainLogs"),
-            intro: "Down here, you can filter your logs from finished tasks, view " +
-                "stats for them, and export your logs."
+            element: document.getElementById("logFiltersCard"),
+            intro: "On this bar, you can filter your logs for certain dates, or other " +
+                "options under <b>More Filters</b>. <b>Export Logs</b> lets you save " +
+                "the currently shown logs to a PDF."
+        },
+        {
+            title: "Filtering logs",
+            element: document.getElementById("logBodyCards"),
+            intro: "Down here, you'll be able to see your logs on the left and stats " +
+                "on the right. You can click on your logs to <b>edit</b> or <b>delete</b> them."
         },
         {
             title: "The end",
