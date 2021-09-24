@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -30,16 +29,6 @@ namespace Asc_Time_Tracker.Controllers
         public IActionResult MainIndex()
         {
             IndexViewModel.TimeLogs = _context.TimeLog;
-
-            // Create the list of categories to display.
-            var categories = new List<string>
-            {
-                "Other",
-                "Software Development",
-                "Meeting"
-            };
-            IndexViewModel.Categories = new SelectList(categories);
-
             return View(IndexViewModel);
         }
 

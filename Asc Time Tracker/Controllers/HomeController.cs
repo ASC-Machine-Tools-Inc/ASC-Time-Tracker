@@ -8,12 +8,7 @@ namespace Asc_Time_Tracker.Controllers
     {
         public IActionResult About()
         {
-            return View();
-        }
-
-        public IActionResult Guide()
-        {
-            return View();
+            return View(new IndexViewModel(null));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

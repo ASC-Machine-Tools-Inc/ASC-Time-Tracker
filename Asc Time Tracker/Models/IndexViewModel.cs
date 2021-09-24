@@ -17,6 +17,15 @@ namespace Asc_Time_Tracker.Models
         public IndexViewModel(IQueryable<TimeLog> timeLogs)
         {
             TimeLogs = timeLogs;
+
+            // Create the list of categories to display.
+            var categories = new List<string>
+            {
+                "Other",
+                "Software Development",
+                "Meeting"
+            };
+            Categories = new SelectList(categories);
         }
 
         /// <summary>

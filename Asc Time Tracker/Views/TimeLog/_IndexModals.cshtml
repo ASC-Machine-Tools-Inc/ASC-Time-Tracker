@@ -117,17 +117,8 @@
 
                         <div class="col-6 mb-3">
                             <label asp-for="TimeLog.Category" class="form-label"></label>
-                            <select id="TimeLog_Category" name="TimeLog.Category"
-                                    class="form-select" aria-label="Default select example">
-                                <option value="Other">
-                                    Other
-                                </option>
-                                <option value="Software Development">
-                                    Software Development
-                                </option>
-                                <option value="Meeting">
-                                    Meeting
-                                </option>
+                            <select asp-for="TimeLog.Category" asp-items="@Model.Categories"
+                                    class="form-select" aria-label="Select log category">
                             </select>
                             <span asp-validation-for="TimeLog.Category" class="text-danger"></span>
                         </div>

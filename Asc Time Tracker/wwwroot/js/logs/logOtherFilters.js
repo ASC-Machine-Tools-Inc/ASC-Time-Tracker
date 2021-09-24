@@ -20,7 +20,7 @@ function empIdsSetToField(empIds) {
     }
 
     // Strip spaces and split ids by comma.
-    let empIdsArray = empIds.replaceAll(' ', '').split(',');
+    let empIdsArray = empIds.replaceAll(" ", "").split(",");
 
     for (let empId of empIdsArray) {
         // Append the email to the employee id if it doesn't have one.

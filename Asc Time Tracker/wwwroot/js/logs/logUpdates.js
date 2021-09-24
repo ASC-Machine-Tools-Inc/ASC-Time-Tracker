@@ -95,26 +95,34 @@ function loadSavedFilterData() {
 
         // Update the employee id.
         savedEmpIds = new Set(JSON.parse(filterData.savedEmpIds));
-        $("#empIdFilter").val(empIdsFieldToSet());
 
         // Update the filters.
         savedCategory = filterData.savedCategory;
-        $("#categoriesFilter").val(savedCategory);
 
         savedJobNum = filterData.savedJobNum;
-        $("#jobNumFilter").val(savedJobNum);
 
         savedNotes = filterData.savedNotes;
-        $("#notesFilter").val(savedNotes);
 
-        savedRd = (filterData.savedRd === "true");
-        $("#researchCheck").prop("checked", savedRd);
+        savedRd = filterData.savedRd;
 
         pieFilter = parseInt(filterData.pieFilter);
 
         // Update the time frame and page.
         setCurrentPicker(filterData.currentPicker);
-        $("#dateOption").val(filterData.currentPicker);
+
+        if (updateUi) {
+            $("#empIdFilter").val(empIdsFieldToSet());
+
+            $("#categoriesFilter").val(savedCategory);
+
+            $("#jobNumFilter").val(savedJobNum);
+
+            $("#notesFilter").val(savedNotes);
+
+            $("#researchCheck").prop("checked", savedRd);
+
+            $("#dateOption").val(filterData.currentPicker);
+        }
     } else {
         // Use default values.
         savedDate = new Date();
