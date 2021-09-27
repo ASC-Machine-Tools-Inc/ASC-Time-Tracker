@@ -137,6 +137,9 @@ function loadSavedFilterData() {
         setCurrentPicker("Day");
 
         saveFilterData();
+
+        // Apply default filters.
+        $("#logFilters").submit();
     }
 
     // TODO: load in filter data.

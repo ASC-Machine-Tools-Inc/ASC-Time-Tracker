@@ -67,14 +67,19 @@ namespace Asc_Time_Tracker.Controllers
         // GET: IndexStats partial view
         [ActionName("_IndexStats")]
         public IActionResult IndexStats(
+            List<string> empIds,
             DateTime? startDate,
             DateTime? endDate,
-            List<string> empIds,
+            string category,
+            string jobNum,
+            string notes,
+            bool rd,
             int pieCount)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, empIds);
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+            timeLogs = IndexViewModel.FilterTimeLogs(
+                timeLogs, empIds, startDate, endDate,
+                category, jobNum, notes, rd);
 
             TimeLogStats stats = new(timeLogs, pieCount);
 
