@@ -36,7 +36,7 @@ function updateLogs() {
             notes: savedNotes,
             rd: savedRd
         },
-        traditional: true,  // Needed to send employee IDs
+        traditional: true,  // Needed to send employee IDs.
         beforeSend: function () {
             // Display loading message if it takes a while.
             loadingTimeout = setTimeout(function () {
@@ -62,9 +62,13 @@ function updateStats() {
             empIds: empIdsFieldToSet(),
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
+            category: savedCategory,
+            jobNum: savedJobNum,
+            notes: savedNotes,
+            rd: savedRd,
             pieCount: pieFilter
         },
-        traditional: true,  // Needed to send employee IDs
+        traditional: true,  // Needed to send employee IDs.
         beforeSend: function () {
             // Hide until load if it takes a while.
             loadingTimeout = setTimeout(function () {
@@ -88,73 +92,64 @@ function loadSavedFilterData() {
 
     // Hacky check for backwards compatibility by making sure all the fields
     // exist to load in.
-    if (filterData != null &&
-        filterData.startDate != null &&
-        filterData.endDate != null &&
-        filterData.savedDate != null &&
-        filterData.savedEmpIds != null &&
-        filterData.savedCategory != null &&
-        filterData.savedJobNum != null &&
-        filterData.savedNotes != null &&
-        filterData.savedRd != null &&
-        filterData.pieFilter != null) {
+    if (filterData != null) {
         filterData = JSON.parse(filterData);
+        if (filterData.startDate != null &&
+            filterData.endDate != null &&
+            filterData.savedDate != null &&
+            filterData.savedEmpIds != null &&
+            filterData.savedCategory != null &&
+            filterData.savedJobNum != null &&
+            filterData.savedNotes != null &&
+            filterData.savedRd != null &&
+            filterData.pieFilter != null) {
+            // Update the saved dates.
+            startDate = new Date(filterData.startDate);
+            endDate = new Date(filterData.endDate);
+            savedDate = new Date(filterData.savedDate);
 
-        // Update the saved dates.
-        startDate = new Date(filterData.startDate);
-        endDate = new Date(filterData.endDate);
-        savedDate = new Date(filterData.savedDate);
+            // Update the employee id.
+            savedEmpIds = new Set(JSON.parse(filterData.savedEmpIds));
 
-        // Update the employee id.
-        savedEmpIds = new Set(JSON.parse(filterData.savedEmpIds));
+            // Update the filters.
+            savedCategory = filterData.savedCategory;
+            savedJobNum = filterData.savedJobNum;
+            savedNotes = filterData.savedNotes;
+            savedRd = filterData.savedRd;
+            pieFilter = parseInt(filterData.pieFilter);
 
-        // Update the filters.
-        savedCategory = filterData.savedCategory;
+            // Update the time frame and page.
+            setCurrentPicker(filterData.currentPicker);
 
-        savedJobNum = filterData.savedJobNum;
+            if (updateUi) {
+                $("#empIdFilter").val(empIdsFieldToSet());
+                $("#categoriesFilter").val(savedCategory);
+                $("#jobNumFilter").val(savedJobNum);
+                $("#notesFilter").val(savedNotes);
+                $("#researchCheck").prop("checked", savedRd);
+                $("#dateOption").val(filterData.currentPicker);
+            }
 
-        savedNotes = filterData.savedNotes;
-
-        savedRd = filterData.savedRd;
-
-        pieFilter = parseInt(filterData.pieFilter);
-
-        // Update the time frame and page.
-        setCurrentPicker(filterData.currentPicker);
-
-        if (updateUi) {
-            $("#empIdFilter").val(empIdsFieldToSet());
-
-            $("#categoriesFilter").val(savedCategory);
-
-            $("#jobNumFilter").val(savedJobNum);
-
-            $("#notesFilter").val(savedNotes);
-
-            $("#researchCheck").prop("checked", savedRd);
-
-            $("#dateOption").val(filterData.currentPicker);
+            return;
         }
-    } else {
-        // Use default values.
-        savedDate = new Date();
-
-        // Use user id as default one.
-        savedEmpIds = new Set();
-        savedEmpIds.add($("#empIdFilter").val());
-
-        // Default pie filter count.
-        pieFilter = 5;
-
-        setCurrentPicker("Day");
-
-        saveFilterData();
-
-        // Apply default filters.
-        $("#logFilters").submit();
     }
 
-    // TODO: load in filter data.
+    // Use default values.
+    savedDate = new Date();
+
+    // Use user id as default one.
+    savedEmpIds = new Set();
+    savedEmpIds.add($("#empIdFilter").val());
+
+    // Default pie filter count.
+    pieFilter = 5;
+
+    setCurrentPicker("Day");
+
+    saveFilterData();
+
+    // Apply default filters.
+    $("#logFilters").submit();
 }
 
 /** Save current filters to local storage for retrieval. */

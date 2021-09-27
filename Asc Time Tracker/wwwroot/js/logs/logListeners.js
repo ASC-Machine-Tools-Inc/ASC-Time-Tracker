@@ -90,3 +90,14 @@ $("#logFilters").submit(function (e) {
     saveFilterData();
     updatePage();
 });
+
+// Catch export submission.
+$("#exportLogs").submit(function (e) {
+    $("#empIdsExport").val(empIdsFieldToSet());
+    $("#startDateExport").val(startDate.toJSON());
+    $("#endDateExport").val(endDate.toJSON());
+    $("#categoryExport").val(savedCategory);
+    $("#jobNumExport").val(savedJobNum);
+    $("#notesExport").val(savedNotes);
+    $("#rdExport").val(savedRd);
+});

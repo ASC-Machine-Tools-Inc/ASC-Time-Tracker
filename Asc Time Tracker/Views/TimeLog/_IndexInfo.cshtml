@@ -63,10 +63,25 @@
                                 aria-expanded="false" aria-controls="filters">
                             More Filters
                         </button>
-                        <button class="btn btn-outline-secondary">
-                            <i class="bi bi-download"></i>
-                            Export Logs
-                        </button>
+
+                        <!-- Export logs form & filters -->
+                        <form id="exportLogs"
+                              asp-action="Export"
+                              class="d-inline">
+                            <input id="empIdsExport" name="empIds" type="hidden" />
+                            <input id="startDateExport" name="startDate" type="hidden" />
+                            <input id="endDateExport" name="endDate" type="hidden" />
+                            <input id="categoryExport" name="category" type="hidden" />
+                            <input id="jobNumExport" name="jobNum" type="hidden" />
+                            <input id="notesExport" name="notes" type="hidden" />
+                            <input id="rdExport" name="rd" type="hidden" />
+
+                            <button type="submit"
+                                    class="btn btn-outline-secondary">
+                                <i class="bi bi-download"></i>
+                                Export Logs
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
