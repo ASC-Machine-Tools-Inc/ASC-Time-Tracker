@@ -85,7 +85,19 @@ function updateStats() {
 /** Grab saved filter info from local storage. */
 function loadSavedFilterData() {
     let filterData = localStorage["filterData"];
-    if (filterData != null) {
+
+    // Hacky check for backwards compatibility by making sure all the fields
+    // exist to load in.
+    if (filterData != null &&
+        filterData.startDate != null &&
+        filterData.endDate != null &&
+        filterData.savedDate != null &&
+        filterData.savedEmpIds != null &&
+        filterData.savedCategory != null &&
+        filterData.savedJobNum != null &&
+        filterData.savedNotes != null &&
+        filterData.savedRd != null &&
+        filterData.pieFilter != null) {
         filterData = JSON.parse(filterData);
 
         // Update the saved dates.
