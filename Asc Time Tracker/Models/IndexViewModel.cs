@@ -35,15 +35,16 @@ namespace Asc_Time_Tracker.Models
         public static IQueryable<TimeLog> FilterTimeLogs(
             IQueryable<TimeLog> timeLogs,
             IEnumerable<string> empIds,
-            DateTime? startDate,
-            DateTime? endDate,
-            string category,
-            string jobNum,
-            string notes,
-            bool rd)
+            DateTime startDate,
+            DateTime endDate,
+            string category = "All",
+            string jobNum = null,
+            string notes = null,
+            bool rd = false)
         {
             timeLogs = FilterTimeLogsByEmpIds(timeLogs, empIds);
             timeLogs = FilterTimeLogsByDate(timeLogs, startDate, endDate);
+
             if (category != "All")
             {
                 timeLogs = FilterTimeLogsByCategory(timeLogs, category);
@@ -137,7 +138,7 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog> timeLogs,
             string notes)
         {
-            return timeLogs.Where(t => t.Notes.Contains(notes));
+            return timeLogs.Where(t => t.Notes.Contains(notes, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
