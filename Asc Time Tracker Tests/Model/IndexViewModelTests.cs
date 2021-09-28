@@ -25,8 +25,6 @@ namespace Asc_Time_Tracker.Models.TimeLog
             Assert.AreEqual(model.TimeLogs.Count(), 250);
             Assert.AreEqual(model.TimeLog.Id, 1);
             Assert.IsTrue(model.Categories.Any());
-
-            TimeLog log = new();
         }
 
         [TestMethod]

@@ -131,6 +131,12 @@ namespace Asc_Time_Tracker.Models.TimeLog
                 TimeLogs, EmpIds, StartDate, EndDate,
                 Category, JobNum, Notes, Rd);
 
+            if (!timeLogs.Any())
+            {
+                document.Add(new Paragraph("No logs found for these filters."));
+                return;
+            }
+
             int tableWidth = 6;
             Table table = new(UnitValue.CreatePercentArray(tableWidth));
             table.UseAllAvailableWidth();
@@ -146,7 +152,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
             {
                 table.AddCell(log.Date.ToShortDateString());
                 table.AddCell(log.Category);
-                table.AddCell(log.JobNum);
+                table.AddCell(log.JobNum ?? "");
 
                 // Make the time look nice, by converting from seconds into hours and minutes.
                 // TODO: make this model method and replace the one in IndexLogs with it.
@@ -155,14 +161,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
 
                 table.AddCell(formattedTime);
 
-                if (log.Notes == null)
-                {
-                    table.AddCell("");
-                }
-                else
-                {
-                    table.AddCell(log.Notes);
-                }
+                table.AddCell(log.Notes ?? "");
 
                 // Trim email.
                 table.AddCell(log.EmpId[..^10]);

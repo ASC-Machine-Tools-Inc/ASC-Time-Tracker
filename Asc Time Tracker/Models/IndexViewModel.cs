@@ -52,6 +52,7 @@ namespace Asc_Time_Tracker.Models
 
             if (!jobNum.IsNullOrWhiteSpace())
             {
+                // TODO: figure out why matching a job number that doesn't exist causes an error
                 timeLogs = FilterTimeLogsByJobNumber(timeLogs, jobNum);
             }
 
@@ -162,7 +163,7 @@ namespace Asc_Time_Tracker.Models
                     JobNum = tg.Key,
                     Time = tg.Sum(t => t.Time)
                 })
-                .Where(t => t.JobNum != null)  // Skip null job num logs
+                .Where(t => t.JobNum != null)  // Skip null job num logs.
                 .OrderByDescending(t => t.Time)
                 .Take(limit);
         }
