@@ -90,19 +90,24 @@ function updateStats() {
 function loadSavedFilterData() {
     let filterData = localStorage["filterData"];
 
-    // Hacky check for backwards compatibility by making sure all the fields
-    // exist to load in.
-    if (filterData != null) {
+    if (filterData == null) {
+        loadDefaultFilters();
+    } else {
         filterData = JSON.parse(filterData);
-        if (filterData.startDate != null &&
-            filterData.endDate != null &&
-            filterData.savedDate != null &&
-            filterData.savedEmpIds != null &&
-            filterData.savedCategory != null &&
-            filterData.savedJobNum != null &&
-            filterData.savedNotes != null &&
-            filterData.savedRd != null &&
-            filterData.pieFilter != null) {
+
+        // Hacky check for backwards compatibility by making sure all the
+        // fields exist to load in.
+        if (filterData.startDate == null ||
+            filterData.endDate == null ||
+            filterData.savedDate == null ||
+            filterData.savedEmpIds == null ||
+            filterData.savedCategory == null ||
+            filterData.savedJobNum == null ||
+            filterData.savedNotes == null ||
+            filterData.savedRd == null ||
+            filterData.pieFilter == null) {
+            loadDefaultFilters();
+        } else {
             // Update the saved dates.
             startDate = new Date(filterData.startDate);
             endDate = new Date(filterData.endDate);
@@ -129,11 +134,14 @@ function loadSavedFilterData() {
                 $("#researchCheck").prop("checked", savedRd);
                 $("#dateOption").val(filterData.currentPicker);
             }
-
-            return;
         }
     }
 
+    saveFilterData();
+    $("#logFilters").submit();
+}
+
+function loadDefaultFilters() {
     // Use default values.
     savedDate = new Date();
 
@@ -145,11 +153,6 @@ function loadSavedFilterData() {
     pieFilter = 5;
 
     setCurrentPicker("Day");
-
-    saveFilterData();
-
-    // Apply default filters.
-    $("#logFilters").submit();
 }
 
 /** Save current filters to local storage for retrieval. */

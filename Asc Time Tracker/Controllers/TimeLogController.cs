@@ -2,15 +2,10 @@
 using Asc_Time_Tracker.Models;
 using Asc_Time_Tracker.Models.Shared;
 using Asc_Time_Tracker.Models.TimeLog;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -183,7 +178,7 @@ namespace Asc_Time_Tracker.Controllers
         // POST: TimeLog/Export
         [HttpPost]
         public ActionResult Export(
-            List<string> empIds,
+            string empIds,
             DateTime startDate,
             DateTime endDate,
             string category,
@@ -191,79 +186,15 @@ namespace Asc_Time_Tracker.Controllers
             string notes,
             bool rd)
         {
-            using MemoryStream stream = new MemoryStream();
-            PdfWriter writer = new(stream);
-            PdfDocument pdf = new(writer);
-            Document document = new(pdf);
+            // Convert empIds into a list for parsing.
+            List<string> empIdsList = empIds.Split(",").ToList();
 
-            Paragraph header =
-                new Paragraph()
-                .SetFontSize(24)
-                .SetTextAlignment(TextAlignment.CENTER);
-            header.Add("Time Log Report\n");
+            ExportLogsModel exportLogsModel = new(IndexViewModel.TimeLogs, empIdsList,
+                                                  startDate, endDate, category,
+                                                  jobNum, notes, rd);
+            byte[] logs = exportLogsModel.Export();
 
-            string startDateString = startDate.ToShortDateString();
-            // Subtract one day since end date is always set to midnight of the next.
-            string endDateString = endDate.AddDays(-1).ToShortDateString();
-
-            header.Add("Timeframe: ");
-            if (startDateString.Equals("1/1/1970"))
-            {  // Epoch, filtering for all
-                header.Add("All logs");
-            }
-            else if (startDateString.Equals(endDateString))  // Same date, filtering by day
-            {
-                header.Add(startDateString);
-            }
-            else
-            {
-                header.Add(startDateString + " - " + endDateString);
-            }
-
-            header.Add("\n");
-
-            // TODO: dynamically adjust table side and which fields shown based on parameters
-            // TODO: convert filters to list display
-            header.Add("Filters:" + string.Join(", ", empIds) + ", " + category + ", " + jobNum + ", " + notes + ", " + rd);
-
-            document.Add(header);
-
-            // TODO: Filtering by multiple employee ids not working - look into this?
-            IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogs(
-                timeLogs, empIds, startDate, endDate,
-                category, jobNum, notes, rd);
-
-            // TODO: write current logs and move this all to the model
-            int tableWidth = 5;
-            Table table = new(UnitValue.CreatePercentArray(tableWidth));
-
-            table.AddHeaderCell(new Paragraph("Date").SetBold());
-            table.AddHeaderCell(new Paragraph("Category").SetBold());
-            table.AddHeaderCell(new Paragraph("Job Number").SetBold());
-            table.AddHeaderCell(new Paragraph("Time").SetBold());
-            table.AddHeaderCell(new Paragraph("Employee").SetBold());
-
-            foreach (TimeLog log in timeLogs)
-            {
-                table.AddCell(log.Date.ToShortDateString());
-                table.AddCell(log.Category);
-                table.AddCell(log.JobNum);
-
-                // Make the time look nice, by converting from seconds into hours and minutes.
-                // TODO: make this model method and replace the one in IndexLogs with it.
-                string formattedTime = (Math.Floor((log.Time % 3600) / 60) + "").PadLeft(2, '0');
-                formattedTime = Math.Floor(log.Time / 3600) + ":" + formattedTime;
-
-                table.AddCell(formattedTime);
-
-                //table.AddCell(log.Notes);
-                table.AddCell(log.EmpId);
-            }
-            document.Add(table);
-            document.Close();
-
-            return File(stream.ToArray(), "application/pdf", "Timelogs.pdf");
+            return File(logs, "application/pdf", "Timelogs.pdf");
         }
 
         private bool TimeLogExists(int id)
