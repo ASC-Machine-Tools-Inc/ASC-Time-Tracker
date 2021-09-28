@@ -28,7 +28,7 @@ function updateLogs() {
         type: "GET",
         url: "/TimeLog/_IndexLogs",
         data: {
-            empIds: empIdsFieldToSet(),
+            empIds: empIdsSetToArray(),
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
             category: savedCategory,
@@ -59,7 +59,7 @@ function updateStats() {
         type: "GET",
         url: "/TimeLog/_IndexStats",
         data: {
-            empIds: empIdsFieldToSet(),
+            empIds: empIdsSetToArray(),
             startDate: startDate.toJSON(),
             endDate: endDate.toJSON(),
             category: savedCategory,
@@ -127,7 +127,7 @@ function loadSavedFilterData() {
             setCurrentPicker(filterData.currentPicker);
 
             if (updateUi) {
-                $("#empIdFilter").val(empIdsFieldToSet());
+                $("#empIdFilter").val(empIdsSetToString());
                 $("#categoriesFilter").val(savedCategory);
                 $("#jobNumFilter").val(savedJobNum);
                 $("#notesFilter").val(savedNotes);

@@ -77,7 +77,7 @@ $("#logFilters").submit(function (e) {
     e.preventDefault();
     savedEmpIds = new Set();  // Reset saved ids.
 
-    empIdsSetToField($("#empIdFilter").val());
+    empIdsFieldToSet($("#empIdFilter").val());
 
     savedCategory = $("#categoriesFilter").val();
 
@@ -93,9 +93,9 @@ $("#logFilters").submit(function (e) {
 
 // Catch export submission.
 $("#exportLogs").submit(function () {
-    console.log(empIdsFieldToSet());
+    console.log(empIdsSetToArray());
 
-    $("#empIdsExport").val(empIdsFieldToSet());
+    $("#empIdsExport").val(empIdsSetToArray());
     $("#startDateExport").val(startDate.toJSON());
     $("#endDateExport").val(endDate.toJSON());
     $("#categoryExport").val(savedCategory);

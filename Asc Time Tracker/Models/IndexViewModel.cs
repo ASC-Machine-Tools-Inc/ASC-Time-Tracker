@@ -109,7 +109,7 @@ namespace Asc_Time_Tracker.Models
             // Filter by date.
             return timeLogs
                 .Where(t => t.Date >= startDate && t.Date < endDate)
-                .OrderBy(t => t.Date);
+                .OrderByDescending(t => t.Date);
         }
 
         public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByCategory(

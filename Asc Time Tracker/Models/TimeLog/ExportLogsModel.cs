@@ -99,7 +99,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
                 Category, JobNum, Notes, Rd);
 
             // TODO: write current logs and move this all to the model
-            int tableWidth = 5;
+            int tableWidth = 6;
             Table table = new(UnitValue.CreatePercentArray(tableWidth));
 
             table.AddHeaderCell(new Paragraph("Date").SetBold());
@@ -121,8 +121,10 @@ namespace Asc_Time_Tracker.Models.TimeLog
 
                 table.AddCell(formattedTime);
 
-                //table.AddCell(log.Notes);
-                table.AddCell(log.EmpId);
+                table.AddCell(log.Notes);
+
+                // Trim email.
+                table.AddCell(log.EmpId.Substring(log.EmpId.Length - 10));
             }
             document.Add(table);
         }
