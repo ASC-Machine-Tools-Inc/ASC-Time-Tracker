@@ -1,8 +1,8 @@
-﻿using ChartJSCore.Helpers;
-using ChartJSCore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ChartJSCore.Helpers;
+using ChartJSCore.Models;
 
 namespace Asc_Time_Tracker.Models.TimeLog
 {

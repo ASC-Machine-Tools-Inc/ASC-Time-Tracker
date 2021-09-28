@@ -93,8 +93,6 @@ $("#logFilters").submit(function (e) {
 
 // Catch export submission.
 $("#exportLogs").submit(function () {
-    console.log(empIdsSetToArray());
-
     $("#empIdsExport").val(empIdsSetToArray());
     $("#startDateExport").val(startDate.toJSON());
     $("#endDateExport").val(endDate.toJSON());

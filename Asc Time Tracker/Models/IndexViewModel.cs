@@ -138,7 +138,7 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog.TimeLog> timeLogs,
             string notes)
         {
-            return timeLogs.Where(t => t.Notes.Contains(notes, StringComparison.OrdinalIgnoreCase));
+            return timeLogs.Where(t => t.Notes.ToLower().Contains(notes.ToLower()));
         }
 
         /// <summary>

@@ -1,13 +1,13 @@
 ﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
 using Asc_Time_Tracker.Models.Shared;
-using Asc_Time_Tracker.Models.TimeLog;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Asc_Time_Tracker.Models.TimeLog;
 
 namespace Asc_Time_Tracker.Controllers
 {

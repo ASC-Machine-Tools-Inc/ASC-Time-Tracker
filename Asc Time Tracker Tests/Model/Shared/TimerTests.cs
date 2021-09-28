@@ -1,7 +1,7 @@
 ﻿using Asc_Time_Tracker.Models.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Asc_Time_Tracker_Tests.Models
+namespace Asc_Time_Tracker_Tests.ModelTests.Shared
 {
     [TestClass]
     public class TimerTests

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using NUglify.Helpers;
 
 namespace Asc_Time_Tracker.Models.TimeLog
 {
@@ -64,32 +65,64 @@ namespace Asc_Time_Tracker.Models.TimeLog
                     .SetFontSize(24)
                     .SetTextAlignment(TextAlignment.CENTER);
             header.Add("Time Log Report\n");
+            document.Add(header);
+
+            document.Add(new Paragraph("Filters:"));
+
+            // Create our table for displaying the chosen filters for this report.
+            int headerTableWidth = 4;
+            Table headerTable = new(UnitValue.CreatePercentArray(headerTableWidth));
+            headerTable.SetMarginBottom(25);
+            headerTable.UseAllAvailableWidth();
+
+            string dateCell = "Timeframe: ";
 
             string startDateString = StartDate.ToShortDateString();
             // Subtract one day since end date is always set to midnight of the next.
             string endDateString = EndDate.AddDays(-1).ToShortDateString();
 
-            header.Add("Timeframe: ");
-            if (startDateString.Equals("1/1/1970"))
-            {  // Epoch, filtering for all
-                header.Add("All logs");
-            }
-            else if (startDateString.Equals(endDateString))  // Same date, filtering by day
+            // Append the right date string for our timeframe.
+            if (startDateString.Equals("1/1/1970"))  // Epoch, filtering for all.
             {
-                header.Add(startDateString);
+                dateCell += "All logs";
+            }
+            else if (startDateString.Equals(endDateString))  // Same date, filtering by day.
+            {
+                dateCell += startDateString;
             }
             else
             {
-                header.Add(startDateString + " - " + endDateString);
+                dateCell += startDateString + " - " + endDateString;
+            }
+            headerTable.AddCell(new Cell(1, 2)
+                .Add(new Paragraph(dateCell)));
+
+            // Add the rest of the filter cells.
+            headerTable.AddCell(new Cell(1, 2)
+                .Add(new Paragraph("Employees: " + string.Join(", ", EmpIds))));
+
+            headerTable.AddCell(new Cell(1, 2)
+                .Add(new Paragraph("Category: " + Category)));
+
+            if (!JobNum.IsNullOrWhiteSpace())
+            {
+                headerTable.AddCell(new Cell(1, 2)
+                    .Add(new Paragraph("Job #: " + JobNum)));
             }
 
-            header.Add("\n");
+            if (!Notes.IsNullOrWhiteSpace())
+            {
+                headerTable.AddCell(new Cell(1, 2)
+                    .Add(new Paragraph("Notes: " + Notes)));
+            }
 
-            // TODO: dynamically adjust table side and which fields shown based on parameters
-            // TODO: convert filters to list display
-            header.Add("Filters:" + string.Join(", ", EmpIds) + ", " + Category + ", " + JobNum + ", " + Notes + ", " + Rd);
+            if (Rd)
+            {
+                headerTable.AddCell(new Cell(1, 2)
+                    .Add(new Paragraph("Research and design: " + Rd)));
+            }
 
-            document.Add(header);
+            document.Add(headerTable);
         }
 
         private void CreateLogsTable(Document document)
@@ -98,14 +131,15 @@ namespace Asc_Time_Tracker.Models.TimeLog
                 TimeLogs, EmpIds, StartDate, EndDate,
                 Category, JobNum, Notes, Rd);
 
-            // TODO: write current logs and move this all to the model
             int tableWidth = 6;
             Table table = new(UnitValue.CreatePercentArray(tableWidth));
+            table.UseAllAvailableWidth();
 
             table.AddHeaderCell(new Paragraph("Date").SetBold());
             table.AddHeaderCell(new Paragraph("Category").SetBold());
             table.AddHeaderCell(new Paragraph("Job Number").SetBold());
             table.AddHeaderCell(new Paragraph("Time").SetBold());
+            table.AddHeaderCell(new Paragraph("Notes").SetBold());
             table.AddHeaderCell(new Paragraph("Employee").SetBold());
 
             foreach (TimeLog log in timeLogs)
@@ -116,15 +150,22 @@ namespace Asc_Time_Tracker.Models.TimeLog
 
                 // Make the time look nice, by converting from seconds into hours and minutes.
                 // TODO: make this model method and replace the one in IndexLogs with it.
-                string formattedTime = (Math.Floor((log.Time % 3600) / 60) + "").PadLeft(2, '0');
+                string formattedTime = (Math.Floor(log.Time % 3600 / 60) + "").PadLeft(2, '0');
                 formattedTime = Math.Floor(log.Time / 3600) + ":" + formattedTime;
 
                 table.AddCell(formattedTime);
 
-                table.AddCell(log.Notes);
+                if (log.Notes == null)
+                {
+                    table.AddCell("");
+                }
+                else
+                {
+                    table.AddCell(log.Notes);
+                }
 
                 // Trim email.
-                table.AddCell(log.EmpId.Substring(log.EmpId.Length - 10));
+                table.AddCell(log.EmpId[..^10]);
             }
             document.Add(table);
         }

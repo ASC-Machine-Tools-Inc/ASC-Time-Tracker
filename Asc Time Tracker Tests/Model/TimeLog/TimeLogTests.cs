@@ -1,7 +1,6 @@
-﻿using Asc_Time_Tracker.Models.TimeLog;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Asc_Time_Tracker_Tests.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     [TestClass]
     public class TimeLogTests

@@ -1,10 +1,10 @@
 ﻿using Asc_Time_Tracker.Areas.Identity.Models;
-using Asc_Time_Tracker.Models.TimeLog;
 using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using Asc_Time_Tracker.Models.TimeLog;
 
 namespace Asc_Time_Tracker.Data
 {

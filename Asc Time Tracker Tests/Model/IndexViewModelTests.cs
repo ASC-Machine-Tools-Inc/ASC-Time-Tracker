@@ -1,12 +1,10 @@
-﻿using Asc_Time_Tracker.Data;
-using Asc_Time_Tracker.Models;
-using Asc_Time_Tracker.Models.TimeLog;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asc_Time_Tracker.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Asc_Time_Tracker_Tests.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     [TestClass]
     public class IndexViewModelTests
@@ -27,6 +25,8 @@ namespace Asc_Time_Tracker_Tests.Models
             Assert.AreEqual(model.TimeLogs.Count(), 250);
             Assert.AreEqual(model.TimeLog.Id, 1);
             Assert.IsTrue(model.Categories.Any());
+
+            TimeLog log = new();
         }
 
         [TestMethod]
