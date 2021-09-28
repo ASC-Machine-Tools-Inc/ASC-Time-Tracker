@@ -1,11 +1,10 @@
-﻿using System;
+﻿using ChartJSCore.Helpers;
+using ChartJSCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using ChartJSCore.Helpers;
-using ChartJSCore.Models;
 
-namespace Asc_Time_Tracker.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     public class TimeLogStats
     {

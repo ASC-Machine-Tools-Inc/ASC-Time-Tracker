@@ -1,5 +1,11 @@
 ﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using Asc_Time_Tracker.Models.Shared;
+using Asc_Time_Tracker.Models.TimeLog;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,11 +13,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using Newtonsoft.Json;
 
 namespace Asc_Time_Tracker.Controllers
 {

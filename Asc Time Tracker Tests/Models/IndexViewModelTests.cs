@@ -1,5 +1,6 @@
 ﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using Asc_Time_Tracker.Models.TimeLog;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Asc_Time_Tracker.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     /// <summary>
     /// A model for keeping track of the time spent on jobs.

@@ -1,20 +1,20 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
+using NUglify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using NUglify.Helpers;
 
 namespace Asc_Time_Tracker.Models
 {
     public class IndexViewModel
     {
-        public TimeLog TimeLog { get; set; }
+        public TimeLog.TimeLog TimeLog { get; set; }
 
-        public IQueryable<TimeLog> TimeLogs { get; set; }
+        public IQueryable<TimeLog.TimeLog> TimeLogs { get; set; }
 
         public SelectList Categories { get; set; }
 
-        public IndexViewModel(IQueryable<TimeLog> timeLogs)
+        public IndexViewModel(IQueryable<TimeLog.TimeLog> timeLogs)
         {
             TimeLogs = timeLogs;
 
@@ -32,8 +32,8 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and filter them based
         /// on the various given criteria.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogs(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogs(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             IEnumerable<string> empIds,
             DateTime startDate,
             DateTime endDate,
@@ -73,8 +73,8 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones
         /// with the given employee id (usually their email).
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByEmpIds(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByEmpIds(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             IEnumerable<string> empIds)
         {
             if (empIds.Contains("all"))
@@ -89,14 +89,14 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones
         /// within the given time frame.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByDate(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByDate(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             DateTime? startDate,
             DateTime? endDate)
         {
             if (startDate == null || endDate == null)
             {
-                return Enumerable.Empty<TimeLog>().AsQueryable();
+                return Enumerable.Empty<TimeLog.TimeLog>().AsQueryable();
             }
             // Set hours back to 0 (since Javascript sends them through with timezone adjustment).
             DateTime convStart = (DateTime)startDate;
@@ -112,8 +112,8 @@ namespace Asc_Time_Tracker.Models
                 .OrderBy(t => t.Date);
         }
 
-        public static IQueryable<TimeLog> FilterTimeLogsByCategory(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByCategory(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             string category)
         {
             return timeLogs.Where(t => t.Category.Equals(category));
@@ -123,8 +123,8 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones
         /// matching the given job number, ignoring case.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByJobNumber(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByJobNumber(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             string jobNum)
         {
             return timeLogs.Where(t => t.JobNum.Equals(jobNum));
@@ -134,8 +134,8 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones
         /// containing the given notes, ignoring case.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsByNotes(
-            IQueryable<TimeLog> timeLogs,
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsByNotes(
+            IQueryable<TimeLog.TimeLog> timeLogs,
             string notes)
         {
             return timeLogs.Where(t => t.Notes.Contains(notes, StringComparison.OrdinalIgnoreCase));
@@ -145,7 +145,7 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return the ones
         /// where the research and design flag is true.
         /// </summary>
-        public static IQueryable<TimeLog> FilterTimeLogsRd(IQueryable<TimeLog> timeLogs)
+        public static IQueryable<TimeLog.TimeLog> FilterTimeLogsRd(IQueryable<TimeLog.TimeLog> timeLogs)
         {
             return timeLogs.Where(t => t.Rd);
         }
@@ -154,10 +154,10 @@ namespace Asc_Time_Tracker.Models
         /// Take an IQueryable of TimeLogs and return them in sorted order of
         /// time spent, descending, up to the given limit.
         /// </summary>
-        public static IQueryable<TimeLog> TakeTopXTimeLogs(IQueryable<TimeLog> timeLogs, int limit)
+        public static IQueryable<TimeLog.TimeLog> TakeTopXTimeLogs(IQueryable<TimeLog.TimeLog> timeLogs, int limit)
         {
             return timeLogs.GroupBy(t => t.JobNum)
-                .Select(tg => new TimeLog
+                .Select(tg => new TimeLog.TimeLog
                 {
                     JobNum = tg.Key,
                     Time = tg.Sum(t => t.Time)

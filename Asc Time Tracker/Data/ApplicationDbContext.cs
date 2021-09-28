@@ -1,5 +1,5 @@
 ﻿using Asc_Time_Tracker.Areas.Identity.Models;
-using Asc_Time_Tracker.Models;
+using Asc_Time_Tracker.Models.TimeLog;
 using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

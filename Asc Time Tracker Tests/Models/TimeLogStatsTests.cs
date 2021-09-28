@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using Asc_Time_Tracker.Data;
-using Asc_Time_Tracker.Models;
+﻿using Asc_Time_Tracker.Data;
+using Asc_Time_Tracker.Models.TimeLog;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Asc_Time_Tracker_Tests.Models
 {
