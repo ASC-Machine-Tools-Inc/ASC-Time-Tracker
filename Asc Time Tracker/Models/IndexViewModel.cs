@@ -44,15 +44,10 @@ namespace Asc_Time_Tracker.Models
         {
             timeLogs = FilterTimeLogsByEmpIds(timeLogs, empIds);
             timeLogs = FilterTimeLogsByDate(timeLogs, startDate, endDate);
-
-            if (category != "All")
-            {
-                timeLogs = FilterTimeLogsByCategory(timeLogs, category);
-            }
+            timeLogs = FilterTimeLogsByCategory(timeLogs, category);
 
             if (!jobNum.IsNullOrWhiteSpace())
             {
-                // TODO: figure out why matching a job number that doesn't exist causes an error
                 timeLogs = FilterTimeLogsByJobNumber(timeLogs, jobNum);
             }
 
@@ -78,12 +73,10 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog.TimeLog> timeLogs,
             IEnumerable<string> empIds)
         {
-            if (empIds.Contains("all"))
-            {
-                return timeLogs;
-            }
-
-            return timeLogs.Where(t => empIds.Contains(t.EmpId));
+            var ids = empIds.ToList();
+            return ids.Contains("all") ?
+                timeLogs :
+                timeLogs.Where(t => ids.Contains(t.EmpId));
         }
 
         /// <summary>
@@ -117,7 +110,9 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog.TimeLog> timeLogs,
             string category)
         {
-            return timeLogs.Where(t => t.Category.Equals(category));
+            return category.ToLower().Equals("all") ?
+                timeLogs :
+                timeLogs.Where(t => t.Category.Equals(category));
         }
 
         /// <summary>
@@ -128,7 +123,8 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog.TimeLog> timeLogs,
             string jobNum)
         {
-            return timeLogs.Where(t => t.JobNum.Equals(jobNum));
+            return timeLogs.Where(t => t.JobNum != null &&
+                                       t.JobNum.Equals(jobNum));
         }
 
         /// <summary>
@@ -139,7 +135,8 @@ namespace Asc_Time_Tracker.Models
             IQueryable<TimeLog.TimeLog> timeLogs,
             string notes)
         {
-            return timeLogs.Where(t => t.Notes.ToLower().Contains(notes.ToLower()));
+            return timeLogs.Where(t => t.Notes != null &&
+                                       t.Notes.ToLower().Contains(notes.ToLower()));
         }
 
         /// <summary>

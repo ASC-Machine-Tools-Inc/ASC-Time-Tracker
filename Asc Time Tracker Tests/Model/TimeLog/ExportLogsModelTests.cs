@@ -20,7 +20,6 @@ namespace Asc_Time_Tracker.Models.TimeLog
             timeLogs.First().Notes = null;
 
             // Act
-            /*
             byte[] results = new ExportLogsModel(
                 timeLogs,
                 new List<string> { "all" },
@@ -29,7 +28,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
                 "All",
                 "",
                 "",
-                false).Export(); */
+                false).Export();
             byte[] resultsToday = new ExportLogsModel(
                 timeLogs,
                 new List<string> { "all" },
@@ -50,8 +49,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
                 true).Export();
 
             // Assert
-            // TODO: Not sure what to test here? Just making sure no errors pop up.
-            //Assert.IsTrue(results.Length > 0);
+            Assert.IsTrue(results.Length > 0);
         }
     }
 }
