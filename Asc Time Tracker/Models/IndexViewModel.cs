@@ -14,18 +14,21 @@ namespace Asc_Time_Tracker.Models
 
         public SelectList Categories { get; set; }
 
-        public IndexViewModel(IQueryable<TimeLog.TimeLog> timeLogs)
-        {
-            TimeLogs = timeLogs;
-
-            // Create the list of categories to display.
-            var categories = new List<string>
+        // Default categories to use for logs.
+        private readonly List<string> _defaultCategories =
+            new()
             {
                 "Other",
                 "Software Development",
                 "Meeting"
             };
-            Categories = new SelectList(categories);
+
+        public IndexViewModel(IQueryable<TimeLog.TimeLog> timeLogs)
+        {
+            TimeLogs = timeLogs;
+
+            // Create the list of categories to display.
+            Categories = new SelectList(_defaultCategories);
         }
 
         /// <summary>
