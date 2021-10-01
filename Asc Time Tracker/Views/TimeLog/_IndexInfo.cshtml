@@ -91,19 +91,30 @@
                 <form id="logFilters" class="row gy-3 gx-4 mt-4 align-items-center">
                     <hr class="my-2" />
 
-                    <div class="col-12">
-                        <div class="input-group">
-                            <span class="input-group-text">User ID</span>
-                            <input id="empIdFilter"
-                                   type="text"
-                                   class="form-control"
-                                   value="@User.Identity.Name"
-                                   placeholder="Enter an email to filter by" />
+                    <!-- Only show employee filter for managers. -->
+                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                    {
+                        <div class="col-12">
+                            <div class="input-group">
+                                <span class="input-group-text">User ID</span>
+                                <input id="empIdFilter"
+                                       type="text"
+                                       class="form-control"
+                                       value="@User.Identity.Name"
+                                       placeholder="Enter an email to filter by" />
+                            </div>
+                            <div id="idHelp" class="form-text">
+                                Examples: <i>all</i>, <i>user</i>, or <i>"user1, user2"</i>
+                            </div>
                         </div>
-                        <div id="idHelp" class="form-text">
-                            Examples: <i>all</i>, <i>user</i>, or <i>"user1, user2"</i>
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <input id="empIdFilter"
+                               type="text"
+                               value="@User.Identity.Name"
+                               hidden />
+                    }
 
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="input-group">

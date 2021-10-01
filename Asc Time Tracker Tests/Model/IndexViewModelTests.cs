@@ -135,7 +135,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
             // Assert
             Assert.AreEqual(filteredTimeLogsDay.Count(), 5);
             Assert.AreEqual(filteredTimeLogsWeek.Count(), 37);
-            Assert.AreEqual(filteredTimeLogsMonth.Count(), 149);
+            Assert.AreEqual(filteredTimeLogsMonth.Count(), 145);
             Assert.AreEqual(filteredTimeLogsAll.Count(), 250);
             Assert.AreEqual(filteredTimeLogsNone.Count(), 0);
             Assert.AreEqual(filteredTimeLogsNull.Count(), 0);
