@@ -53,10 +53,10 @@ namespace Asc_Time_Tracker.Controllers
             List<string> empIds,
             DateTime startDate,
             DateTime endDate,
-            string category,
-            string jobNum,
-            string notes,
-            bool rd)
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
             timeLogs = IndexViewModel.FilterTimeLogs(
@@ -72,11 +72,11 @@ namespace Asc_Time_Tracker.Controllers
             List<string> empIds,
             DateTime startDate,
             DateTime endDate,
-            string category,
-            string jobNum,
-            string notes,
-            bool rd,
-            int pieCount)
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false,
+            int pieCount = 5)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
             timeLogs = IndexViewModel.FilterTimeLogs(
@@ -181,10 +181,10 @@ namespace Asc_Time_Tracker.Controllers
             string empIds,
             DateTime startDate,
             DateTime endDate,
-            string category,
-            string jobNum,
-            string notes,
-            bool rd)
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false)
         {
             // Convert empIds into a list for parsing.
             List<string> empIdsList = empIds.Split(",").ToList();

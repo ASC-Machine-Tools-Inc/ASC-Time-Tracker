@@ -40,7 +40,7 @@ namespace Asc_Time_Tracker.Models.TimeLog
         /// </summary>
         // public Chart WeekBarChart { get; set; }
 
-        public TimeLogStats(IQueryable<TimeLog> timeLogs, int pieCount)
+        public TimeLogStats(IQueryable<TimeLog> timeLogs, int pieCount = 5)
         {
             TimeLogs = timeLogs;
             InitializeStats(pieCount);
