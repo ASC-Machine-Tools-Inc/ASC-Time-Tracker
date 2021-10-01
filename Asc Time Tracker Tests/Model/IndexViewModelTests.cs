@@ -1,11 +1,10 @@
-﻿using Asc_Time_Tracker.Data;
-using Asc_Time_Tracker.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Asc_Time_Tracker.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Asc_Time_Tracker_Tests.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     [TestClass]
     public class IndexViewModelTests
@@ -25,6 +24,59 @@ namespace Asc_Time_Tracker_Tests.Models
             // Assert
             Assert.AreEqual(model.TimeLogs.Count(), 250);
             Assert.AreEqual(model.TimeLog.Id, 1);
+            Assert.IsTrue(model.Categories.Any());
+        }
+
+        [TestMethod]
+        public void FilterTimeLogsTest()
+        {
+            // Arrange
+            List<TimeLog> timeLogsList = ApplicationDbContext.SeedTimeLogs(250);
+
+            for (int i = 0; i < 10; i++)
+            {
+                timeLogsList.Add(new TimeLog
+                {
+                    Id = timeLogsList.Count + 1,
+                    EmpId = "TEST USER ID",
+                    Category = "TEST CATEGORY",
+                    Date = DateTime.Today,
+                    JobNum = "TEST JOB NUM",
+                    Notes = "TEST NOTES",
+                    Rd = true,
+                    Time = 3600
+                });
+            }
+
+            IQueryable<TimeLog> timeLogs = timeLogsList.AsQueryable();
+
+            // Act
+            IQueryable<TimeLog> filteredTimeLogs1 =
+                IndexViewModel.FilterTimeLogs(
+                    timeLogs,
+                    new List<string> { "TEST USER ID" },
+                    DateTime.Today,
+                    DateTime.Today.AddDays(1),
+                    "All",
+                    "TEST JOB NUM",
+                    "Test",
+                    true
+                );
+            IQueryable<TimeLog> filteredTimeLogs2 =
+                IndexViewModel.FilterTimeLogs(
+                    timeLogs,
+                    new List<string> { "all" },
+                    DateTime.Today,
+                    DateTime.Today.AddDays(1),
+                    "TEST CATEGORY",
+                    null,
+                    null,
+                    true
+                );
+
+            // Assert
+            Assert.AreEqual(filteredTimeLogs1.Count(), 10);
+            Assert.AreEqual(filteredTimeLogs2.Count(), 10);
         }
 
         [TestMethod]
@@ -39,6 +91,7 @@ namespace Asc_Time_Tracker_Tests.Models
                 {
                     Id = timeLogsList.Count + 1,
                     EmpId = "TEST USER ID",
+                    Category = "TEST CATEGORY",
                     Date = DateTime.Today,
                     JobNum = "TEST JOB NUM",
                     Notes = "TEST NOTES",
@@ -49,9 +102,9 @@ namespace Asc_Time_Tracker_Tests.Models
             IQueryable<TimeLog> timeLogs = timeLogsList.AsQueryable();
 
             // Act
-            IQueryable<TimeLog> filteredTimeLogs1 = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "timeuser@ascmt.com");
-            IQueryable<TimeLog> filteredTimeLogs2 = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "TEST USER ID");
-            IQueryable<TimeLog> emptyTimeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, "NONEXISTENT EMP ID");
+            IQueryable<TimeLog> filteredTimeLogs1 = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "timeuser@ascmt.com" });
+            IQueryable<TimeLog> filteredTimeLogs2 = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "TEST USER ID" });
+            IQueryable<TimeLog> emptyTimeLogs = IndexViewModel.FilterTimeLogsByEmpIds(timeLogs, new List<string> { "NONEXISTENT EMP ID" });
 
             // Assert
             Assert.AreEqual(filteredTimeLogs1.Count(), 250);
@@ -80,14 +133,15 @@ namespace Asc_Time_Tracker_Tests.Models
                 IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, null);
 
             // Assert
-            // Range per day: 2 - 8 logs possible
-            Assert.IsTrue(filteredTimeLogsDay.Count() >= 2 && filteredTimeLogsDay.Count() <= 16);
-            Assert.IsTrue(filteredTimeLogsWeek.Count() >= 14 && filteredTimeLogsWeek.Count() <= 56);
-            Assert.IsTrue(filteredTimeLogsMonth.Count() >= 62 && filteredTimeLogsMonth.Count() <= 248);
+            Assert.AreEqual(filteredTimeLogsDay.Count(), 5);
+            Assert.AreEqual(filteredTimeLogsWeek.Count(), 37);
+            Assert.AreEqual(filteredTimeLogsMonth.Count(), 145);
             Assert.AreEqual(filteredTimeLogsAll.Count(), 250);
             Assert.AreEqual(filteredTimeLogsNone.Count(), 0);
             Assert.AreEqual(filteredTimeLogsNull.Count(), 0);
         }
+
+        // TODO: additional tests for other methods? FilterTimeLogsTest might be enough
 
         [TestMethod]
         public void TakeTopXTimeLogsTest()
@@ -102,7 +156,7 @@ namespace Asc_Time_Tracker_Tests.Models
             // Assert
             Assert.AreEqual(filteredTimeLogsTopThree.Count(), 3);
             // Count can actually be less than 250 due to grouping of job numbers.
-            Assert.IsTrue(filteredTimeLogsGreaterThanCount.Count() <= 250);
+            Assert.AreEqual(filteredTimeLogsGreaterThanCount.Count(), 243);
         }
     }
 }

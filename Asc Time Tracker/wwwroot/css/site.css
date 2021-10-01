@@ -72,8 +72,8 @@ a {
 
 .header-circle-btn {
     background: var(--bs-body-color);
-    height: 50px;
     width: 50px;
+    height: 50px;
     margin: 0 0 1rem;
     border-radius: 50%;
 }
@@ -86,6 +86,12 @@ a {
         height: 20px;
         width: 20px;
         color: #fff;
+    }
+
+    .header-circle-btn .spinner-border {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-top: 0.2rem;
     }
 
 /* Sidebar styling. */
@@ -169,18 +175,32 @@ a {
     overflow-x: auto;
 }
 
-    #timersRow > .col-xs-4 {
+    #timersRow .col-xs-4 {
         display: inline-grid;
         float: none;
     }
+
+/* Timer row (more of a column at this width) stretches to fit on mobile. */
+@media only screen and (max-width: 768px) {
+    #timersRow {
+        max-height: 75vh;
+    }
+}
 
 .timer-card {
     border: 0;
     margin: 0.25rem 0 0.5rem 1rem;
     padding: 0.25rem 0.25rem;
     height: 200px;
-    /* TODO: change width to 100% for mobile? */
     width: 250px;
+}
+
+/* Timer cards get full width on mobile and smaller screens. */
+@media only screen and (max-width: 768px) {
+    .timer-card {
+        width: 100%;
+        margin: 0.5rem 0;
+    }
 }
 
 .timer-card-add:hover {
@@ -279,22 +299,35 @@ tr:hover {
     margin-top: 0.5rem;
 }
 
-.log-main {
-    font-size: 1.2rem;
+.log-primary {
     font-weight: 600;
 }
 
-.log-color {
-    border-radius: 25px;
-    margin: 0 4px 2px 0;
-    opacity: 1;
+.log-secondary {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #444;
 }
 
-/* Copy of log color, but color set from controller instead */
-.log-color-top {
+    .log-secondary .log-job {
+        font-weight: 700;
+    }
+
+.log-ancillary {
+    white-space: nowrap;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 300;
+    color: #666;
+}
+
+.log-color, .log-color-top {
     border-radius: 25px;
     margin: 0 4px 2px 0;
     opacity: 1;
+    cursor: default;
 }
 
 .a-sort {
@@ -331,15 +364,15 @@ tr:hover {
     overflow-y: auto;
 }
 
-.stats-pie-card {
-    padding: 1.5rem 0.5rem;
-}
-
 /* Time logs list is longer on desktop. */
 @media only screen and (min-width: 768px) {
     .scroll {
         max-height: 600px;
     }
+}
+
+.stats-pie-card {
+    padding: 1.5rem 0.5rem;
 }
 
 .scroll-log-label {
@@ -452,6 +485,14 @@ tr:hover {
 
 #weekContainer .datepicker table tr td.day.focused, .datepicker table tr td.day:hover {
     background: #c8c8c8 !important;
+}
+
+button.date-next {
+    margin-left: 5px !important;
+}
+
+.date-prev:hover, .date-next:hover {
+    background: lightgrey;
 }
 
 /* Login card styling*/

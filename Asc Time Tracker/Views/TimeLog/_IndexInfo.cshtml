@@ -6,7 +6,8 @@
 
 <div id="mainLogs">
     <!-- Card filters and export. -->
-    <div class="card main-log-card-header shadow">
+    <div id="logFiltersCard"
+         class="card main-log-card-header shadow">
         <div class="col">
             <div class="row">
                 <!-- Select which date picker to use. -->
@@ -35,7 +36,7 @@
                                class="form-control date-picker week-picker text-center">
                         <input type="text"
                                class="form-control date-picker month-picker text-center">
-                        <div id="dateRangePicker" class="input-group input-daterange mt-2">
+                        <div id="dateRangePicker" class="input-group input-daterange mt-2 mt-xxl-0">
                             <input type="text" class="form-control range-picker-start text-center">
                             <div class="input-group-text">to</div>
                             <input type="text" class="form-control ranger-picker-end text-center">
@@ -54,80 +55,123 @@
                     </div>
                 </div>
 
-                <!-- Hide currently if not manager TODO -->
-                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
-                {
-                    <div class="col-12 col-md-6 col-xl-4 mt-2 mt-sm-0">
-                        <div class="float-md-end text-right mt-2 mt-md-0">
-                            <button class="btn btn-secondary"
-                                    type="button"
-                                    data-bs-toggle="collapse" data-bs-target="#filters"
-                                    aria-expanded="false" aria-controls="filters">
-                                More Filters
-                            </button>
-                            <!--
-                            <button class="btn btn-primary">
+                <div class="col-12 col-md-6 col-xl-4 mt-2 mt-sm-0">
+                    <div class="float-md-end text-right mt-2 mt-md-0">
+                        <button class="btn btn-secondary"
+                                type="button"
+                                data-bs-toggle="collapse" data-bs-target="#filters"
+                                aria-expanded="false" aria-controls="filters">
+                            More Filters
+                        </button>
+
+                        <!-- Export logs form & filters -->
+                        <form id="exportLogs"
+                              asp-action="Export"
+                              class="d-inline">
+                            <input id="empIdsExport" name="empIds" type="hidden" />
+                            <input id="startDateExport" name="startDate" type="hidden" />
+                            <input id="endDateExport" name="endDate" type="hidden" />
+                            <input id="categoryExport" name="category" type="hidden" />
+                            <input id="jobNumExport" name="jobNum" type="hidden" />
+                            <input id="notesExport" name="notes" type="hidden" />
+                            <input id="rdExport" name="rd" type="hidden" />
+
+                            <button type="submit"
+                                    class="btn btn-outline-secondary">
                                 <i class="bi bi-download"></i>
                                 Export Logs
-                            </button> -->
-                        </div>
+                            </button>
+                        </form>
                     </div>
-                }
+                </div>
             </div>
 
-            <div class="collapse" id="filters">
-                @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
-                {
-                    <form id="empIdFilterForm"
-                          class="input-group my-2">
-                        <span class="input-group-text">User ID</span>
-                        <input id="empIdFilter"
-                               type="text"
-                               class="form-control"
-                               value="@User.Identity.Name"
-                               placeholder="Enter an email to filter (user & user@ascmt.com both work)" />
-                        <button class="btn btn-secondary" type="submit">Search</button>
-                    </form>
-                }
-                else
-                {
-                    <form id="empIdFilterForm">
-                        <input id="empIdFilter"
-                               type="hidden"
-                               value="@User.Identity.Name" />
-                    </form>
-                }
+            <!-- Additional filters. -->
+            <div id="filters" class="collapse">
+                <form id="logFilters" class="row gy-3 gx-4 mt-4 align-items-center">
+                    <hr class="my-2" />
 
-                <!--
-                <div class="row mt-2">
-                    <!-- Select which fields to filter by. - ->
-                        <div class="input-group d-inline-flex align-items-center">
-                            <label class="input-group-text" for="fieldOption">Filter by</label>
-                            <select id="fieldOption" class="form-select">
-                                <option>Job number</option>
-                                <option>Notes</option>
-                                <option>Research and design</option>
-                            </select>
-
-                            <!-- Search fields. - ->
-                            <input type="text"
-                                   class="form-control job-number-picker">
-                            <input type="text"
-                                   class="form-control notes-picker">
-                            <div class="form-check">
-                                <input type="checkbox"
-                                       class="form-check-input rd-picker ms-1" />
+                    <!-- Only show employee filter for managers. -->
+                    @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                    {
+                        <div class="col-12">
+                            <div class="input-group">
+                                <span class="input-group-text">User ID</span>
+                                <input id="empIdFilter"
+                                       type="text"
+                                       class="form-control"
+                                       value="@User.Identity.Name"
+                                       placeholder="Enter an email to filter by" />
+                            </div>
+                            <div id="idHelp" class="form-text">
+                                Examples: <i>all</i>, <i>user</i>, or <i>"user1, user2"</i>
                             </div>
                         </div>
-                    </div> -->
+                    }
+                    else
+                    {
+                        <input id="empIdFilter"
+                               type="text"
+                               value="@User.Identity.Name"
+                               hidden />
+                    }
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-text">Category</span>
+                            <select id="categoriesFilter"
+                                    asp-items="@Model.Categories"
+                                    class="form-select"
+                                    aria-label="Select log category to filter for">
+                                <option selected="selected">All</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-text">Job number</span>
+                            <input id="jobNumFilter" type="text"
+                                   class="form-control job-number-picker">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="input-group">
+                            <span class="input-group-text">Notes</span>
+                            <input id="notesFilter" type="text"
+                                   class="form-control notes-picker">
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="form-check">
+                            <label class="form-check-label" for="researchCheck">
+                                Research and design (leave unchecked for all)
+                            </label>
+                            <input class="form-check-input" type="checkbox" value="" id="researchCheck">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button type="reset"
+                                class="btn btn-secondary">
+                            Reset Filters
+                        </button>
+                        <button type="submit"
+                                class="btn btn-primary">
+                            Apply Filters
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="col">
+    <div id="logBodyCards" class="col">
         <div class="row">
             <!-- Logs display -->
-            <div class="col-lg-6">
+            <div class="col-xl-6">
                 <div class="card main-log-card shadow py-2">
                     <div id="indexLogsView" class="card-body scroll">
                     </div>
@@ -135,8 +179,7 @@
             </div>
 
             <!-- Stats display -->
-            <div class="col-lg-6 ps-lg-4
-             mt-3 mt-lg-0">
+            <div class="col-xl-6 ps-xl-4 mt-3 mt-xl-0">
                 <div class="card main-log-card shadow py-2">
                     <div id="indexStatsView" class="card-body">
                     </div>

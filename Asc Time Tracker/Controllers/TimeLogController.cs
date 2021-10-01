@@ -1,10 +1,13 @@
 ﻿using Asc_Time_Tracker.Data;
 using Asc_Time_Tracker.Models;
+using Asc_Time_Tracker.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Asc_Time_Tracker.Models.TimeLog;
 
 namespace Asc_Time_Tracker.Controllers
 {
@@ -27,12 +30,7 @@ namespace Asc_Time_Tracker.Controllers
         // GET: MainIndex
         public IActionResult MainIndex()
         {
-            // Send along the time logs for today and the current user by default.
-            IQueryable<TimeLog> timeLogs = _context.TimeLog;
-            //timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, User.Identity.Name);
-            //timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, DateTime.Today, DateTime.Today.AddDays(1));
-            IndexViewModel.TimeLogs = timeLogs;
-
+            IndexViewModel.TimeLogs = _context.TimeLog;
             return View(IndexViewModel);
         }
 
@@ -52,13 +50,18 @@ namespace Asc_Time_Tracker.Controllers
         // GET: IndexLogs partial view
         [ActionName("_IndexLogs")]
         public async Task<IActionResult> IndexLogs(
-            DateTime? startDate,
-            DateTime? endDate,
-            string empId)
+            List<string> empIds,
+            DateTime startDate,
+            DateTime endDate,
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+            timeLogs = IndexViewModel.FilterTimeLogs(
+                timeLogs, empIds, startDate, endDate,
+                category, jobNum, notes, rd);
 
             return PartialView(await timeLogs.ToListAsync());
         }
@@ -66,14 +69,19 @@ namespace Asc_Time_Tracker.Controllers
         // GET: IndexStats partial view
         [ActionName("_IndexStats")]
         public IActionResult IndexStats(
-            DateTime? startDate,
-            DateTime? endDate,
-            string empId,
-            int pieCount)
+            List<string> empIds,
+            DateTime startDate,
+            DateTime endDate,
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false,
+            int pieCount = 5)
         {
             IQueryable<TimeLog> timeLogs = IndexViewModel.TimeLogs;
-            timeLogs = IndexViewModel.FilterTimeLogsByEmpId(timeLogs, empId);
-            timeLogs = IndexViewModel.FilterTimeLogsByDate(timeLogs, startDate, endDate);
+            timeLogs = IndexViewModel.FilterTimeLogs(
+                timeLogs, empIds, startDate, endDate,
+                category, jobNum, notes, rd);
 
             TimeLogStats stats = new(timeLogs, pieCount);
 
@@ -118,7 +126,7 @@ namespace Asc_Time_Tracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("Id,EmpId,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
+        public async Task<IActionResult> Edit([Bind("Id,EmpId,Category,JobNum,Date,Time,Notes,Rd")] TimeLog timeLog)
         {
             if (ModelState.IsValid)
             {
@@ -165,6 +173,28 @@ namespace Asc_Time_Tracker.Controllers
             }
 
             return RedirectToAction("MainIndex");
+        }
+
+        // POST: TimeLog/Export
+        [HttpPost]
+        public ActionResult Export(
+            string empIds,
+            DateTime startDate,
+            DateTime endDate,
+            string category = "All",
+            string jobNum = "",
+            string notes = "",
+            bool rd = false)
+        {
+            // Convert empIds into a list for parsing.
+            List<string> empIdsList = empIds.Split(",").ToList();
+
+            ExportLogsModel exportLogsModel = new(IndexViewModel.TimeLogs, empIdsList,
+                                                  startDate, endDate, category,
+                                                  jobNum, notes, rd);
+            byte[] logs = exportLogsModel.Export();
+
+            return File(logs, "application/pdf", "Timelogs.pdf");
         }
 
         private bool TimeLogExists(int id)

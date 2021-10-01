@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Asc_Time_Tracker.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     /// <summary>
     /// A model for keeping track of the time spent on jobs.
@@ -16,6 +16,13 @@ namespace Asc_Time_Tracker.Models
         [Display(Name = "Employee ID")]
         [Required]
         public string EmpId { get; set; }
+
+        /// <summary>
+        /// The category that this log falls under.
+        /// </summary>
+        [Display(Name = "Category")]
+        [Required]
+        public string Category { get; set; }
 
         /// <summary>
         /// The job number that was worked on for this log.
@@ -82,11 +89,12 @@ namespace Asc_Time_Tracker.Models
             double h = hash % 360;
 
             /* Forgot why I added this. May re-add? Seems fine for now.
-            // Adjust color if negative.
+            // Update: I remembered why. 29680.000 broke it - fixed it with this.
+            // Adjust color if negative. */
             if (h < 0)
             {
                 h = 360 + h;
-            } */
+            }
 
             // Convert hsl to rgb.
             l /= 100;

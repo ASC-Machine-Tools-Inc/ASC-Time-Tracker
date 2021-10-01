@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TimeLog>
+﻿@model IEnumerable<Asc_Time_Tracker.Models.TimeLog.TimeLog>
 <!-- Loading text. -->
 <div id="logsLoadingMessage" class="d-none">
     <small class="text-muted">
@@ -15,16 +15,16 @@
         </small>
     }
 
-    @foreach (var item in Model.Reverse())
+    @foreach (var item in Model)
     {
         <div class="dropdown dropdown-mobile card-parent">
             <div class="card log-card" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="card-body px-4 py-2">
-                    <div class="row log-main justify-content-between my-1">
-                        <div class="col-9 text-nowrap text-truncate">
+                    <div class="row log-primary justify-content-between my-1">
+                        <div class="col-10 text-nowrap text-truncate">
                             @Html.DisplayFor(modelItem => item.Notes)
                         </div>
-                        <div class="col-3 text-end ps-0">
+                        <div class="col-2 text-end ps-0">
                             @{
                                 // Make the time look nice, by converting from seconds into hours and minutes.
                                 string formattedTime = (Math.Floor((item.Time % 3600) / 60) + "").PadLeft(2, '0');
@@ -33,23 +33,51 @@
                             @Html.DisplayFor(modelItem => formattedTime)
                         </div>
                     </div>
-                    <div class="row my-1">
-                        <div class="col-8 pt-1 text-nowrap text-truncate">
+                    <div class="row pt-1 my-1">
+                        <div class="col-7 log-secondary">
+                            <!-- Log color & job number. -->
                             <span class="placeholder log-color">&nbsp;&nbsp;&nbsp;</span>
-                            <strong class="log-job">
+                            <span class="log-job">
                                 @Html.DisplayFor(modelItem => item.JobNum)
-                            </strong>
+                            </span>
+
                             <i class="bi bi-dot"></i>
+
+                            <!-- Log date. -->
                             @Html.DisplayFor(modelItem => item.Date)
 
+                            <!-- Log R&D flag. -->
                             @{
                                 string formattedRD = item.Rd ? "RD" : "";
                             }
-                            <strong>
+                            <span>
                                 @Html.DisplayFor(modelItem => formattedRD)
-                            </strong>
+                            </span>
                         </div>
-                        <div class="col-4 text-end">
+
+                        <div class="col-5 log-ancillary">
+                            <!-- Log category. -->
+                            @{
+                                switch (item.Category)
+                                {
+                                    case "Software Development":
+                                        @:Soft. Dev
+                                        break;
+                                    default:
+                                        @Html.DisplayFor(modelItem => item.Category)
+                                        break;
+                                }
+                            }
+
+                            <!-- Log user id. -->
+                            @if (User.IsInRole("Manager") || User.IsInRole("Admin"))
+                            {
+                                @:|
+
+                                // Remove @ascmt.com from the employee id.
+                                string formattedEmpId = item.EmpId.Remove(item.EmpId.Length - 10);
+                                @Html.DisplayFor(modelItem => formattedEmpId)
+                            }
                         </div>
                     </div>
                 </div>

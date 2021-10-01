@@ -1,10 +1,10 @@
 ﻿using Asc_Time_Tracker.Areas.Identity.Models;
-using Asc_Time_Tracker.Models;
 using Bogus;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using Asc_Time_Tracker.Models.TimeLog;
 
 namespace Asc_Time_Tracker.Data
 {
@@ -27,9 +27,15 @@ namespace Asc_Time_Tracker.Data
             builder.Entity<TimeLog>().HasData(timeLogs);
         }
 
-        public static List<TimeLog> SeedTimeLogs(int logsToAdd)
+        /// <summary>
+        /// Create a list of time logs with random values.
+        /// </summary>
+        /// <param name="logsToAdd">The number of time logs to add.</param>
+        /// <param name="seed">The seed to use for the random value generator.</param>
+        /// <returns>A list of time logs with the given size.</returns>
+        public static List<TimeLog> SeedTimeLogs(int logsToAdd, int seed = 42)
         {
-            Random rnd = new();
+            Random rnd = new(seed);
 
             // Amount of hours to generate logs for up to daily.
             const int dailyHoursLimit = 8;
@@ -56,7 +62,8 @@ namespace Asc_Time_Tracker.Data
                     Date = DateTime.Today.AddDays(daysOffset),
                     Time = rndTimeHours * 3600,  // Convert to seconds
                     JobNum = rndJobNum.ToString(),
-                    Notes = faker.Hacker.Phrase()
+                    Notes = faker.Hacker.Phrase(),
+                    Category = "Software Development"
                 };
 
                 timeLogs.Add(timeLog);

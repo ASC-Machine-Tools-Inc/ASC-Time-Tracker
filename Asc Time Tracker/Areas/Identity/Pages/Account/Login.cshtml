@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 @Html.ValidationMessage("LoginError", "", new { @class = "text-danger" })
-                                <input name="login" id="login" class="btn login-btn mb-4" type="submit" value="Login">
+                                <input name="login" id="loginButton" class="btn login-btn mb-4" type="submit" value="Login">
                             </div>
 
                             <div class="account-options">
@@ -64,9 +64,9 @@
         </div>
 
         <!-- Update notification alert -->
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <strong>Update, 9/20/2021 (v1.1.0):</strong> Time tracker site redesigned, now supporting multiple timers.
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="alert alert-info alert-dark fade show" role="alert">
+            <strong>Update, 10/4/2021 (v1.1.1):</strong>
+            Support for filtering and exporting logs added.
 
             <hr />
             <ul class="m-0">
@@ -74,13 +74,10 @@
                     Features:
                     <ul>
                         <li>
-                            Users can now start multiple independent timers.
+                            Advanced filtering options for time logs implemented.
                         </li>
                         <li>
-                            A cleaner new design for the site to support the new timers.
-                        </li>
-                        <li>
-                            More account functions added, along with a new site tour.
+                            The currently shown logs can now be exported to a PDF.
                         </li>
                     </ul>
                 </li>

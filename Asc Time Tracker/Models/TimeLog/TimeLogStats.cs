@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using ChartJSCore.Helpers;
 using ChartJSCore.Models;
 
-namespace Asc_Time_Tracker.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     public class TimeLogStats
     {
@@ -41,7 +40,7 @@ namespace Asc_Time_Tracker.Models
         /// </summary>
         // public Chart WeekBarChart { get; set; }
 
-        public TimeLogStats(IQueryable<TimeLog> timeLogs, int pieCount)
+        public TimeLogStats(IQueryable<TimeLog> timeLogs, int pieCount = 5)
         {
             TimeLogs = timeLogs;
             InitializeStats(pieCount);

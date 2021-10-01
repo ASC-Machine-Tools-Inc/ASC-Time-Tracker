@@ -1,4 +1,4 @@
-namespace Asc_Time_Tracker.Models
+namespace Asc_Time_Tracker.Models.Shared
 {
     public class ErrorViewModel
     {

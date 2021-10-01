@@ -66,7 +66,7 @@ function resetTimer(timer) {
         // Update time display to 0.
         updateTimeDisplay(timer);
 
-        // TODO: Convert into own function after adding more fields?
+        // TODO: Convert into own function after adding more fields for QR scan?
         $("#TimeLog_Notes_Display").val("");
         $("#TimeLog_JobNum_Display").html("");
 

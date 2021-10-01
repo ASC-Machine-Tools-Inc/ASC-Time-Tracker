@@ -53,13 +53,28 @@ function addTimer(timer = null) {
 
     // Update the UI if we're on the right page.
     if (updateUi) {
+        let showLoadingTimerTimeout = 200;
+        let loadingTimeout;
+
         $.ajax({
             type: "GET",
             url: "/TimeLog/_Timer",
             data: {
                 timerId: currTimerId
             },
+            beforeSend: function () {
+                // Show loading symbol after timeout.
+                loadingTimeout = setTimeout(function () {
+                    $("#timerAddIcon").hide();
+                    $("#timerLoadSpinner").show();
+                }, showLoadingTimerTimeout);
+            },
             success: function (view) {
+                // Remove loading symbol.
+                clearTimeout(loadingTimeout);
+                $("#timerAddIcon").show();
+                $("#timerLoadSpinner").hide();
+
                 $("#timersRow").append(view);
 
                 // Update display.

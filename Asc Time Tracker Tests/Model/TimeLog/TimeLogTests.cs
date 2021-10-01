@@ -1,7 +1,6 @@
-﻿using Asc_Time_Tracker.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Asc_Time_Tracker_Tests.Models
+namespace Asc_Time_Tracker.Models.TimeLog
 {
     [TestClass]
     public class TimeLogTests
@@ -9,6 +8,7 @@ namespace Asc_Time_Tracker_Tests.Models
         [TestMethod]
         [DataRow("TEST JOB NUM", "TEST JOB NUM")]
         [DataRow("Super duper long string! I7I`&N/{Dl^Ao}2x9)$*h", "Super duper long string! I7I`&N/{Dl^Ao}2x9)$*h")]
+        [DataRow("29685.000", "29685.000")]  // Cover hash adjusting if negative
         [DataRow("s", "s")]
         public void JobNumToRgbTest(string jobNum1, string jobNum2)
         {

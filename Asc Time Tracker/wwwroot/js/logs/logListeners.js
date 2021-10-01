@@ -66,20 +66,38 @@ $("body").on("change", "#pieChartNumSelect", function () {
     updateStats();
 });
 
-$("#empIdFilterForm").submit(function (e) {
+// Get a fresh start for our filters when we log in.
+$("#logoutButton").on("click",
+    function () {
+        localStorage.removeItem("filterData");
+    });
+
+// Process applying extra filters.
+$("#logFilters").submit(function (e) {
     e.preventDefault();
+    savedEmpIds = new Set();  // Reset saved ids.
 
-    savedEmpId = $("#empIdFilter").val();
+    empIdsFieldToSet($("#empIdFilter").val());
 
-    // Append the email to the employee id if it doesn't have one.
-    if (savedEmpId.substr(-10) !== "@ascmt.com") savedEmpId += "@ascmt.com";
+    savedCategory = $("#categoriesFilter").val();
+
+    savedJobNum = $("#jobNumFilter").val();
+
+    savedNotes = $("#notesFilter").val();
+
+    savedRd = $("#researchCheck").is(":checked");
 
     saveFilterData();
     updatePage();
 });
 
-// Clear filter data on logout.
-$("#logoutButton").on("click",
-    function () {
-        localStorage.removeItem("filterData");
-    });
+// Catch export submission.
+$("#exportLogs").submit(function () {
+    $("#empIdsExport").val(empIdsSetToArray());
+    $("#startDateExport").val(startDate.toJSON());
+    $("#endDateExport").val(endDate.toJSON());
+    $("#categoryExport").val(savedCategory);
+    $("#jobNumExport").val(savedJobNum);
+    $("#notesExport").val(savedNotes);
+    $("#rdExport").val(savedRd);
+});

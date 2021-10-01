@@ -1,6 +1,6 @@
-﻿/* Handles all the filtering for the index, updating the view
- * with ajax.
+﻿/* Handles the filtering by time frame for the logs.
  */
+
 var datePickers = {};
 var currentPicker;  // For localstorage.
 
@@ -9,19 +9,10 @@ var fieldPickers = {};
 var startDate, endDate, savedDate;
 var savedFilter;
 
-var savedEmpId;
-
 var pieFilter;
 
 // ▀█▀ █▄ █ ▀█▀ ▀█▀ ▀█▀ ▄▀▄ █   ▀█▀ ▀██ ▄▀▄ ▀█▀ ▀█▀ █▀█ █▄ █
 // ▄█▄ █ ▀█ ▄█▄  █  ▄█▄ █▀█ █▄▄ ▄█▄ ██▄ █▀█  █  ▄█▄ █▄█ █ ▀█
-
-function startPickers() {
-    startDatePickers();
-    startFieldPickers();
-
-    loadSavedFilterData();
-}
 
 function startDatePickers() {
     // Prep the datepicker for days.
@@ -83,74 +74,6 @@ function startDatePickers() {
         setRangeEndPicker(e.date);
     });
 };
-
-// TODO: add field filters
-function startFieldPickers() {
-    fieldPickers["jobNum"] = $(".job-number-picker");
-    fieldPickers["jobNum"].on("change", function () {
-        console.log("Job number changed");
-    });
-
-    fieldPickers["notes"] = $(".notes-picker");
-    fieldPickers["notes"].hide();
-
-    fieldPickers["rd"] = $(".rd-picker");
-    fieldPickers["rd"].hide();
-
-    // Initialize.
-    fieldPickers["current"] = fieldPickers["jobNum"];
-}
-
-/** Grab saved filter info from local storage. */
-function loadSavedFilterData() {
-    let filterData = localStorage["filterData"];
-    if (filterData != null) {
-        filterData = JSON.parse(filterData);
-
-        // Update the saved dates.
-        startDate = new Date(filterData.startDate);
-        endDate = new Date(filterData.endDate);
-        savedDate = new Date(filterData.savedDate);
-
-        // Update the employee id.
-        savedEmpId = filterData.savedEmpId;
-        $("#empIdFilter").val(savedEmpId);
-
-        // Update the filters.
-        pieFilter = parseInt(filterData.pieFilter);
-
-        // Update the time frame and page.
-        setCurrentPicker(filterData.currentPicker);
-        $("#dateOption").val(filterData.currentPicker);
-    } else {
-        // Use default values.
-        savedDate = new Date();
-
-        // Use user id as default one.
-        savedEmpId = $("#empIdFilter").val();
-
-        // Default pie filter count.
-        pieFilter = 5;
-
-        setCurrentPicker("Day");
-    }
-
-    // TODO: update UI
-}
-
-/** Save current filters to local storage for retrieval. */
-function saveFilterData() {
-    let filterData = {
-        "currentPicker": currentPicker,
-        "startDate": startDate,
-        "endDate": endDate,
-        "savedDate": savedDate,
-        "savedEmpId": savedEmpId,
-        "pieFilter": pieFilter
-    };
-
-    localStorage["filterData"] = JSON.stringify(filterData);
-}
 
 // █▄█ █▀▀ █   █▀█ █▀▀ █▀█ █▀▀
 // █ █ ██▄ █▄▄ █▀▀ ██▄ █▀▄ ▄██
